@@ -3,8 +3,8 @@ import { DetailPageLayout } from "@dashboard/components/Layouts";
 import { UserFragment } from "@dashboard/graphql";
 import { sectionNames } from "@dashboard/intl";
 import { Typography } from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+// import { useTheme } from "@material-ui/core/styles";
+// import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { makeStyles, NavigationCard } from "@saleor/macaw-ui";
 import { Box, vars } from "@saleor/macaw-ui/next";
 import React from "react";
@@ -75,28 +75,15 @@ export interface ConfigurationPageProps {
 }
 
 export const ConfigurationPage: React.FC<ConfigurationPageProps> = props => {
-  const {
-    menu: menus,
-    user,
-    versionInfo: { dashboardVersion, coreVersion },
-  } = props;
+  const { menu: menus, user } = props;
   const classes = useStyles(props);
-  const theme = useTheme();
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
-
-  const renderVersionInfo = (
-    <VersionInfo
-      dashboardVersion={dashboardVersion}
-      coreVersion={coreVersion}
-    />
-  );
 
   const intl = useIntl();
 
   return (
     <DetailPageLayout gridTemplateColumns={1} withSavebar={false}>
       <TopNav title={intl.formatMessage(sectionNames.configuration)}>
-        {isSmUp && renderVersionInfo}
+        {/* {isSmUp && renderVersionInfo} */}
       </TopNav>
       <DetailPageLayout.Content data-test-id="configuration-menu">
         <Box paddingX={9} __maxWidth={"1024px"} margin="auto">
