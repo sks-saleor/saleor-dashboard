@@ -11,7 +11,6 @@ import { customerDetailsUrl, urlList } from "../../fixtures/urlList";
 import {
   addressCreate,
   createCustomer,
-  deleteCustomersStartsWith,
   getCustomer,
 } from "../../support/api/requests/Customer";
 
@@ -22,7 +21,6 @@ describe("Tests for customer", () => {
 
   before(() => {
     cy.clearSessionData().loginUserViaRequest();
-    deleteCustomersStartsWith(startsWith);
     cy.fixture("addresses").then(({ usAddress, secondUsAddress }) => {
       address = usAddress;
       secondAddress = secondUsAddress;
@@ -257,19 +255,21 @@ describe("Tests for customer", () => {
     { tags: ["@customer", "@allEnv", "@stable"] },
     () => {
       const randomName = `${startsWith}${faker.datatype.number()}`;
-      const updatedName = `${startsWith}UpdatedName`;
+      const updatedName = `${randomName}UpdatedName`;
       const email = `${randomName}@example.com`;
 
       createCustomer(email, randomName, address, true).then(({ user }) => {
         cy.visit(customerDetailsUrl(user.id))
           .get(CUSTOMER_DETAILS_SELECTORS.nameInput)
-          .clearAndType(updatedName)
+          .clear()
+          .type(updatedName)
           .get(CUSTOMER_DETAILS_SELECTORS.lastNameInput)
           .clearAndType(updatedName)
           .get(CUSTOMER_DETAILS_SELECTORS.noteInput)
           .clearAndType(updatedName)
           .get(CUSTOMER_DETAILS_SELECTORS.emailInput)
-          .clearAndType(`${updatedName}@example.com`)
+          .clear()
+          .type(`${updatedName}@example.com`)
           .addAliasToGraphRequest("UpdateCustomer")
           .get(BUTTON_SELECTORS.confirm)
           .click()

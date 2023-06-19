@@ -11,12 +11,8 @@ import { getDefaultChannel } from "../../../support/api/utils/channelsUtils";
 import {
   createProductInChannel,
   createTypeAttributeAndCategoryForProduct,
-  deleteProductsStartsWith,
 } from "../../../support/api/utils/products/productsUtils";
-import {
-  createShipping,
-  deleteShippingStartsWith,
-} from "../../../support/api/utils/shippingUtils";
+import { createShipping } from "../../../support/api/utils/shippingUtils";
 import {
   selectChannel,
   selectFilterOption,
@@ -37,8 +33,6 @@ describe("As an admin I should be able to filter products", () => {
 
   before(() => {
     cy.clearSessionData().loginUserViaRequest();
-    deleteShippingStartsWith(startsWith);
-    deleteProductsStartsWith(startsWith);
     createTypeAttributeAndCategoryForProduct({ name }).then(
       ({
         attribute: attributeResp,
@@ -105,6 +99,7 @@ describe("As an admin I should be able to filter products", () => {
       `should filter products by ${filterBy.type}. TC: ${filterBy.testCase}`,
       { tags: ["@productsList", "@allEnv", "@stable"] },
       () => {
+        cy.addAliasToGraphRequest("ProductList");
         selectFilterOption(filterBy.type, name);
         cy.get(SHARED_ELEMENTS.dataGridTable).contains(name).should("exist");
       },
@@ -116,6 +111,7 @@ describe("As an admin I should be able to filter products", () => {
     { tags: ["@productsList", "@allEnv", "@stable"] },
     () => {
       const productOutOfStock = `${startsWith}${faker.datatype.number()}`;
+      cy.addAliasToGraphRequest("ProductList");
       createProductInChannel({
         name: productOutOfStock,
         channelId: channel.id,

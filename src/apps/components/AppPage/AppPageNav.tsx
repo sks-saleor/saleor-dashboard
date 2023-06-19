@@ -1,17 +1,25 @@
 import { AppAvatar } from "@dashboard/apps/components/AppAvatar/AppAvatar";
+import { AppLogo } from "@dashboard/apps/types";
 import { AppUrls } from "@dashboard/apps/urls";
 import { TopNavLink, TopNavWrapper } from "@dashboard/components/AppLayout";
-import { LinkState } from "@dashboard/components/Link";
+import useNavigator from "@dashboard/hooks/useNavigator";
 import { Box, Button, Text } from "@saleor/macaw-ui/next";
-import React from "react";
+import React, { useMemo } from "react";
 import { FormattedMessage } from "react-intl";
-import { useLocation } from "react-router";
 
 interface AppPageNavProps {
-  name: string | undefined | null;
-  supportUrl: string | undefined | null;
-  homepageUrl: string | undefined | null;
-  author: string | undefined | null;
+  name?: string | undefined | null;
+  supportUrl?: string | undefined | null;
+  homepageUrl?: string | undefined | null;
+  author?: string | undefined | null;
+  appId: string;
+  appLogoUrl?: string | undefined | null;
+  goBackUrl: string;
+  /**
+   * Temporary prop, so the header can be composed with buttons instead hard coding them.
+   * Component is used on Manage App page too, so the button should be hidden there
+   */
+  showMangeAppButton?: boolean;
 }
 
 export const AppPageNav: React.FC<AppPageNavProps> = ({
@@ -19,9 +27,26 @@ export const AppPageNav: React.FC<AppPageNavProps> = ({
   supportUrl,
   homepageUrl,
   author,
+  appLogoUrl,
+  goBackUrl,
+  appId,
+  showMangeAppButton = true,
 }) => {
-  const location = useLocation<LinkState>();
-  const goBackLink = location.state?.from ?? AppUrls.resolveAppListUrl();
+  const navigate = useNavigator();
+
+  const navigateToManageAppScreen = () => {
+    navigate(AppUrls.resolveAppDetailsUrl(appId));
+  };
+
+  const logo = useMemo(
+    (): AppLogo | undefined =>
+      appLogoUrl
+        ? {
+            source: appLogoUrl,
+          }
+        : undefined,
+    [appLogoUrl],
+  );
 
   return (
     <TopNavWrapper>
@@ -31,10 +56,10 @@ export const AppPageNav: React.FC<AppPageNavProps> = ({
         justifyContent="space-between"
         width="100%"
       >
-        <Box display="flex" gap={7} alignItems="center">
-          <TopNavLink to={goBackLink} variant="tertiary" />
-          <Box display="flex" gap={5} alignItems="center">
-            <AppAvatar />
+        <Box display="flex" gap={4} alignItems="center">
+          <TopNavLink to={goBackUrl} variant="tertiary" />
+          <Box display="flex" gap={2} alignItems="center">
+            <AppAvatar size={8} logo={logo} />
             <Box display="flex" flexDirection="column">
               <Text variant="heading">{name}</Text>
               <Text
@@ -54,7 +79,21 @@ export const AppPageNav: React.FC<AppPageNavProps> = ({
           </Box>
         </Box>
       </Box>
-      <Box display="flex" gap={4}>
+      <Box display="flex" gap={1.5}>
+        {showMangeAppButton && (
+          <Button
+            whiteSpace="nowrap"
+            variant="secondary"
+            onClick={navigateToManageAppScreen}
+            data-test-id="app-settings-button"
+          >
+            <FormattedMessage
+              defaultMessage="Manage app"
+              id="LwX0Ug"
+              description="Button with Manage app label"
+            />
+          </Button>
+        )}
         {supportUrl && (
           <Button
             variant="secondary"

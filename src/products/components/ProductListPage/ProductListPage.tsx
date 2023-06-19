@@ -11,7 +11,6 @@ import { getByName } from "@dashboard/components/Filter/utils";
 import { FilterPresetsSelect } from "@dashboard/components/FilterPresetsSelect";
 import { ListPageLayout } from "@dashboard/components/Layouts";
 import LimitReachedAlert from "@dashboard/components/LimitReachedAlert";
-import { TopNavMenu } from "@dashboard/components/TopNavMenu";
 import { ProductListColumns } from "@dashboard/config";
 import {
   GridAttributesQuery,
@@ -26,7 +25,6 @@ import {
   ChannelProps,
   FetchMoreProps,
   FilterPageProps,
-  ListActions,
   PageListProps,
   RelayToFlat,
   SortPage,
@@ -39,6 +37,7 @@ import { FormattedMessage, useIntl } from "react-intl";
 
 import { ProductListUrlSortField, productUrl } from "../../urls";
 import { ProductListDatagrid } from "../ProductListDatagrid";
+import { ProductListDeleteButton } from "../ProductListDeleteButton";
 import { ProductListTiles } from "../ProductListTiles/ProductListTiles";
 import { ProductListViewSwitch } from "../ProductListViewSwitch";
 import {
@@ -49,7 +48,6 @@ import {
 
 export interface ProductListPageProps
   extends PageListProps<ProductListColumns>,
-    ListActions,
     Omit<
       FilterPageProps<ProductFilterKeys, ProductListFilterOpts>,
       "onTabDelete"
@@ -73,6 +71,10 @@ export interface ProductListPageProps
   onColumnQueryChange: (query: string) => void;
   onTabUpdate: (tabName: string) => void;
   onTabDelete: (tabIndex: number) => void;
+  onProductsDelete: () => void;
+  onSelectProductIds: (ids: number[], clearSelection: () => void) => void;
+  clearRowSelection: () => void;
+  setBulkDeleteButtonRef: (ref: HTMLButtonElement) => void;
 }
 
 export type ProductListViewType = "datagrid" | "tile";
@@ -100,7 +102,6 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     onSearchChange,
     onUpdateListSettings,
     selectedChannelId,
-    selectedProductIds,
     activeAttributeSortId,
     onTabChange,
     onTabDelete,
@@ -110,6 +111,10 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
     tabs,
     onTabUpdate,
     hasPresetsChanged,
+    selectedProductIds,
+    onProductsDelete,
+    clearRowSelection,
+    setBulkDeleteButtonRef,
     ...listProps
   } = props;
   const intl = useIntl();
@@ -134,6 +139,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
       "productListViewType",
       DEFAULT_PRODUCT_LIST_VIEW_TYPE,
     );
+
   const isDatagridView = storedProductListViewType === "datagrid";
 
   return (
@@ -150,7 +156,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
           alignItems="center"
         >
           <Box display="flex">
-            <Box marginX={6} display="flex" alignItems="center">
+            <Box marginX={3} display="flex" alignItems="center">
               <ChevronRightIcon />
             </Box>
 
@@ -172,7 +178,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
               })}
             />
           </Box>
-          <Box display="flex" alignItems="center" gap={5}>
+          <Box display="flex" alignItems="center" gap={2}>
             {hasLimits(limits, "productVariants") && (
               <Text variant="caption">
                 {intl.formatMessage(
@@ -188,7 +194,7 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
                 )}
               </Text>
             )}
-            <TopNavMenu
+            <TopNav.Menu
               dataTestId="menu"
               items={[
                 {
@@ -261,10 +267,20 @@ export const ProductListPage: React.FC<ProductListPageProps> = props => {
               defaultMessage: "Search Products...",
             })}
             actions={
-              <ProductListViewSwitch
-                defaultValue={storedProductListViewType}
-                setProductListViewType={setProductListViewType}
-              />
+              <Box display="flex" gap={4}>
+                <ProductListDeleteButton
+                  ref={setBulkDeleteButtonRef}
+                  onClick={onProductsDelete}
+                  show={selectedProductIds.length > 0}
+                />
+                <ProductListViewSwitch
+                  defaultValue={storedProductListViewType}
+                  setProductListViewType={props => {
+                    setProductListViewType(props);
+                    clearRowSelection();
+                  }}
+                />
+              </Box>
             }
           />
         </Box>

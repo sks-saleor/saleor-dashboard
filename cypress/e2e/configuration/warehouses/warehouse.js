@@ -22,7 +22,6 @@ import {
   getWarehouse,
 } from "../../../support/api/requests/Warehouse";
 import { getDefaultChannel } from "../../../support/api/utils/channelsUtils";
-import { deleteShippingStartsWith } from "../../../support/api/utils/shippingUtils";
 
 describe("As an admin I want to manage warehouses", () => {
   const startsWith = "CyWarehouse";
@@ -31,7 +30,6 @@ describe("As an admin I want to manage warehouses", () => {
 
   before(() => {
     cy.clearSessionData().loginUserViaRequest();
-    deleteShippingStartsWith(startsWith);
     cy.fixture("addresses").then(addresses => {
       usAddress = addresses.usAddress;
       secondUsAddress = addresses.secondUsAddress;
@@ -45,7 +43,7 @@ describe("As an admin I want to manage warehouses", () => {
 
   it(
     "should be able to create warehouse. TC: SALEOR_1101",
-    { tags: ["@warehouse", "@allEnv", "@stable", "@oldRelease"] },
+    { tags: ["@warehouse", "@allEnv", "@stable", "@oldRelease", "@critical"] },
     () => {
       const name = `${startsWith}${faker.datatype.number()}`;
       cy.visit(urlList.warehouses)
@@ -193,7 +191,9 @@ describe("As an admin I want to manage warehouses", () => {
           warehouse = warehouseResp;
           cy.visit(warehouseDetailsUrl(warehouse.id))
             .get(WAREHOUSES_DETAILS.nameInput)
-            .clearAndType(updatedName)
+            .clear()
+            .type(updatedName)
+            // .clearAndType(updatedName)
             .fillUpBasicAddress(secondUsAddress)
             .addAliasToGraphRequest("WarehouseUpdate")
             .get(BUTTON_SELECTORS.confirm)

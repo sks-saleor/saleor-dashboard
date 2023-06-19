@@ -22,6 +22,11 @@ export const AppManifestFragmentDoc = gql`
     code
     name
   }
+  brand {
+    logo {
+      default(format: WEBP, size: 64)
+    }
+  }
 }
     `;
 export const WebhookFragmentDoc = gql`
@@ -49,6 +54,11 @@ export const AppFragmentDoc = gql`
   supportUrl
   version
   accessToken
+  brand {
+    logo {
+      default(format: WEBP, size: 24)
+    }
+  }
   privateMetadata {
     key
     value
@@ -74,6 +84,11 @@ export const AppInstallationFragmentDoc = gql`
   appName
   manifestUrl
   id
+  brand {
+    logo {
+      default(format: WEBP, size: 32)
+    }
+  }
 }
     `;
 export const AppPermissionFragmentDoc = gql`
@@ -91,6 +106,11 @@ export const AppListItemFragmentDoc = gql`
   appUrl
   manifestUrl
   version
+  brand {
+    logo {
+      default(format: WEBP, size: 32)
+    }
+  }
   permissions {
     ...AppPermission
   }
@@ -1603,6 +1623,7 @@ export const OrderLineFragmentDoc = gql`
 ${TaxedMoneyFragmentDoc}`;
 export const FulfillmentFragmentDoc = gql`
     fragment Fulfillment on Fulfillment {
+  ...Metadata
   id
   lines {
     id
@@ -1619,7 +1640,8 @@ export const FulfillmentFragmentDoc = gql`
     name
   }
 }
-    ${OrderLineFragmentDoc}`;
+    ${MetadataFragmentDoc}
+${OrderLineFragmentDoc}`;
 export const InvoiceFragmentDoc = gql`
     fragment Invoice on Invoice {
   id
@@ -2699,6 +2721,7 @@ export const ShopFragmentDoc = gql`
   reserveStockDurationAnonymousUser
   reserveStockDurationAuthenticatedUser
   limitQuantityPerCheckout
+  enableAccountConfirmationByEmail
 }
     ${AddressFragmentDoc}`;
 export const StaffMemberDetailsFragmentDoc = gql`
@@ -3665,6 +3688,11 @@ export const AppDocument = gql`
     }
     dataPrivacy
     dataPrivacyUrl
+    brand {
+      logo {
+        default(size: 24, format: WEBP)
+      }
+    }
   }
 }
     ${AppFragmentDoc}`;
