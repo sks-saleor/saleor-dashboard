@@ -7335,14 +7335,6 @@ export enum WebhookEventTypeEnum {
   ORDER_PAID = 'ORDER_PAID',
   /** Payment is made and an order is fully paid. */
   ORDER_FULLY_PAID = 'ORDER_FULLY_PAID',
-  /** An order is updated; triggered for all changes related to an order; covers all other order webhooks, except for ORDER_CREATED. */
-  ORDER_UPDATED = 'ORDER_UPDATED',
-  /** An order is cancelled. */
-  ORDER_CANCELLED = 'ORDER_CANCELLED',
-  /** An order is expired. */
-  ORDER_EXPIRED = 'ORDER_EXPIRED',
-  /** An order is fulfilled. */
-  ORDER_FULFILLED = 'ORDER_FULFILLED',
   /**
    * The order received a refund. The order may be partially or fully refunded.
    *
