@@ -167,7 +167,11 @@ export type AddressInput = {
   country?: InputMaybe<CountryCode>;
   /** State or province. */
   countryArea?: InputMaybe<Scalars['String']>;
-  /** Phone number. */
+  /**
+   * Phone number.
+   *
+   * Phone numbers are validated with Google's [libphonenumber](https://github.com/google/libphonenumber) library.
+   */
   phone?: InputMaybe<Scalars['String']>;
 };
 
@@ -184,6 +188,7 @@ export enum AddressTypeEnum {
  *     within the channel
  *
  *     PRIORITIZE_HIGH_STOCK - allocate stock in a warehouse with the most stock
+ *
  */
 export enum AllocationStrategyEnum {
   PRIORITIZE_SORTING_ORDER = 'PRIORITIZE_SORTING_ORDER',
@@ -238,6 +243,7 @@ export enum AppExtensionMountEnum {
  *
  *     POPUP - app's extension will be mounted as a popup window
  *     APP_PAGE - redirect to app's page
+ *
  */
 export enum AppExtensionTargetEnum {
   POPUP = 'POPUP',
@@ -260,7 +266,7 @@ export type AppInput = {
 export type AppInstallInput = {
   /** Name of the app to install. */
   appName?: InputMaybe<Scalars['String']>;
-  /** Url to app's manifest in JSON format. */
+  /** URL to app's manifest in JSON format. */
   manifestUrl?: InputMaybe<Scalars['String']>;
   /** Determine if app will be set active or not. */
   activateAfterInstallation?: InputMaybe<Scalars['Boolean']>;
@@ -299,7 +305,9 @@ export enum AppTypeEnum {
 
 /** An enumeration. */
 export enum AreaUnitsEnum {
+  SQ_MM = 'SQ_MM',
   SQ_CM = 'SQ_CM',
+  SQ_DM = 'SQ_DM',
   SQ_M = 'SQ_M',
   SQ_KM = 'SQ_KM',
   SQ_FT = 'SQ_FT',
@@ -924,8 +932,17 @@ export type CategorySortingInput = {
   field: CategorySortField;
 };
 
+export type CategoryWhereInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CategoryWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CategoryWhereInput>>;
+};
+
 export type ChannelCreateInput = {
-  /** isActive flag. */
+  /** Determine if channel will be set active or not. */
   isActive?: InputMaybe<Scalars['Boolean']>;
   /**
    * The channel stock settings.
@@ -991,7 +1008,7 @@ export type ChannelListingUpdateInput = {
 };
 
 export type ChannelUpdateInput = {
-  /** isActive flag. */
+  /** Determine if channel will be set active or not. */
   isActive?: InputMaybe<Scalars['Boolean']>;
   /**
    * The channel stock settings.
@@ -1055,6 +1072,7 @@ export type CheckoutAddressValidationRules = {
  *     NONE - the funds are not authorized
  *     PARTIAL - the cover funds don't cover fully the checkout's total
  *     FULL - the cover funds covers the checkout's total
+ *
  */
 export enum CheckoutAuthorizeStatusEnum {
   NONE = 'NONE',
@@ -1077,6 +1095,7 @@ export enum CheckoutAuthorizeStatusEnum {
  *     PARTIAL - the funds that are charged don't cover the checkout's total
  *     FULL - the funds that are charged fully cover the checkout's total
  *     OVERCHARGED - the charged funds are bigger than checkout's total
+ *
  */
 export enum CheckoutChargeStatusEnum {
   NONE = 'NONE',
@@ -1392,6 +1411,15 @@ export type CollectionSortingInput = {
   channel?: InputMaybe<Scalars['String']>;
   /** Sort collections by the selected field. */
   field: CollectionSortField;
+};
+
+export type CollectionWhereInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<CollectionWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<CollectionWhereInput>>;
 };
 
 export type ConfigurationItemInput = {
@@ -1892,7 +1920,9 @@ export enum DiscountValueTypeEnum {
 
 /** An enumeration. */
 export enum DistanceUnitsEnum {
+  MM = 'MM',
   CM = 'CM',
+  DM = 'DM',
   M = 'M',
   KM = 'KM',
   FT = 'FT',
@@ -2415,785 +2445,10 @@ export enum JobStatusEnum {
 
 /** An enumeration. */
 export enum LanguageCodeEnum {
-  AF = 'AF',
-  AF_NA = 'AF_NA',
-  AF_ZA = 'AF_ZA',
-  AGQ = 'AGQ',
-  AGQ_CM = 'AGQ_CM',
-  AK = 'AK',
-  AK_GH = 'AK_GH',
-  AM = 'AM',
-  AM_ET = 'AM_ET',
-  AR = 'AR',
-  AR_AE = 'AR_AE',
-  AR_BH = 'AR_BH',
-  AR_DJ = 'AR_DJ',
-  AR_DZ = 'AR_DZ',
-  AR_EG = 'AR_EG',
-  AR_EH = 'AR_EH',
-  AR_ER = 'AR_ER',
-  AR_IL = 'AR_IL',
-  AR_IQ = 'AR_IQ',
-  AR_JO = 'AR_JO',
-  AR_KM = 'AR_KM',
-  AR_KW = 'AR_KW',
-  AR_LB = 'AR_LB',
-  AR_LY = 'AR_LY',
-  AR_MA = 'AR_MA',
-  AR_MR = 'AR_MR',
-  AR_OM = 'AR_OM',
-  AR_PS = 'AR_PS',
-  AR_QA = 'AR_QA',
-  AR_SA = 'AR_SA',
-  AR_SD = 'AR_SD',
-  AR_SO = 'AR_SO',
-  AR_SS = 'AR_SS',
-  AR_SY = 'AR_SY',
-  AR_TD = 'AR_TD',
-  AR_TN = 'AR_TN',
-  AR_YE = 'AR_YE',
-  AS = 'AS',
-  AS_IN = 'AS_IN',
-  ASA = 'ASA',
-  ASA_TZ = 'ASA_TZ',
-  AST = 'AST',
-  AST_ES = 'AST_ES',
-  AZ = 'AZ',
-  AZ_CYRL = 'AZ_CYRL',
-  AZ_CYRL_AZ = 'AZ_CYRL_AZ',
-  AZ_LATN = 'AZ_LATN',
-  AZ_LATN_AZ = 'AZ_LATN_AZ',
-  BAS = 'BAS',
-  BAS_CM = 'BAS_CM',
-  BE = 'BE',
-  BE_BY = 'BE_BY',
-  BEM = 'BEM',
-  BEM_ZM = 'BEM_ZM',
-  BEZ = 'BEZ',
-  BEZ_TZ = 'BEZ_TZ',
-  BG = 'BG',
-  BG_BG = 'BG_BG',
-  BM = 'BM',
-  BM_ML = 'BM_ML',
-  BN = 'BN',
-  BN_BD = 'BN_BD',
-  BN_IN = 'BN_IN',
-  BO = 'BO',
-  BO_CN = 'BO_CN',
-  BO_IN = 'BO_IN',
-  BR = 'BR',
-  BR_FR = 'BR_FR',
-  BRX = 'BRX',
-  BRX_IN = 'BRX_IN',
-  BS = 'BS',
-  BS_CYRL = 'BS_CYRL',
-  BS_CYRL_BA = 'BS_CYRL_BA',
-  BS_LATN = 'BS_LATN',
-  BS_LATN_BA = 'BS_LATN_BA',
-  CA = 'CA',
-  CA_AD = 'CA_AD',
-  CA_ES = 'CA_ES',
-  CA_ES_VALENCIA = 'CA_ES_VALENCIA',
-  CA_FR = 'CA_FR',
-  CA_IT = 'CA_IT',
-  CCP = 'CCP',
-  CCP_BD = 'CCP_BD',
-  CCP_IN = 'CCP_IN',
-  CE = 'CE',
-  CE_RU = 'CE_RU',
-  CEB = 'CEB',
-  CEB_PH = 'CEB_PH',
-  CGG = 'CGG',
-  CGG_UG = 'CGG_UG',
-  CHR = 'CHR',
-  CHR_US = 'CHR_US',
-  CKB = 'CKB',
-  CKB_IQ = 'CKB_IQ',
-  CKB_IR = 'CKB_IR',
-  CS = 'CS',
-  CS_CZ = 'CS_CZ',
-  CU = 'CU',
-  CU_RU = 'CU_RU',
-  CY = 'CY',
-  CY_GB = 'CY_GB',
-  DA = 'DA',
-  DA_DK = 'DA_DK',
-  DA_GL = 'DA_GL',
-  DAV = 'DAV',
-  DAV_KE = 'DAV_KE',
-  DE = 'DE',
-  DE_AT = 'DE_AT',
-  DE_BE = 'DE_BE',
-  DE_CH = 'DE_CH',
-  DE_DE = 'DE_DE',
-  DE_IT = 'DE_IT',
-  DE_LI = 'DE_LI',
-  DE_LU = 'DE_LU',
-  DJE = 'DJE',
-  DJE_NE = 'DJE_NE',
-  DSB = 'DSB',
-  DSB_DE = 'DSB_DE',
-  DUA = 'DUA',
-  DUA_CM = 'DUA_CM',
-  DYO = 'DYO',
-  DYO_SN = 'DYO_SN',
-  DZ = 'DZ',
-  DZ_BT = 'DZ_BT',
-  EBU = 'EBU',
-  EBU_KE = 'EBU_KE',
-  EE = 'EE',
-  EE_GH = 'EE_GH',
-  EE_TG = 'EE_TG',
-  EL = 'EL',
-  EL_CY = 'EL_CY',
-  EL_GR = 'EL_GR',
   EN = 'EN',
-  EN_AE = 'EN_AE',
-  EN_AG = 'EN_AG',
-  EN_AI = 'EN_AI',
-  EN_AS = 'EN_AS',
-  EN_AT = 'EN_AT',
-  EN_AU = 'EN_AU',
-  EN_BB = 'EN_BB',
-  EN_BE = 'EN_BE',
-  EN_BI = 'EN_BI',
-  EN_BM = 'EN_BM',
-  EN_BS = 'EN_BS',
-  EN_BW = 'EN_BW',
-  EN_BZ = 'EN_BZ',
-  EN_CA = 'EN_CA',
-  EN_CC = 'EN_CC',
-  EN_CH = 'EN_CH',
-  EN_CK = 'EN_CK',
-  EN_CM = 'EN_CM',
-  EN_CX = 'EN_CX',
-  EN_CY = 'EN_CY',
-  EN_DE = 'EN_DE',
-  EN_DG = 'EN_DG',
-  EN_DK = 'EN_DK',
-  EN_DM = 'EN_DM',
-  EN_ER = 'EN_ER',
-  EN_FI = 'EN_FI',
-  EN_FJ = 'EN_FJ',
-  EN_FK = 'EN_FK',
-  EN_FM = 'EN_FM',
-  EN_GB = 'EN_GB',
-  EN_GD = 'EN_GD',
-  EN_GG = 'EN_GG',
-  EN_GH = 'EN_GH',
-  EN_GI = 'EN_GI',
-  EN_GM = 'EN_GM',
-  EN_GU = 'EN_GU',
-  EN_GY = 'EN_GY',
-  EN_HK = 'EN_HK',
-  EN_IE = 'EN_IE',
-  EN_IL = 'EN_IL',
-  EN_IM = 'EN_IM',
-  EN_IN = 'EN_IN',
-  EN_IO = 'EN_IO',
-  EN_JE = 'EN_JE',
-  EN_JM = 'EN_JM',
-  EN_KE = 'EN_KE',
-  EN_KI = 'EN_KI',
-  EN_KN = 'EN_KN',
-  EN_KY = 'EN_KY',
-  EN_LC = 'EN_LC',
-  EN_LR = 'EN_LR',
-  EN_LS = 'EN_LS',
-  EN_MG = 'EN_MG',
-  EN_MH = 'EN_MH',
-  EN_MO = 'EN_MO',
-  EN_MP = 'EN_MP',
-  EN_MS = 'EN_MS',
-  EN_MT = 'EN_MT',
-  EN_MU = 'EN_MU',
-  EN_MW = 'EN_MW',
-  EN_MY = 'EN_MY',
-  EN_NA = 'EN_NA',
-  EN_NF = 'EN_NF',
-  EN_NG = 'EN_NG',
-  EN_NL = 'EN_NL',
-  EN_NR = 'EN_NR',
-  EN_NU = 'EN_NU',
-  EN_NZ = 'EN_NZ',
-  EN_PG = 'EN_PG',
-  EN_PH = 'EN_PH',
-  EN_PK = 'EN_PK',
-  EN_PN = 'EN_PN',
-  EN_PR = 'EN_PR',
-  EN_PW = 'EN_PW',
-  EN_RW = 'EN_RW',
-  EN_SB = 'EN_SB',
-  EN_SC = 'EN_SC',
-  EN_SD = 'EN_SD',
-  EN_SE = 'EN_SE',
-  EN_SG = 'EN_SG',
-  EN_SH = 'EN_SH',
-  EN_SI = 'EN_SI',
-  EN_SL = 'EN_SL',
-  EN_SS = 'EN_SS',
-  EN_SX = 'EN_SX',
-  EN_SZ = 'EN_SZ',
-  EN_TC = 'EN_TC',
-  EN_TK = 'EN_TK',
-  EN_TO = 'EN_TO',
-  EN_TT = 'EN_TT',
-  EN_TV = 'EN_TV',
-  EN_TZ = 'EN_TZ',
-  EN_UG = 'EN_UG',
-  EN_UM = 'EN_UM',
   EN_US = 'EN_US',
-  EN_VC = 'EN_VC',
-  EN_VG = 'EN_VG',
-  EN_VI = 'EN_VI',
-  EN_VU = 'EN_VU',
-  EN_WS = 'EN_WS',
-  EN_ZA = 'EN_ZA',
-  EN_ZM = 'EN_ZM',
-  EN_ZW = 'EN_ZW',
-  EO = 'EO',
-  ES = 'ES',
-  ES_AR = 'ES_AR',
-  ES_BO = 'ES_BO',
-  ES_BR = 'ES_BR',
-  ES_BZ = 'ES_BZ',
-  ES_CL = 'ES_CL',
-  ES_CO = 'ES_CO',
-  ES_CR = 'ES_CR',
-  ES_CU = 'ES_CU',
-  ES_DO = 'ES_DO',
-  ES_EA = 'ES_EA',
-  ES_EC = 'ES_EC',
-  ES_ES = 'ES_ES',
-  ES_GQ = 'ES_GQ',
-  ES_GT = 'ES_GT',
-  ES_HN = 'ES_HN',
-  ES_IC = 'ES_IC',
-  ES_MX = 'ES_MX',
-  ES_NI = 'ES_NI',
-  ES_PA = 'ES_PA',
-  ES_PE = 'ES_PE',
-  ES_PH = 'ES_PH',
-  ES_PR = 'ES_PR',
-  ES_PY = 'ES_PY',
-  ES_SV = 'ES_SV',
-  ES_US = 'ES_US',
-  ES_UY = 'ES_UY',
-  ES_VE = 'ES_VE',
-  ET = 'ET',
-  ET_EE = 'ET_EE',
-  EU = 'EU',
-  EU_ES = 'EU_ES',
-  EWO = 'EWO',
-  EWO_CM = 'EWO_CM',
-  FA = 'FA',
-  FA_AF = 'FA_AF',
-  FA_IR = 'FA_IR',
-  FF = 'FF',
-  FF_ADLM = 'FF_ADLM',
-  FF_ADLM_BF = 'FF_ADLM_BF',
-  FF_ADLM_CM = 'FF_ADLM_CM',
-  FF_ADLM_GH = 'FF_ADLM_GH',
-  FF_ADLM_GM = 'FF_ADLM_GM',
-  FF_ADLM_GN = 'FF_ADLM_GN',
-  FF_ADLM_GW = 'FF_ADLM_GW',
-  FF_ADLM_LR = 'FF_ADLM_LR',
-  FF_ADLM_MR = 'FF_ADLM_MR',
-  FF_ADLM_NE = 'FF_ADLM_NE',
-  FF_ADLM_NG = 'FF_ADLM_NG',
-  FF_ADLM_SL = 'FF_ADLM_SL',
-  FF_ADLM_SN = 'FF_ADLM_SN',
-  FF_LATN = 'FF_LATN',
-  FF_LATN_BF = 'FF_LATN_BF',
-  FF_LATN_CM = 'FF_LATN_CM',
-  FF_LATN_GH = 'FF_LATN_GH',
-  FF_LATN_GM = 'FF_LATN_GM',
-  FF_LATN_GN = 'FF_LATN_GN',
-  FF_LATN_GW = 'FF_LATN_GW',
-  FF_LATN_LR = 'FF_LATN_LR',
-  FF_LATN_MR = 'FF_LATN_MR',
-  FF_LATN_NE = 'FF_LATN_NE',
-  FF_LATN_NG = 'FF_LATN_NG',
-  FF_LATN_SL = 'FF_LATN_SL',
-  FF_LATN_SN = 'FF_LATN_SN',
-  FI = 'FI',
-  FI_FI = 'FI_FI',
-  FIL = 'FIL',
-  FIL_PH = 'FIL_PH',
-  FO = 'FO',
-  FO_DK = 'FO_DK',
-  FO_FO = 'FO_FO',
-  FR = 'FR',
-  FR_BE = 'FR_BE',
-  FR_BF = 'FR_BF',
-  FR_BI = 'FR_BI',
-  FR_BJ = 'FR_BJ',
-  FR_BL = 'FR_BL',
-  FR_CA = 'FR_CA',
-  FR_CD = 'FR_CD',
-  FR_CF = 'FR_CF',
-  FR_CG = 'FR_CG',
-  FR_CH = 'FR_CH',
-  FR_CI = 'FR_CI',
-  FR_CM = 'FR_CM',
-  FR_DJ = 'FR_DJ',
-  FR_DZ = 'FR_DZ',
-  FR_FR = 'FR_FR',
-  FR_GA = 'FR_GA',
-  FR_GF = 'FR_GF',
-  FR_GN = 'FR_GN',
-  FR_GP = 'FR_GP',
-  FR_GQ = 'FR_GQ',
-  FR_HT = 'FR_HT',
-  FR_KM = 'FR_KM',
-  FR_LU = 'FR_LU',
-  FR_MA = 'FR_MA',
-  FR_MC = 'FR_MC',
-  FR_MF = 'FR_MF',
-  FR_MG = 'FR_MG',
-  FR_ML = 'FR_ML',
-  FR_MQ = 'FR_MQ',
-  FR_MR = 'FR_MR',
-  FR_MU = 'FR_MU',
-  FR_NC = 'FR_NC',
-  FR_NE = 'FR_NE',
-  FR_PF = 'FR_PF',
-  FR_PM = 'FR_PM',
-  FR_RE = 'FR_RE',
-  FR_RW = 'FR_RW',
-  FR_SC = 'FR_SC',
-  FR_SN = 'FR_SN',
-  FR_SY = 'FR_SY',
-  FR_TD = 'FR_TD',
-  FR_TG = 'FR_TG',
-  FR_TN = 'FR_TN',
-  FR_VU = 'FR_VU',
-  FR_WF = 'FR_WF',
-  FR_YT = 'FR_YT',
-  FUR = 'FUR',
-  FUR_IT = 'FUR_IT',
-  FY = 'FY',
-  FY_NL = 'FY_NL',
-  GA = 'GA',
-  GA_GB = 'GA_GB',
-  GA_IE = 'GA_IE',
-  GD = 'GD',
-  GD_GB = 'GD_GB',
-  GL = 'GL',
-  GL_ES = 'GL_ES',
-  GSW = 'GSW',
-  GSW_CH = 'GSW_CH',
-  GSW_FR = 'GSW_FR',
-  GSW_LI = 'GSW_LI',
-  GU = 'GU',
-  GU_IN = 'GU_IN',
-  GUZ = 'GUZ',
-  GUZ_KE = 'GUZ_KE',
-  GV = 'GV',
-  GV_IM = 'GV_IM',
-  HA = 'HA',
-  HA_GH = 'HA_GH',
-  HA_NE = 'HA_NE',
-  HA_NG = 'HA_NG',
-  HAW = 'HAW',
-  HAW_US = 'HAW_US',
-  HE = 'HE',
-  HE_IL = 'HE_IL',
-  HI = 'HI',
-  HI_IN = 'HI_IN',
-  HR = 'HR',
-  HR_BA = 'HR_BA',
-  HR_HR = 'HR_HR',
-  HSB = 'HSB',
-  HSB_DE = 'HSB_DE',
-  HU = 'HU',
-  HU_HU = 'HU_HU',
-  HY = 'HY',
-  HY_AM = 'HY_AM',
-  IA = 'IA',
-  ID = 'ID',
-  ID_ID = 'ID_ID',
-  IG = 'IG',
-  IG_NG = 'IG_NG',
-  II = 'II',
-  II_CN = 'II_CN',
-  IS = 'IS',
-  IS_IS = 'IS_IS',
-  IT = 'IT',
-  IT_CH = 'IT_CH',
-  IT_IT = 'IT_IT',
-  IT_SM = 'IT_SM',
-  IT_VA = 'IT_VA',
-  JA = 'JA',
-  JA_JP = 'JA_JP',
-  JGO = 'JGO',
-  JGO_CM = 'JGO_CM',
-  JMC = 'JMC',
-  JMC_TZ = 'JMC_TZ',
-  JV = 'JV',
-  JV_ID = 'JV_ID',
-  KA = 'KA',
-  KA_GE = 'KA_GE',
-  KAB = 'KAB',
-  KAB_DZ = 'KAB_DZ',
-  KAM = 'KAM',
-  KAM_KE = 'KAM_KE',
-  KDE = 'KDE',
-  KDE_TZ = 'KDE_TZ',
-  KEA = 'KEA',
-  KEA_CV = 'KEA_CV',
-  KHQ = 'KHQ',
-  KHQ_ML = 'KHQ_ML',
-  KI = 'KI',
-  KI_KE = 'KI_KE',
-  KK = 'KK',
-  KK_KZ = 'KK_KZ',
-  KKJ = 'KKJ',
-  KKJ_CM = 'KKJ_CM',
-  KL = 'KL',
-  KL_GL = 'KL_GL',
-  KLN = 'KLN',
-  KLN_KE = 'KLN_KE',
   KM = 'KM',
-  KM_KH = 'KM_KH',
-  KN = 'KN',
-  KN_IN = 'KN_IN',
-  KO = 'KO',
-  KO_KP = 'KO_KP',
-  KO_KR = 'KO_KR',
-  KOK = 'KOK',
-  KOK_IN = 'KOK_IN',
-  KS = 'KS',
-  KS_ARAB = 'KS_ARAB',
-  KS_ARAB_IN = 'KS_ARAB_IN',
-  KSB = 'KSB',
-  KSB_TZ = 'KSB_TZ',
-  KSF = 'KSF',
-  KSF_CM = 'KSF_CM',
-  KSH = 'KSH',
-  KSH_DE = 'KSH_DE',
-  KU = 'KU',
-  KU_TR = 'KU_TR',
-  KW = 'KW',
-  KW_GB = 'KW_GB',
-  KY = 'KY',
-  KY_KG = 'KY_KG',
-  LAG = 'LAG',
-  LAG_TZ = 'LAG_TZ',
-  LB = 'LB',
-  LB_LU = 'LB_LU',
-  LG = 'LG',
-  LG_UG = 'LG_UG',
-  LKT = 'LKT',
-  LKT_US = 'LKT_US',
-  LN = 'LN',
-  LN_AO = 'LN_AO',
-  LN_CD = 'LN_CD',
-  LN_CF = 'LN_CF',
-  LN_CG = 'LN_CG',
-  LO = 'LO',
-  LO_LA = 'LO_LA',
-  LRC = 'LRC',
-  LRC_IQ = 'LRC_IQ',
-  LRC_IR = 'LRC_IR',
-  LT = 'LT',
-  LT_LT = 'LT_LT',
-  LU = 'LU',
-  LU_CD = 'LU_CD',
-  LUO = 'LUO',
-  LUO_KE = 'LUO_KE',
-  LUY = 'LUY',
-  LUY_KE = 'LUY_KE',
-  LV = 'LV',
-  LV_LV = 'LV_LV',
-  MAI = 'MAI',
-  MAI_IN = 'MAI_IN',
-  MAS = 'MAS',
-  MAS_KE = 'MAS_KE',
-  MAS_TZ = 'MAS_TZ',
-  MER = 'MER',
-  MER_KE = 'MER_KE',
-  MFE = 'MFE',
-  MFE_MU = 'MFE_MU',
-  MG = 'MG',
-  MG_MG = 'MG_MG',
-  MGH = 'MGH',
-  MGH_MZ = 'MGH_MZ',
-  MGO = 'MGO',
-  MGO_CM = 'MGO_CM',
-  MI = 'MI',
-  MI_NZ = 'MI_NZ',
-  MK = 'MK',
-  MK_MK = 'MK_MK',
-  ML = 'ML',
-  ML_IN = 'ML_IN',
-  MN = 'MN',
-  MN_MN = 'MN_MN',
-  MNI = 'MNI',
-  MNI_BENG = 'MNI_BENG',
-  MNI_BENG_IN = 'MNI_BENG_IN',
-  MR = 'MR',
-  MR_IN = 'MR_IN',
-  MS = 'MS',
-  MS_BN = 'MS_BN',
-  MS_ID = 'MS_ID',
-  MS_MY = 'MS_MY',
-  MS_SG = 'MS_SG',
-  MT = 'MT',
-  MT_MT = 'MT_MT',
-  MUA = 'MUA',
-  MUA_CM = 'MUA_CM',
-  MY = 'MY',
-  MY_MM = 'MY_MM',
-  MZN = 'MZN',
-  MZN_IR = 'MZN_IR',
-  NAQ = 'NAQ',
-  NAQ_NA = 'NAQ_NA',
-  NB = 'NB',
-  NB_NO = 'NB_NO',
-  NB_SJ = 'NB_SJ',
-  ND = 'ND',
-  ND_ZW = 'ND_ZW',
-  NDS = 'NDS',
-  NDS_DE = 'NDS_DE',
-  NDS_NL = 'NDS_NL',
-  NE = 'NE',
-  NE_IN = 'NE_IN',
-  NE_NP = 'NE_NP',
-  NL = 'NL',
-  NL_AW = 'NL_AW',
-  NL_BE = 'NL_BE',
-  NL_BQ = 'NL_BQ',
-  NL_CW = 'NL_CW',
-  NL_NL = 'NL_NL',
-  NL_SR = 'NL_SR',
-  NL_SX = 'NL_SX',
-  NMG = 'NMG',
-  NMG_CM = 'NMG_CM',
-  NN = 'NN',
-  NN_NO = 'NN_NO',
-  NNH = 'NNH',
-  NNH_CM = 'NNH_CM',
-  NUS = 'NUS',
-  NUS_SS = 'NUS_SS',
-  NYN = 'NYN',
-  NYN_UG = 'NYN_UG',
-  OM = 'OM',
-  OM_ET = 'OM_ET',
-  OM_KE = 'OM_KE',
-  OR = 'OR',
-  OR_IN = 'OR_IN',
-  OS = 'OS',
-  OS_GE = 'OS_GE',
-  OS_RU = 'OS_RU',
-  PA = 'PA',
-  PA_ARAB = 'PA_ARAB',
-  PA_ARAB_PK = 'PA_ARAB_PK',
-  PA_GURU = 'PA_GURU',
-  PA_GURU_IN = 'PA_GURU_IN',
-  PCM = 'PCM',
-  PCM_NG = 'PCM_NG',
-  PL = 'PL',
-  PL_PL = 'PL_PL',
-  PRG = 'PRG',
-  PS = 'PS',
-  PS_AF = 'PS_AF',
-  PS_PK = 'PS_PK',
-  PT = 'PT',
-  PT_AO = 'PT_AO',
-  PT_BR = 'PT_BR',
-  PT_CH = 'PT_CH',
-  PT_CV = 'PT_CV',
-  PT_GQ = 'PT_GQ',
-  PT_GW = 'PT_GW',
-  PT_LU = 'PT_LU',
-  PT_MO = 'PT_MO',
-  PT_MZ = 'PT_MZ',
-  PT_PT = 'PT_PT',
-  PT_ST = 'PT_ST',
-  PT_TL = 'PT_TL',
-  QU = 'QU',
-  QU_BO = 'QU_BO',
-  QU_EC = 'QU_EC',
-  QU_PE = 'QU_PE',
-  RM = 'RM',
-  RM_CH = 'RM_CH',
-  RN = 'RN',
-  RN_BI = 'RN_BI',
-  RO = 'RO',
-  RO_MD = 'RO_MD',
-  RO_RO = 'RO_RO',
-  ROF = 'ROF',
-  ROF_TZ = 'ROF_TZ',
-  RU = 'RU',
-  RU_BY = 'RU_BY',
-  RU_KG = 'RU_KG',
-  RU_KZ = 'RU_KZ',
-  RU_MD = 'RU_MD',
-  RU_RU = 'RU_RU',
-  RU_UA = 'RU_UA',
-  RW = 'RW',
-  RW_RW = 'RW_RW',
-  RWK = 'RWK',
-  RWK_TZ = 'RWK_TZ',
-  SAH = 'SAH',
-  SAH_RU = 'SAH_RU',
-  SAQ = 'SAQ',
-  SAQ_KE = 'SAQ_KE',
-  SAT = 'SAT',
-  SAT_OLCK = 'SAT_OLCK',
-  SAT_OLCK_IN = 'SAT_OLCK_IN',
-  SBP = 'SBP',
-  SBP_TZ = 'SBP_TZ',
-  SD = 'SD',
-  SD_ARAB = 'SD_ARAB',
-  SD_ARAB_PK = 'SD_ARAB_PK',
-  SD_DEVA = 'SD_DEVA',
-  SD_DEVA_IN = 'SD_DEVA_IN',
-  SE = 'SE',
-  SE_FI = 'SE_FI',
-  SE_NO = 'SE_NO',
-  SE_SE = 'SE_SE',
-  SEH = 'SEH',
-  SEH_MZ = 'SEH_MZ',
-  SES = 'SES',
-  SES_ML = 'SES_ML',
-  SG = 'SG',
-  SG_CF = 'SG_CF',
-  SHI = 'SHI',
-  SHI_LATN = 'SHI_LATN',
-  SHI_LATN_MA = 'SHI_LATN_MA',
-  SHI_TFNG = 'SHI_TFNG',
-  SHI_TFNG_MA = 'SHI_TFNG_MA',
-  SI = 'SI',
-  SI_LK = 'SI_LK',
-  SK = 'SK',
-  SK_SK = 'SK_SK',
-  SL = 'SL',
-  SL_SI = 'SL_SI',
-  SMN = 'SMN',
-  SMN_FI = 'SMN_FI',
-  SN = 'SN',
-  SN_ZW = 'SN_ZW',
-  SO = 'SO',
-  SO_DJ = 'SO_DJ',
-  SO_ET = 'SO_ET',
-  SO_KE = 'SO_KE',
-  SO_SO = 'SO_SO',
-  SQ = 'SQ',
-  SQ_AL = 'SQ_AL',
-  SQ_MK = 'SQ_MK',
-  SQ_XK = 'SQ_XK',
-  SR = 'SR',
-  SR_CYRL = 'SR_CYRL',
-  SR_CYRL_BA = 'SR_CYRL_BA',
-  SR_CYRL_ME = 'SR_CYRL_ME',
-  SR_CYRL_RS = 'SR_CYRL_RS',
-  SR_CYRL_XK = 'SR_CYRL_XK',
-  SR_LATN = 'SR_LATN',
-  SR_LATN_BA = 'SR_LATN_BA',
-  SR_LATN_ME = 'SR_LATN_ME',
-  SR_LATN_RS = 'SR_LATN_RS',
-  SR_LATN_XK = 'SR_LATN_XK',
-  SU = 'SU',
-  SU_LATN = 'SU_LATN',
-  SU_LATN_ID = 'SU_LATN_ID',
-  SV = 'SV',
-  SV_AX = 'SV_AX',
-  SV_FI = 'SV_FI',
-  SV_SE = 'SV_SE',
-  SW = 'SW',
-  SW_CD = 'SW_CD',
-  SW_KE = 'SW_KE',
-  SW_TZ = 'SW_TZ',
-  SW_UG = 'SW_UG',
-  TA = 'TA',
-  TA_IN = 'TA_IN',
-  TA_LK = 'TA_LK',
-  TA_MY = 'TA_MY',
-  TA_SG = 'TA_SG',
-  TE = 'TE',
-  TE_IN = 'TE_IN',
-  TEO = 'TEO',
-  TEO_KE = 'TEO_KE',
-  TEO_UG = 'TEO_UG',
-  TG = 'TG',
-  TG_TJ = 'TG_TJ',
-  TH = 'TH',
-  TH_TH = 'TH_TH',
-  TI = 'TI',
-  TI_ER = 'TI_ER',
-  TI_ET = 'TI_ET',
-  TK = 'TK',
-  TK_TM = 'TK_TM',
-  TO = 'TO',
-  TO_TO = 'TO_TO',
-  TR = 'TR',
-  TR_CY = 'TR_CY',
-  TR_TR = 'TR_TR',
-  TT = 'TT',
-  TT_RU = 'TT_RU',
-  TWQ = 'TWQ',
-  TWQ_NE = 'TWQ_NE',
-  TZM = 'TZM',
-  TZM_MA = 'TZM_MA',
-  UG = 'UG',
-  UG_CN = 'UG_CN',
-  UK = 'UK',
-  UK_UA = 'UK_UA',
-  UR = 'UR',
-  UR_IN = 'UR_IN',
-  UR_PK = 'UR_PK',
-  UZ = 'UZ',
-  UZ_ARAB = 'UZ_ARAB',
-  UZ_ARAB_AF = 'UZ_ARAB_AF',
-  UZ_CYRL = 'UZ_CYRL',
-  UZ_CYRL_UZ = 'UZ_CYRL_UZ',
-  UZ_LATN = 'UZ_LATN',
-  UZ_LATN_UZ = 'UZ_LATN_UZ',
-  VAI = 'VAI',
-  VAI_LATN = 'VAI_LATN',
-  VAI_LATN_LR = 'VAI_LATN_LR',
-  VAI_VAII = 'VAI_VAII',
-  VAI_VAII_LR = 'VAI_VAII_LR',
-  VI = 'VI',
-  VI_VN = 'VI_VN',
-  VO = 'VO',
-  VUN = 'VUN',
-  VUN_TZ = 'VUN_TZ',
-  WAE = 'WAE',
-  WAE_CH = 'WAE_CH',
-  WO = 'WO',
-  WO_SN = 'WO_SN',
-  XH = 'XH',
-  XH_ZA = 'XH_ZA',
-  XOG = 'XOG',
-  XOG_UG = 'XOG_UG',
-  YAV = 'YAV',
-  YAV_CM = 'YAV_CM',
-  YI = 'YI',
-  YO = 'YO',
-  YO_BJ = 'YO_BJ',
-  YO_NG = 'YO_NG',
-  YUE = 'YUE',
-  YUE_HANS = 'YUE_HANS',
-  YUE_HANS_CN = 'YUE_HANS_CN',
-  YUE_HANT = 'YUE_HANT',
-  YUE_HANT_HK = 'YUE_HANT_HK',
-  ZGH = 'ZGH',
-  ZGH_MA = 'ZGH_MA',
-  ZH = 'ZH',
-  ZH_HANS = 'ZH_HANS',
-  ZH_HANS_CN = 'ZH_HANS_CN',
-  ZH_HANS_HK = 'ZH_HANS_HK',
-  ZH_HANS_MO = 'ZH_HANS_MO',
-  ZH_HANS_SG = 'ZH_HANS_SG',
-  ZH_HANT = 'ZH_HANT',
-  ZH_HANT_HK = 'ZH_HANT_HK',
-  ZH_HANT_MO = 'ZH_HANT_MO',
-  ZH_HANT_TW = 'ZH_HANT_TW',
-  ZU = 'ZU',
-  ZU_ZA = 'ZU_ZA'
+  KM_KH = 'KM_KH'
 }
 
 /**
@@ -3204,6 +2459,8 @@ export enum LanguageCodeEnum {
  *
  *     PAYMENT_FLOW - new orders marked as paid will receive a
  *     `Payment` object, that will cover the `order.total`.
+ *
+ *
  */
 export enum MarkAsPaidStrategyEnum {
   TRANSACTION_FLOW = 'TRANSACTION_FLOW',
@@ -3212,13 +2469,17 @@ export enum MarkAsPaidStrategyEnum {
 
 /** An enumeration. */
 export enum MeasurementUnitsEnum {
+  MM = 'MM',
   CM = 'CM',
+  DM = 'DM',
   M = 'M',
   KM = 'KM',
   FT = 'FT',
   YD = 'YD',
   INCH = 'INCH',
+  SQ_MM = 'SQ_MM',
   SQ_CM = 'SQ_CM',
+  SQ_DM = 'SQ_DM',
   SQ_M = 'SQ_M',
   SQ_KM = 'SQ_KM',
   SQ_FT = 'SQ_FT',
@@ -3438,7 +2699,11 @@ export enum OrderAction {
 }
 
 export type OrderAddNoteInput = {
-  /** Note message. */
+  /**
+   * Note message.
+   *
+   * DEPRECATED: this field will be removed in Saleor 4.0.
+   */
   message: Scalars['String'];
 };
 
@@ -3457,6 +2722,7 @@ export type OrderAddNoteInput = {
  *     `order.total`-`order.totalGrantedRefund`
  *     FULL - the funds that are authorized and charged fully cover the
  *     `order.total`-`order.totalGrantedRefund`
+ *
  */
 export enum OrderAuthorizeStatusEnum {
   NONE = 'NONE',
@@ -3542,8 +2808,6 @@ export type OrderBulkCreateInput = {
   status?: InputMaybe<OrderStatus>;
   /** Customer associated with the order. */
   user: OrderBulkCreateUserInput;
-  /** Tracking ID of the customer. */
-  trackingClientId?: InputMaybe<Scalars['String']>;
   /** Billing address of the customer. */
   billingAddress: AddressInput;
   /** Shipping address of the customer. */
@@ -3685,6 +2949,7 @@ export type OrderBulkCreateUserInput = {
  *     `order.total`-`order.totalGrantedRefund`
  *     OVERCHARGED - the charged funds are bigger than the
  *     `order.total`-`order.totalGrantedRefund`
+ *
  */
 export enum OrderChargeStatusEnum {
   NONE = 'NONE',
@@ -3791,7 +3056,7 @@ export enum OrderEventsEmailsEnum {
   DIGITAL_LINKS = 'DIGITAL_LINKS'
 }
 
-/** The different order event types. */
+/** The different order event types.  */
 export enum OrderEventsEnum {
   DRAFT_CREATED = 'DRAFT_CREATED',
   DRAFT_CREATED_FROM_REPLACE = 'DRAFT_CREATED_FROM_REPLACE',
@@ -3844,6 +3109,7 @@ export enum OrderEventsEnum {
   FULFILLMENT_AWAITS_APPROVAL = 'FULFILLMENT_AWAITS_APPROVAL',
   TRACKING_UPDATED = 'TRACKING_UPDATED',
   NOTE_ADDED = 'NOTE_ADDED',
+  NOTE_UPDATED = 'NOTE_UPDATED',
   OTHER = 'OTHER'
 }
 
@@ -3948,6 +3214,24 @@ export type OrderLineInput = {
   /** Number of variant items ordered. */
   quantity: Scalars['Int'];
 };
+
+/** An enumeration. */
+export enum OrderNoteAddErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  REQUIRED = 'REQUIRED'
+}
+
+export type OrderNoteInput = {
+  /** Note message. */
+  message: Scalars['String'];
+};
+
+/** An enumeration. */
+export enum OrderNoteUpdateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
 
 /** An enumeration. */
 export enum OrderOriginEnum {
@@ -4728,7 +4012,7 @@ export type ProductChannelListingAddInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** Determines if product is visible in product listings (doesn't apply to product collections). */
   visibleInListings?: InputMaybe<Scalars['Boolean']>;
-  /** Determine if product should be available for purchase. */
+  /** Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased. */
   isAvailableForPurchase?: InputMaybe<Scalars['Boolean']>;
   /**
    * A start date from which a product will be available for purchase. When not set and isAvailable is set to True, the current day is assumed.
@@ -4757,7 +4041,7 @@ export type ProductChannelListingCreateInput = {
   publishedAt?: InputMaybe<Scalars['DateTime']>;
   /** Determines if product is visible in product listings (doesn't apply to product collections). */
   visibleInListings?: InputMaybe<Scalars['Boolean']>;
-  /** Determine if product should be available for purchase. */
+  /** Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased. */
   isAvailableForPurchase?: InputMaybe<Scalars['Boolean']>;
   /** A start date time from which a product will be available for purchase. When not set and `isAvailable` is set to True, the current day is assumed. */
   availableForPurchaseAt?: InputMaybe<Scalars['DateTime']>;
@@ -5426,6 +4710,15 @@ export type ProductVariantStocksUpdateInput = {
   remove?: InputMaybe<Array<Scalars['ID']>>;
 };
 
+export type ProductVariantWhereInput = {
+  metadata?: InputMaybe<Array<MetadataFilter>>;
+  ids?: InputMaybe<Array<Scalars['ID']>>;
+  /** List of conditions that must be met. */
+  AND?: InputMaybe<Array<ProductVariantWhereInput>>;
+  /** A list of conditions of which at least one must be met. */
+  OR?: InputMaybe<Array<ProductVariantWhereInput>>;
+};
+
 export type ProductWhereInput = {
   metadata?: InputMaybe<Array<MetadataFilter>>;
   ids?: InputMaybe<Array<Scalars['ID']>>;
@@ -5966,6 +5259,7 @@ export type StockUpdateInput = {
  *     SKIP - stocks are not checked and not updated.
  *     UPDATE - only do update, if there is enough stock.
  *     FORCE - force update, if there is not enough stock.
+ *
  */
 export enum StockUpdatePolicyEnum {
   SKIP = 'SKIP',
@@ -6166,6 +5460,7 @@ export enum TimePeriodTypeEnum {
  *     VOID - Represents a void action. This field will be removed
  *     in Saleor 3.14 (Preview Feature). Use `CANCEL` instead.
  *     CANCEL - Represents a cancel action. Added in Saleor 3.12.
+ *
  */
 export enum TransactionActionEnum {
   CHARGE = 'CHARGE',
@@ -6321,6 +5616,7 @@ export enum TransactionEventReportErrorCode {
  *     CANCEL_FAILURE - represents failure cancel.
  *     CANCEL_REQUEST - represents cancel request.
  *     INFO - represents info event.
+ *
  */
 export enum TransactionEventTypeEnum {
   AUTHORIZATION_SUCCESS = 'AUTHORIZATION_SUCCESS',
@@ -6348,6 +5644,7 @@ export enum TransactionEventTypeEnum {
  *
  *     AUTHORIZATION - the processed transaction should be only authorized
  *     CHARGE - the processed transaction should be charged.
+ *
  */
 export enum TransactionFlowStrategyEnum {
   AUTHORIZATION = 'AUTHORIZATION',
@@ -6400,6 +5697,7 @@ export enum TransactionRequestActionErrorCode {
  *     SUCCESS - Represents a sucess action.
  *     FAILURE - Represents a failure action.
  *     PENDING - Represents a pending action.
+ *
  */
 export enum TransactionStatus {
   PENDING = 'PENDING',
@@ -7895,14 +7193,14 @@ export type AppCreateMutationVariables = Exact<{
 }>;
 
 
-export type AppCreateMutation = { __typename: 'Mutation', appCreate: { __typename: 'AppCreate', authToken: string | null, app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', field: string | null, message: string | null, code: AppErrorCode, permissions: Array<PermissionEnum> | null }> } | null };
+export type AppCreateMutation = { __typename: 'Mutation', appCreate: { __typename: 'AppCreate', authToken: string | null, app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', field: string | null, message: string | null, code: AppErrorCode, permissions: Array<PermissionEnum> | null }> } | null };
 
 export type AppDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type AppDeleteMutation = { __typename: 'Mutation', appDelete: { __typename: 'AppDelete', app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', field: string | null, message: string | null, code: AppErrorCode, permissions: Array<PermissionEnum> | null }> } | null };
+export type AppDeleteMutation = { __typename: 'Mutation', appDelete: { __typename: 'AppDelete', app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', field: string | null, message: string | null, code: AppErrorCode, permissions: Array<PermissionEnum> | null }> } | null };
 
 export type AppDeleteFailedInstallationMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -7938,7 +7236,7 @@ export type AppUpdateMutationVariables = Exact<{
 }>;
 
 
-export type AppUpdateMutation = { __typename: 'Mutation', appUpdate: { __typename: 'AppUpdate', app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', message: string | null, permissions: Array<PermissionEnum> | null, field: string | null, code: AppErrorCode }> } | null };
+export type AppUpdateMutation = { __typename: 'Mutation', appUpdate: { __typename: 'AppUpdate', app: { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null, errors: Array<{ __typename: 'AppError', message: string | null, permissions: Array<PermissionEnum> | null, field: string | null, code: AppErrorCode }> } | null };
 
 export type AppTokenCreateMutationVariables = Exact<{
   input: AppTokenInput;
@@ -7990,7 +7288,7 @@ export type AppQueryVariables = Exact<{
 }>;
 
 
-export type AppQuery = { __typename: 'Query', app: { __typename: 'App', aboutApp: string | null, author: string | null, dataPrivacy: string | null, dataPrivacyUrl: string | null, id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null };
+export type AppQuery = { __typename: 'Query', app: { __typename: 'App', aboutApp: string | null, author: string | null, dataPrivacy: string | null, dataPrivacyUrl: string | null, id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null } | null };
 
 export type ExtensionListQueryVariables = Exact<{
   filter: AppExtensionFilterInput;
@@ -8403,7 +7701,7 @@ export type WebhookCreateMutationVariables = Exact<{
 }>;
 
 
-export type WebhookCreateMutation = { __typename: 'Mutation', webhookCreate: { __typename: 'WebhookCreate', errors: Array<{ __typename: 'WebhookError', code: WebhookErrorCode, field: string | null, message: string | null }>, webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null } | null };
+export type WebhookCreateMutation = { __typename: 'Mutation', webhookCreate: { __typename: 'WebhookCreate', errors: Array<{ __typename: 'WebhookError', code: WebhookErrorCode, field: string | null, message: string | null }>, webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string | null, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null } | null };
 
 export type WebhookUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -8411,7 +7709,7 @@ export type WebhookUpdateMutationVariables = Exact<{
 }>;
 
 
-export type WebhookUpdateMutation = { __typename: 'Mutation', webhookUpdate: { __typename: 'WebhookUpdate', errors: Array<{ __typename: 'WebhookError', code: WebhookErrorCode, field: string | null, message: string | null }>, webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null } | null };
+export type WebhookUpdateMutation = { __typename: 'Mutation', webhookUpdate: { __typename: 'WebhookUpdate', errors: Array<{ __typename: 'WebhookError', code: WebhookErrorCode, field: string | null, message: string | null }>, webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string | null, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null } | null };
 
 export type WebhookDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -8425,7 +7723,7 @@ export type WebhookDetailsQueryVariables = Exact<{
 }>;
 
 
-export type WebhookDetailsQuery = { __typename: 'Query', webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null };
+export type WebhookDetailsQuery = { __typename: 'Query', webhook: { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string | null, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } } | null };
 
 export type UpdateCustomerMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -8724,7 +8022,7 @@ export type AddressFragment = { __typename: 'Address', city: string, cityArea: s
 
 export type AppManifestFragment = { __typename: 'Manifest', identifier: string, version: string, about: string | null, name: string, appUrl: string | null, configurationUrl: string | null, tokenTargetUrl: string | null, dataPrivacy: string | null, dataPrivacyUrl: string | null, homepageUrl: string | null, supportUrl: string | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, brand: { __typename: 'AppManifestBrand', logo: { __typename: 'AppManifestBrandLogo', default: string } } | null };
 
-export type AppFragment = { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null };
+export type AppFragment = { __typename: 'App', id: string, name: string | null, created: any | null, isActive: boolean | null, type: AppTypeEnum | null, homepageUrl: string | null, appUrl: string | null, manifestUrl: string | null, configurationUrl: string | null, supportUrl: string | null, version: string | null, accessToken: string | null, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, tokens: Array<{ __typename: 'AppToken', authToken: string | null, id: string, name: string | null }> | null, webhooks: Array<{ __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } }> | null };
 
 export type AppInstallationFragment = { __typename: 'AppInstallation', status: JobStatusEnum, message: string | null, appName: string, manifestUrl: string, id: string, brand: { __typename: 'AppBrand', logo: { __typename: 'AppBrandLogo', default: string } } | null };
 
@@ -9196,9 +8494,9 @@ export type WarehouseWithShippingFragment = { __typename: 'Warehouse', id: strin
 
 export type WarehouseDetailsFragment = { __typename: 'Warehouse', isPrivate: boolean, clickAndCollectOption: WarehouseClickAndCollectOptionEnum, id: string, name: string, address: { __typename: 'Address', city: string, cityArea: string, companyName: string, countryArea: string, firstName: string, id: string, lastName: string, phone: string | null, postalCode: string, streetAddress1: string, streetAddress2: string, country: { __typename: 'CountryDisplay', code: string, country: string } }, shippingZones: { __typename: 'ShippingZoneCountableConnection', edges: Array<{ __typename: 'ShippingZoneCountableEdge', node: { __typename: 'ShippingZone', id: string, name: string } }> } };
 
-export type WebhookFragment = { __typename: 'Webhook', id: string, name: string, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } };
+export type WebhookFragment = { __typename: 'Webhook', id: string, name: string | null, isActive: boolean, app: { __typename: 'App', id: string, name: string | null } };
 
-export type WebhookDetailsFragment = { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } };
+export type WebhookDetailsFragment = { __typename: 'Webhook', secretKey: string | null, targetUrl: string, subscriptionQuery: string | null, customHeaders: any | null, id: string, name: string | null, isActive: boolean, syncEvents: Array<{ __typename: 'WebhookEventSync', eventType: WebhookEventTypeSyncEnum }>, asyncEvents: Array<{ __typename: 'WebhookEventAsync', eventType: WebhookEventTypeAsyncEnum }>, app: { __typename: 'App', id: string, name: string | null } };
 
 export type WeightFragment = { __typename: 'Weight', unit: WeightUnitsEnum, value: number };
 
@@ -10781,6 +10079,7 @@ export type UserAvatarDeleteMutation = { __typename: 'Mutation', userAvatarDelet
 export type ChangeUserPasswordMutationVariables = Exact<{
   newPassword: Scalars['String'];
   oldPassword: Scalars['String'];
+  customerId?: InputMaybe<Scalars['ID']>;
 }>;
 
 

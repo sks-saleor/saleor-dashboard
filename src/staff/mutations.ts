@@ -89,8 +89,16 @@ export const userAvatarDeleteMutation = gql`
 `;
 
 export const changeUserPassword = gql`
-  mutation ChangeUserPassword($newPassword: String!, $oldPassword: String!) {
-    passwordChange(newPassword: $newPassword, oldPassword: $oldPassword) {
+  mutation ChangeUserPassword(
+    $newPassword: String!
+    $oldPassword: String!
+    $customerId: ID
+  ) {
+    passwordChange(
+      newPassword: $newPassword
+      oldPassword: $oldPassword
+      customerId: $customerId
+    ) {
       errors {
         ...AccountError
       }

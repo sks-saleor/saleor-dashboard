@@ -1,4 +1,4 @@
-schema: ${API_URI}
+schema: https://saleor.titancenter.asia/graphql/
 generates:
   ./introspection.json:
     plugins:

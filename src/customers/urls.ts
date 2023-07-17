@@ -40,7 +40,7 @@ export const customerListUrl = (params?: CustomerListUrlQueryParams) =>
   customerListPath + "?" + stringifyQs(params);
 
 export const customerPath = (id: string) => urlJoin(customerSection, id);
-export type CustomerUrlDialog = "remove";
+export type CustomerUrlDialog = "remove" | "change-password" | "remove-avatar";
 export type CustomerUrlQueryParams = Dialog<CustomerUrlDialog>;
 export const customerUrl = (id: string, params?: CustomerUrlQueryParams) =>
   customerPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
@@ -51,11 +51,25 @@ export const customerAddUrl = customerAddPath;
 export const customerAddressesPath = (id: string) =>
   urlJoin(customerPath(id), "addresses");
 export type CustomerAddressesUrlDialog = "add" | "edit" | "remove";
-export type CustomerAddressesUrlQueryParams = Dialog<
-  CustomerAddressesUrlDialog
-> &
-  SingleAction;
+export type CustomerAddressesUrlQueryParams =
+  Dialog<CustomerAddressesUrlDialog> & SingleAction;
 export const customerAddressesUrl = (
   id: string,
   params?: CustomerAddressesUrlQueryParams,
 ) => customerAddressesPath(encodeURIComponent(id)) + "?" + stringifyQs(params);
+
+export const customerChangePasswordPath = (id: string) =>
+  urlJoin(customerSection, id);
+export type CustomerChangePasswordUrlDialog =
+  | "change-password"
+  | "remove"
+  | "remove-avatar";
+export type CustomerChangePasswordUrlQueryParams =
+  Dialog<CustomerChangePasswordUrlDialog>;
+export const customerChangePasswordUrl = (
+  id: string,
+  params?: CustomerChangePasswordUrlQueryParams,
+) =>
+  customerChangePasswordPath(encodeURIComponent(id)) +
+  "?" +
+  stringifyQs(params);

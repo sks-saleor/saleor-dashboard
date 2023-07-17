@@ -2,7 +2,9 @@
 import CardTitle from "@dashboard/components/CardTitle";
 import { ControlledCheckbox } from "@dashboard/components/ControlledCheckbox";
 import Skeleton from "@dashboard/components/Skeleton";
+import { customerChangePasswordUrl } from "@dashboard/customers/urls";
 import { AccountErrorFragment, CustomerDetailsQuery } from "@dashboard/graphql";
+import useNavigator from "@dashboard/hooks/useNavigator";
 import { maybe } from "@dashboard/misc";
 import { getFormErrors } from "@dashboard/utils/errors";
 import getAccountErrorMessage from "@dashboard/utils/errors/account";
@@ -11,6 +13,8 @@ import { makeStyles } from "@saleor/macaw-ui";
 import moment from "moment-timezone";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+
+import CustomerSetPassword from "./CustomerSetPassword";
 
 const useStyles = makeStyles(
   theme => ({
@@ -43,7 +47,7 @@ export interface CustomerDetailsProps {
 
 const CustomerDetails: React.FC<CustomerDetailsProps> = props => {
   const { customer, data, disabled, errors, onChange } = props;
-
+  const navigate = useNavigator();
   const classes = useStyles(props);
   const intl = useIntl();
 
@@ -89,6 +93,15 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = props => {
           })}
           name="isActive"
           onChange={onChange}
+        />
+        <CustomerSetPassword
+          onChangePassword={() =>
+            navigate(
+              customerChangePasswordUrl(customer.id, {
+                action: "change-password",
+              }),
+            )
+          }
         />
         <TextField
           disabled={disabled}

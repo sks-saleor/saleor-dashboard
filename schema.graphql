@@ -203,6 +203,7 @@ type AccountUpdate {
 
 """Represents user address data."""
 type Address implements Node & ObjectWithMetadata {
+  """The ID of the address."""
   id: ID!
 
   """
@@ -262,18 +263,38 @@ type Address implements Node & ObjectWithMetadata {
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
   metafields(keys: [String!]): Metadata
+
+  """The given name of the address."""
   firstName: String!
+
+  """The family name of the address."""
   lastName: String!
+
+  """Company or organization name."""
   companyName: String!
+
+  """The first line of the address."""
   streetAddress1: String!
+
+  """The second line of the address."""
   streetAddress2: String!
+
+  """The city of the address."""
   city: String!
+
+  """The district of the address."""
   cityArea: String!
+
+  """The postal code of the address."""
   postalCode: String!
 
-  """Shop's default country."""
+  """The country of the address."""
   country: CountryDisplay!
+
+  """The country area of the address."""
   countryArea: String!
+
+  """The phone number assigned the address."""
   phone: String
 
   """Address is user's default shipping address."""
@@ -384,7 +405,11 @@ input AddressInput {
   """State or province."""
   countryArea: String
 
-  """Phone number."""
+  """
+  Phone number.
+  
+  Phone numbers are validated with Google's [libphonenumber](https://github.com/google/libphonenumber) library.
+  """
   phone: String
 }
 
@@ -443,22 +468,91 @@ type AddressUpdated implements Event {
 
 """Represents address validation rules for a country."""
 type AddressValidationData {
+  """The country code of the address validation rule."""
   countryCode: String!
+
+  """The country name of the address validation rule."""
   countryName: String!
+
+  """
+  The address format of the address validation rule.
+  
+  Many fields in the JSON refer to address fields by one-letter abbreviations. These are defined as follows:
+  
+  - `N`: Name
+  - `O`: Organisation
+  - `A`: Street Address Line(s)
+  - `D`: Dependent locality (may be an inner-city district or a suburb)
+  - `C`: City or Locality
+  - `S`: Administrative area such as a state, province, island etc
+  - `Z`: Zip or postal code
+  - `X`: Sorting code
+  
+  [Click here for more information.](https://github.com/google/libaddressinput/wiki/AddressValidationMetadata)
+  """
   addressFormat: String!
+
+  """
+  The latin address format of the address validation rule.
+  
+  Many fields in the JSON refer to address fields by one-letter abbreviations. These are defined as follows:
+  
+  - `N`: Name
+  - `O`: Organisation
+  - `A`: Street Address Line(s)
+  - `D`: Dependent locality (may be an inner-city district or a suburb)
+  - `C`: City or Locality
+  - `S`: Administrative area such as a state, province, island etc
+  - `Z`: Zip or postal code
+  - `X`: Sorting code
+  
+  [Click here for more information.](https://github.com/google/libaddressinput/wiki/AddressValidationMetadata)
+  """
   addressLatinFormat: String!
+
+  """The allowed fields to use in address."""
   allowedFields: [String!]!
+
+  """The required fields to create a valid address."""
   requiredFields: [String!]!
+
+  """
+  The list of fields that should be in upper case for address validation rule.
+  """
   upperFields: [String!]!
+
+  """The formal name of the county area of the address validation rule."""
   countryAreaType: String!
+
+  """
+  The available choices for the country area of the address validation rule.
+  """
   countryAreaChoices: [ChoiceValue!]!
+
+  """The formal name of the city of the address validation rule."""
   cityType: String!
+
+  """The available choices for the city of the address validation rule."""
   cityChoices: [ChoiceValue!]!
+
+  """The formal name of the city area of the address validation rule."""
   cityAreaType: String!
+
+  """
+  The available choices for the city area of the address validation rule.
+  """
   cityAreaChoices: [ChoiceValue!]!
+
+  """The formal name of the postal code of the address validation rule."""
   postalCodeType: String!
+
+  """The regular expression for postal code validation."""
   postalCodeMatchers: [String!]!
+
+  """The example postal code of the address validation rule."""
   postalCodeExamples: [String!]!
+
+  """The postal code prefix of the address validation rule."""
   postalCodePrefix: String!
 }
 
@@ -488,6 +582,7 @@ Determine the allocation strategy for the channel.
     within the channel
 
     PRIORITIZE_HIGH_STOCK - allocate stock in a warehouse with the most stock
+    
 """
 enum AllocationStrategyEnum {
   PRIORITIZE_SORTING_ORDER
@@ -496,6 +591,7 @@ enum AllocationStrategyEnum {
 
 """Represents app data."""
 type App implements Node & ObjectWithMetadata {
+  """The ID of the app."""
   id: ID!
 
   """List of private metadata items. Requires staff permissions to access."""
@@ -690,7 +786,7 @@ type AppBrandLogo {
     
     Note: this API is currently in Feature Preview and can be subject to changes at later point.
     """
-    format: IconThumbnailFormatEnum = ORIGINAL
+    format: IconThumbnailFormatEnum
   ): String!
 }
 
@@ -814,6 +910,7 @@ enum AppErrorCode {
 
 """Represents app data."""
 type AppExtension implements Node {
+  """The ID of the app extension."""
   id: ID!
 
   """List of the app extension's permissions."""
@@ -830,9 +927,11 @@ type AppExtension implements Node {
 
   """Type of way how app extension will be opened."""
   target: AppExtensionTargetEnum!
+
+  """The app assigned to app extension."""
   app: App!
 
-  """JWT token used to authenticate by thridparty app extension."""
+  """JWT token used to authenticate by third-party app extension."""
   accessToken: String
 }
 
@@ -882,6 +981,7 @@ All available ways of opening an app extension.
 
     POPUP - app's extension will be mounted as a popup window
     APP_PAGE - redirect to app's page
+    
 """
 enum AppExtensionTargetEnum {
   POPUP
@@ -894,6 +994,7 @@ Fetch and validate manifest.
 Requires one of the following permissions: MANAGE_APPS.
 """
 type AppFetchManifest {
+  """The validated manifest."""
   manifest: Manifest
   appErrors: [AppError!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `errors` field instead.")
   errors: [AppError!]!
@@ -926,7 +1027,7 @@ input AppInstallInput {
   """Name of the app to install."""
   appName: String
 
-  """Url to app's manifest in JSON format."""
+  """URL to app's manifest in JSON format."""
   manifestUrl: String
 
   """Determine if app will be set active or not."""
@@ -938,6 +1039,7 @@ input AppInstallInput {
 
 """Represents ongoing installation of app."""
 type AppInstallation implements Node & Job {
+  """The ID of the app installation."""
   id: ID!
 
   """Job status."""
@@ -951,7 +1053,11 @@ type AppInstallation implements Node & Job {
 
   """Job message."""
   message: String
+
+  """The name of the app installation."""
   appName: String!
+
+  """The URL address of manifest for the app installation."""
   manifestUrl: String!
 
   """
@@ -1032,7 +1138,7 @@ type AppManifestBrandLogo {
     
     Note: this API is currently in Feature Preview and can be subject to changes at later point.
     """
-    format: IconThumbnailFormatEnum = ORIGINAL
+    format: IconThumbnailFormatEnum
   ): String!
 }
 
@@ -1141,6 +1247,7 @@ type AppStatusChanged implements Event {
 
 """Represents token data."""
 type AppToken implements Node {
+  """The ID of the app token."""
   id: ID!
 
   """Name of the authenticated token."""
@@ -1238,7 +1345,9 @@ type AppUpdated implements Event {
 
 """An enumeration."""
 enum AreaUnitsEnum {
+  SQ_MM
   SQ_CM
+  SQ_DM
   SQ_M
   SQ_KM
   SQ_FT
@@ -1277,6 +1386,7 @@ type AssignedVariantAttribute {
 Custom attribute of a product. Attributes can be assigned to products and variants at the product type level.
 """
 type Attribute implements Node & ObjectWithMetadata {
+  """The ID of the attribute."""
   id: ID!
 
   """List of private metadata items. Requires staff permissions to access."""
@@ -1406,6 +1516,10 @@ type Attribute implements Node & ObjectWithMetadata {
 
   """Flag indicating that attribute has predefined choices."""
   withChoices: Boolean!
+
+  """
+  A list of product types that use this attribute as a product attribute.
+  """
   productTypes(
     """Return the elements in the list that come before the specified cursor."""
     before: String
@@ -1423,6 +1537,10 @@ type Attribute implements Node & ObjectWithMetadata {
     """
     last: Int
   ): ProductTypeCountableConnection!
+
+  """
+  A list of product types that use this attribute as a product variant attribute.
+  """
   productVariantTypes(
     """Return the elements in the list that come before the specified cursor."""
     before: String
@@ -1976,6 +2094,7 @@ type AttributeUpdated implements Event {
 
 """Represents a value of an attribute."""
 type AttributeValue implements Node {
+  """The ID of the attribute value."""
   id: ID!
 
   """Name of a value displayed in the interface."""
@@ -2877,7 +2996,7 @@ type Category implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): Image
 
   """Returns translated category fields for the given language code."""
@@ -3151,8 +3270,20 @@ type CategoryUpdated implements Event {
   category: Category
 }
 
+input CategoryWhereInput {
+  metadata: [MetadataFilter!]
+  ids: [ID!]
+
+  """List of conditions that must be met."""
+  AND: [CategoryWhereInput!]
+
+  """A list of conditions of which at least one must be met."""
+  OR: [CategoryWhereInput!]
+}
+
 """Represents channel."""
 type Channel implements Node {
+  """The ID of the channel."""
   id: ID!
 
   """Slug of the channel."""
@@ -3261,7 +3392,7 @@ type ChannelCreate {
 }
 
 input ChannelCreateInput {
-  """isActive flag."""
+  """Determine if channel will be set active or not."""
   isActive: Boolean
 
   """
@@ -3471,7 +3602,7 @@ type ChannelUpdate {
 }
 
 input ChannelUpdateInput {
-  """isActive flag."""
+  """Determine if channel will be set active or not."""
   isActive: Boolean
 
   """
@@ -3546,6 +3677,7 @@ type ChannelUpdated implements Event {
 
 """Checkout object."""
 type Checkout implements Node & ObjectWithMetadata {
+  """The ID of the checkout."""
   id: ID!
 
   """List of private metadata items. Requires staff permissions to access."""
@@ -3593,6 +3725,8 @@ type Checkout implements Node & ObjectWithMetadata {
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
   metafields(keys: [String!]): Metadata
+
+  """The date and time when the checkout was created."""
   created: DateTime!
 
   """
@@ -3602,14 +3736,36 @@ type Checkout implements Node & ObjectWithMetadata {
   """
   updatedAt: DateTime!
   lastChange: DateTime! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `updatedAt` instead.")
+
+  """The user assigned to the checkout."""
   user: User
+
+  """The channel for which checkout was created."""
   channel: Channel!
+
+  """The billing address of the checkout."""
   billingAddress: Address
+
+  """The shipping address of the checkout."""
   shippingAddress: Address
+
+  """The note for the checkout."""
   note: String!
+
+  """
+  The total discount applied to the checkout. Note: Only discount created via voucher are included in this field.
+  """
   discount: Money
+
+  """The name of voucher assigned to the checkout."""
   discountName: String
+
+  """
+  Translation of the discountName field in the language set in Checkout.languageCode field.Note: this field is set automatically when Checkout.languageCode is defined; otherwise it's null
+  """
   translatedDiscountName: String
+
+  """The code of voucher assigned to the checkout."""
   voucherCode: String
 
   """Shipping methods that can be used with this checkout."""
@@ -3652,7 +3808,9 @@ type Checkout implements Node & ObjectWithMetadata {
   """
   lines: [CheckoutLine!]!
 
-  """The price of the shipping, with all the taxes included."""
+  """
+  The price of the shipping, with all the taxes included. Set to 0 when no delivery method is selected.
+  """
   shippingPrice: TaxedMoney!
 
   """The shipping method related with checkout."""
@@ -3768,6 +3926,7 @@ Determine a current authorize status for checkout.
     NONE - the funds are not authorized
     PARTIAL - the cover funds don't cover fully the checkout's total
     FULL - the cover funds covers the checkout's total
+    
 """
 enum CheckoutAuthorizeStatusEnum {
   NONE
@@ -3798,6 +3957,7 @@ Determine the current charge status for the checkout.
     PARTIAL - the funds that are charged don't cover the checkout's total
     FULL - the funds that are charged fully cover the checkout's total
     OVERCHARGED - the charged funds are bigger than checkout's total
+    
 """
 enum CheckoutChargeStatusEnum {
   NONE
@@ -4138,6 +4298,7 @@ type CheckoutLanguageCodeUpdate {
 
 """Represents an item in the checkout."""
 type CheckoutLine implements Node & ObjectWithMetadata {
+  """The ID of the checkout line."""
   id: ID!
 
   """
@@ -4197,7 +4358,11 @@ type CheckoutLine implements Node & ObjectWithMetadata {
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
   metafields(keys: [String!]): Metadata
+
+  """The product variant from which the checkout line was created."""
   variant: ProductVariant!
+
+  """The quantity of product variant assigned to the checkout line."""
   quantity: Int!
 
   """The unit price of the checkout line, with taxes and discounts."""
@@ -4434,7 +4599,10 @@ input CheckoutValidationRules {
 }
 
 type ChoiceValue {
+  """The raw name of the choice."""
   raw: String
+
+  """The verbose name of the choice."""
   verbose: String
 }
 
@@ -4555,7 +4723,7 @@ type Collection implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): Image
 
   """Returns translated collection fields for the given language code."""
@@ -5082,6 +5250,17 @@ type CollectionUpdated implements Event {
   ): Collection
 }
 
+input CollectionWhereInput {
+  metadata: [MetadataFilter!]
+  ids: [ID!]
+
+  """List of conditions that must be met."""
+  AND: [CollectionWhereInput!]
+
+  """A list of conditions of which at least one must be met."""
+  OR: [CollectionWhereInput!]
+}
+
 """Stores information about a single configuration field."""
 type ConfigurationItem {
   """Name of the field."""
@@ -5585,6 +5764,7 @@ type CustomerDelete {
 
 """History log of the customer."""
 type CustomerEvent implements Node {
+  """The ID of the customer event."""
   id: ID!
 
   """Date when event happened at in ISO 8601 format."""
@@ -6104,7 +6284,9 @@ enum DiscountValueTypeEnum {
 
 """An enumeration."""
 enum DistanceUnitsEnum {
+  MM
   CM
+  DM
   M
   KM
   FT
@@ -8015,7 +8197,10 @@ input GlobalIDFilterInput {
 
 """Represents permission group data."""
 type Group implements Node {
+  """The ID of the group."""
   id: ID!
+
+  """The name of the group."""
   name: String!
 
   """
@@ -8394,785 +8579,10 @@ enum JobStatusEnum {
 
 """An enumeration."""
 enum LanguageCodeEnum {
-  AF
-  AF_NA
-  AF_ZA
-  AGQ
-  AGQ_CM
-  AK
-  AK_GH
-  AM
-  AM_ET
-  AR
-  AR_AE
-  AR_BH
-  AR_DJ
-  AR_DZ
-  AR_EG
-  AR_EH
-  AR_ER
-  AR_IL
-  AR_IQ
-  AR_JO
-  AR_KM
-  AR_KW
-  AR_LB
-  AR_LY
-  AR_MA
-  AR_MR
-  AR_OM
-  AR_PS
-  AR_QA
-  AR_SA
-  AR_SD
-  AR_SO
-  AR_SS
-  AR_SY
-  AR_TD
-  AR_TN
-  AR_YE
-  AS
-  AS_IN
-  ASA
-  ASA_TZ
-  AST
-  AST_ES
-  AZ
-  AZ_CYRL
-  AZ_CYRL_AZ
-  AZ_LATN
-  AZ_LATN_AZ
-  BAS
-  BAS_CM
-  BE
-  BE_BY
-  BEM
-  BEM_ZM
-  BEZ
-  BEZ_TZ
-  BG
-  BG_BG
-  BM
-  BM_ML
-  BN
-  BN_BD
-  BN_IN
-  BO
-  BO_CN
-  BO_IN
-  BR
-  BR_FR
-  BRX
-  BRX_IN
-  BS
-  BS_CYRL
-  BS_CYRL_BA
-  BS_LATN
-  BS_LATN_BA
-  CA
-  CA_AD
-  CA_ES
-  CA_ES_VALENCIA
-  CA_FR
-  CA_IT
-  CCP
-  CCP_BD
-  CCP_IN
-  CE
-  CE_RU
-  CEB
-  CEB_PH
-  CGG
-  CGG_UG
-  CHR
-  CHR_US
-  CKB
-  CKB_IQ
-  CKB_IR
-  CS
-  CS_CZ
-  CU
-  CU_RU
-  CY
-  CY_GB
-  DA
-  DA_DK
-  DA_GL
-  DAV
-  DAV_KE
-  DE
-  DE_AT
-  DE_BE
-  DE_CH
-  DE_DE
-  DE_IT
-  DE_LI
-  DE_LU
-  DJE
-  DJE_NE
-  DSB
-  DSB_DE
-  DUA
-  DUA_CM
-  DYO
-  DYO_SN
-  DZ
-  DZ_BT
-  EBU
-  EBU_KE
-  EE
-  EE_GH
-  EE_TG
-  EL
-  EL_CY
-  EL_GR
   EN
-  EN_AE
-  EN_AG
-  EN_AI
-  EN_AS
-  EN_AT
-  EN_AU
-  EN_BB
-  EN_BE
-  EN_BI
-  EN_BM
-  EN_BS
-  EN_BW
-  EN_BZ
-  EN_CA
-  EN_CC
-  EN_CH
-  EN_CK
-  EN_CM
-  EN_CX
-  EN_CY
-  EN_DE
-  EN_DG
-  EN_DK
-  EN_DM
-  EN_ER
-  EN_FI
-  EN_FJ
-  EN_FK
-  EN_FM
-  EN_GB
-  EN_GD
-  EN_GG
-  EN_GH
-  EN_GI
-  EN_GM
-  EN_GU
-  EN_GY
-  EN_HK
-  EN_IE
-  EN_IL
-  EN_IM
-  EN_IN
-  EN_IO
-  EN_JE
-  EN_JM
-  EN_KE
-  EN_KI
-  EN_KN
-  EN_KY
-  EN_LC
-  EN_LR
-  EN_LS
-  EN_MG
-  EN_MH
-  EN_MO
-  EN_MP
-  EN_MS
-  EN_MT
-  EN_MU
-  EN_MW
-  EN_MY
-  EN_NA
-  EN_NF
-  EN_NG
-  EN_NL
-  EN_NR
-  EN_NU
-  EN_NZ
-  EN_PG
-  EN_PH
-  EN_PK
-  EN_PN
-  EN_PR
-  EN_PW
-  EN_RW
-  EN_SB
-  EN_SC
-  EN_SD
-  EN_SE
-  EN_SG
-  EN_SH
-  EN_SI
-  EN_SL
-  EN_SS
-  EN_SX
-  EN_SZ
-  EN_TC
-  EN_TK
-  EN_TO
-  EN_TT
-  EN_TV
-  EN_TZ
-  EN_UG
-  EN_UM
   EN_US
-  EN_VC
-  EN_VG
-  EN_VI
-  EN_VU
-  EN_WS
-  EN_ZA
-  EN_ZM
-  EN_ZW
-  EO
-  ES
-  ES_AR
-  ES_BO
-  ES_BR
-  ES_BZ
-  ES_CL
-  ES_CO
-  ES_CR
-  ES_CU
-  ES_DO
-  ES_EA
-  ES_EC
-  ES_ES
-  ES_GQ
-  ES_GT
-  ES_HN
-  ES_IC
-  ES_MX
-  ES_NI
-  ES_PA
-  ES_PE
-  ES_PH
-  ES_PR
-  ES_PY
-  ES_SV
-  ES_US
-  ES_UY
-  ES_VE
-  ET
-  ET_EE
-  EU
-  EU_ES
-  EWO
-  EWO_CM
-  FA
-  FA_AF
-  FA_IR
-  FF
-  FF_ADLM
-  FF_ADLM_BF
-  FF_ADLM_CM
-  FF_ADLM_GH
-  FF_ADLM_GM
-  FF_ADLM_GN
-  FF_ADLM_GW
-  FF_ADLM_LR
-  FF_ADLM_MR
-  FF_ADLM_NE
-  FF_ADLM_NG
-  FF_ADLM_SL
-  FF_ADLM_SN
-  FF_LATN
-  FF_LATN_BF
-  FF_LATN_CM
-  FF_LATN_GH
-  FF_LATN_GM
-  FF_LATN_GN
-  FF_LATN_GW
-  FF_LATN_LR
-  FF_LATN_MR
-  FF_LATN_NE
-  FF_LATN_NG
-  FF_LATN_SL
-  FF_LATN_SN
-  FI
-  FI_FI
-  FIL
-  FIL_PH
-  FO
-  FO_DK
-  FO_FO
-  FR
-  FR_BE
-  FR_BF
-  FR_BI
-  FR_BJ
-  FR_BL
-  FR_CA
-  FR_CD
-  FR_CF
-  FR_CG
-  FR_CH
-  FR_CI
-  FR_CM
-  FR_DJ
-  FR_DZ
-  FR_FR
-  FR_GA
-  FR_GF
-  FR_GN
-  FR_GP
-  FR_GQ
-  FR_HT
-  FR_KM
-  FR_LU
-  FR_MA
-  FR_MC
-  FR_MF
-  FR_MG
-  FR_ML
-  FR_MQ
-  FR_MR
-  FR_MU
-  FR_NC
-  FR_NE
-  FR_PF
-  FR_PM
-  FR_RE
-  FR_RW
-  FR_SC
-  FR_SN
-  FR_SY
-  FR_TD
-  FR_TG
-  FR_TN
-  FR_VU
-  FR_WF
-  FR_YT
-  FUR
-  FUR_IT
-  FY
-  FY_NL
-  GA
-  GA_GB
-  GA_IE
-  GD
-  GD_GB
-  GL
-  GL_ES
-  GSW
-  GSW_CH
-  GSW_FR
-  GSW_LI
-  GU
-  GU_IN
-  GUZ
-  GUZ_KE
-  GV
-  GV_IM
-  HA
-  HA_GH
-  HA_NE
-  HA_NG
-  HAW
-  HAW_US
-  HE
-  HE_IL
-  HI
-  HI_IN
-  HR
-  HR_BA
-  HR_HR
-  HSB
-  HSB_DE
-  HU
-  HU_HU
-  HY
-  HY_AM
-  IA
-  ID
-  ID_ID
-  IG
-  IG_NG
-  II
-  II_CN
-  IS
-  IS_IS
-  IT
-  IT_CH
-  IT_IT
-  IT_SM
-  IT_VA
-  JA
-  JA_JP
-  JGO
-  JGO_CM
-  JMC
-  JMC_TZ
-  JV
-  JV_ID
-  KA
-  KA_GE
-  KAB
-  KAB_DZ
-  KAM
-  KAM_KE
-  KDE
-  KDE_TZ
-  KEA
-  KEA_CV
-  KHQ
-  KHQ_ML
-  KI
-  KI_KE
-  KK
-  KK_KZ
-  KKJ
-  KKJ_CM
-  KL
-  KL_GL
-  KLN
-  KLN_KE
   KM
   KM_KH
-  KN
-  KN_IN
-  KO
-  KO_KP
-  KO_KR
-  KOK
-  KOK_IN
-  KS
-  KS_ARAB
-  KS_ARAB_IN
-  KSB
-  KSB_TZ
-  KSF
-  KSF_CM
-  KSH
-  KSH_DE
-  KU
-  KU_TR
-  KW
-  KW_GB
-  KY
-  KY_KG
-  LAG
-  LAG_TZ
-  LB
-  LB_LU
-  LG
-  LG_UG
-  LKT
-  LKT_US
-  LN
-  LN_AO
-  LN_CD
-  LN_CF
-  LN_CG
-  LO
-  LO_LA
-  LRC
-  LRC_IQ
-  LRC_IR
-  LT
-  LT_LT
-  LU
-  LU_CD
-  LUO
-  LUO_KE
-  LUY
-  LUY_KE
-  LV
-  LV_LV
-  MAI
-  MAI_IN
-  MAS
-  MAS_KE
-  MAS_TZ
-  MER
-  MER_KE
-  MFE
-  MFE_MU
-  MG
-  MG_MG
-  MGH
-  MGH_MZ
-  MGO
-  MGO_CM
-  MI
-  MI_NZ
-  MK
-  MK_MK
-  ML
-  ML_IN
-  MN
-  MN_MN
-  MNI
-  MNI_BENG
-  MNI_BENG_IN
-  MR
-  MR_IN
-  MS
-  MS_BN
-  MS_ID
-  MS_MY
-  MS_SG
-  MT
-  MT_MT
-  MUA
-  MUA_CM
-  MY
-  MY_MM
-  MZN
-  MZN_IR
-  NAQ
-  NAQ_NA
-  NB
-  NB_NO
-  NB_SJ
-  ND
-  ND_ZW
-  NDS
-  NDS_DE
-  NDS_NL
-  NE
-  NE_IN
-  NE_NP
-  NL
-  NL_AW
-  NL_BE
-  NL_BQ
-  NL_CW
-  NL_NL
-  NL_SR
-  NL_SX
-  NMG
-  NMG_CM
-  NN
-  NN_NO
-  NNH
-  NNH_CM
-  NUS
-  NUS_SS
-  NYN
-  NYN_UG
-  OM
-  OM_ET
-  OM_KE
-  OR
-  OR_IN
-  OS
-  OS_GE
-  OS_RU
-  PA
-  PA_ARAB
-  PA_ARAB_PK
-  PA_GURU
-  PA_GURU_IN
-  PCM
-  PCM_NG
-  PL
-  PL_PL
-  PRG
-  PS
-  PS_AF
-  PS_PK
-  PT
-  PT_AO
-  PT_BR
-  PT_CH
-  PT_CV
-  PT_GQ
-  PT_GW
-  PT_LU
-  PT_MO
-  PT_MZ
-  PT_PT
-  PT_ST
-  PT_TL
-  QU
-  QU_BO
-  QU_EC
-  QU_PE
-  RM
-  RM_CH
-  RN
-  RN_BI
-  RO
-  RO_MD
-  RO_RO
-  ROF
-  ROF_TZ
-  RU
-  RU_BY
-  RU_KG
-  RU_KZ
-  RU_MD
-  RU_RU
-  RU_UA
-  RW
-  RW_RW
-  RWK
-  RWK_TZ
-  SAH
-  SAH_RU
-  SAQ
-  SAQ_KE
-  SAT
-  SAT_OLCK
-  SAT_OLCK_IN
-  SBP
-  SBP_TZ
-  SD
-  SD_ARAB
-  SD_ARAB_PK
-  SD_DEVA
-  SD_DEVA_IN
-  SE
-  SE_FI
-  SE_NO
-  SE_SE
-  SEH
-  SEH_MZ
-  SES
-  SES_ML
-  SG
-  SG_CF
-  SHI
-  SHI_LATN
-  SHI_LATN_MA
-  SHI_TFNG
-  SHI_TFNG_MA
-  SI
-  SI_LK
-  SK
-  SK_SK
-  SL
-  SL_SI
-  SMN
-  SMN_FI
-  SN
-  SN_ZW
-  SO
-  SO_DJ
-  SO_ET
-  SO_KE
-  SO_SO
-  SQ
-  SQ_AL
-  SQ_MK
-  SQ_XK
-  SR
-  SR_CYRL
-  SR_CYRL_BA
-  SR_CYRL_ME
-  SR_CYRL_RS
-  SR_CYRL_XK
-  SR_LATN
-  SR_LATN_BA
-  SR_LATN_ME
-  SR_LATN_RS
-  SR_LATN_XK
-  SU
-  SU_LATN
-  SU_LATN_ID
-  SV
-  SV_AX
-  SV_FI
-  SV_SE
-  SW
-  SW_CD
-  SW_KE
-  SW_TZ
-  SW_UG
-  TA
-  TA_IN
-  TA_LK
-  TA_MY
-  TA_SG
-  TE
-  TE_IN
-  TEO
-  TEO_KE
-  TEO_UG
-  TG
-  TG_TJ
-  TH
-  TH_TH
-  TI
-  TI_ER
-  TI_ET
-  TK
-  TK_TM
-  TO
-  TO_TO
-  TR
-  TR_CY
-  TR_TR
-  TT
-  TT_RU
-  TWQ
-  TWQ_NE
-  TZM
-  TZM_MA
-  UG
-  UG_CN
-  UK
-  UK_UA
-  UR
-  UR_IN
-  UR_PK
-  UZ
-  UZ_ARAB
-  UZ_ARAB_AF
-  UZ_CYRL
-  UZ_CYRL_UZ
-  UZ_LATN
-  UZ_LATN_UZ
-  VAI
-  VAI_LATN
-  VAI_LATN_LR
-  VAI_VAII
-  VAI_VAII_LR
-  VI
-  VI_VN
-  VO
-  VUN
-  VUN_TZ
-  WAE
-  WAE_CH
-  WO
-  WO_SN
-  XH
-  XH_ZA
-  XOG
-  XOG_UG
-  YAV
-  YAV_CM
-  YI
-  YO
-  YO_BJ
-  YO_NG
-  YUE
-  YUE_HANS
-  YUE_HANS_CN
-  YUE_HANT
-  YUE_HANT_HK
-  ZGH
-  ZGH_MA
-  ZH
-  ZH_HANS
-  ZH_HANS_CN
-  ZH_HANS_HK
-  ZH_HANS_MO
-  ZH_HANS_SG
-  ZH_HANT
-  ZH_HANT_HK
-  ZH_HANT_MO
-  ZH_HANT_TW
-  ZU
-  ZU_ZA
 }
 
 type LanguageDisplay {
@@ -9201,22 +8611,47 @@ type Limits {
 
 """The manifest definition."""
 type Manifest {
+  """The identifier of the manifest for the app."""
   identifier: String!
+
+  """The version of the manifest for the app."""
   version: String!
+
+  """The name of the manifest for the app ."""
   name: String!
+
+  """Description of the app displayed in the dashboard."""
   about: String
+
+  """The array permissions required for the app."""
   permissions: [Permission!]
+
+  """App website rendered in the dashboard."""
   appUrl: String
 
   """URL to iframe with the configuration for the app."""
   configurationUrl: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use `appUrl` instead.")
+
+  """
+  Endpoint used during process of app installation, [see installing an app.](https://docs.saleor.io/docs/3.x/developer/extending/apps/installing-apps#installing-an-app)
+  """
   tokenTargetUrl: String
 
   """Description of the data privacy defined for this app."""
   dataPrivacy: String @deprecated(reason: "This field will be removed in Saleor 4.0. Use `dataPrivacyUrl` instead.")
+
+  """URL to the full privacy policy."""
   dataPrivacyUrl: String
+
+  """External URL to the app homepage."""
   homepageUrl: String
+
+  """External URL to the page where app users can find support."""
   supportUrl: String
+
+  """
+  List of extensions that will be mounted in Saleor's dashboard. For details, please [see the extension section.](https://docs.saleor.io/docs/3.x/developer/extending/apps/extending-dashboard-with-apps#key-concepts)
+  """
   extensions: [AppManifestExtension!]!
 
   """
@@ -9274,6 +8709,8 @@ Determine the mark as paid strategy for the channel.
 
     PAYMENT_FLOW - new orders marked as paid will receive a
     `Payment` object, that will cover the `order.total`.
+
+    
 """
 enum MarkAsPaidStrategyEnum {
   TRANSACTION_FLOW
@@ -9282,13 +8719,17 @@ enum MarkAsPaidStrategyEnum {
 
 """An enumeration."""
 enum MeasurementUnitsEnum {
+  MM
   CM
+  DM
   M
   KM
   FT
   YD
   INCH
+  SQ_MM
   SQ_CM
+  SQ_DM
   SQ_M
   SQ_KM
   SQ_FT
@@ -10350,7 +9791,7 @@ type Mutation {
   
   Requires one of the following permissions: MANAGE_SETTINGS.
   """
-  shopFetchTaxRates: ShopFetchTaxRates @deprecated(reason: "\\n\\nDEPRECATED: this mutation will be removed in Saleor 4.0.")
+  shopFetchTaxRates: ShopFetchTaxRates @deprecated(reason: "\n\nDEPRECATED: this mutation will be removed in Saleor 4.0.")
 
   """
   Creates/updates translations for shop settings. 
@@ -10383,7 +9824,7 @@ type Mutation {
   orderSettingsUpdate(
     """Fields required to update shop order settings."""
     input: OrderSettingsUpdateInput!
-  ): OrderSettingsUpdate @deprecated(reason: "\\n\\nDEPRECATED: this mutation will be removed in Saleor 4.0. Use `channelUpdate` mutation instead.")
+  ): OrderSettingsUpdate @deprecated(reason: "\n\nDEPRECATED: this mutation will be removed in Saleor 4.0. Use `channelUpdate` mutation instead.")
 
   """
   Update gift card settings. 
@@ -11766,7 +11207,9 @@ type Mutation {
   ): DraftOrderUpdate
 
   """
-  Adds note to the order. 
+  Adds note to the order.
+  
+  DEPRECATED: this mutation will be removed in Saleor 4.0. 
   
   Requires one of the following permissions: MANAGE_ORDERS.
   """
@@ -11776,7 +11219,7 @@ type Mutation {
 
     """Fields required to create a note for the order."""
     input: OrderAddNoteInput!
-  ): OrderAddNote
+  ): OrderAddNote @deprecated(reason: "This field will be removed in Saleor 4.0. Use `orderNoteAdd` instead.")
 
   """
   Cancel an order. 
@@ -12022,6 +11465,40 @@ type Mutation {
     """ID of a order line to remove its discount"""
     orderLineId: ID!
   ): OrderLineDiscountRemove
+
+  """
+  Adds note to the order.
+  
+  Added in Saleor 3.15.
+  
+  Note: this API is currently in Feature Preview and can be subject to changes at later point. 
+  
+  Requires one of the following permissions: MANAGE_ORDERS.
+  """
+  orderNoteAdd(
+    """ID of the order to add a note for."""
+    order: ID!
+
+    """Fields required to create a note for the order."""
+    input: OrderNoteInput!
+  ): OrderNoteAdd
+
+  """
+  Updates note of an order.
+  
+  Added in Saleor 3.15.
+  
+  Note: this API is currently in Feature Preview and can be subject to changes at later point. 
+  
+  Requires one of the following permissions: MANAGE_ORDERS.
+  """
+  orderNoteUpdate(
+    """ID of the note."""
+    note: ID!
+
+    """Fields required to create a note for the order."""
+    input: OrderNoteInput!
+  ): OrderNoteUpdate
 
   """
   Mark order as manually paid. 
@@ -13628,7 +13105,10 @@ type Mutation {
   
   Requires one of the following permissions: MANAGE_APPS.
   """
-  appFetchManifest(manifestUrl: String!): AppFetchManifest
+  appFetchManifest(
+    """URL to app's manifest in JSON format."""
+    manifestUrl: String!
+  ): AppFetchManifest
 
   """
   Activate the app. 
@@ -13782,6 +13262,9 @@ type Mutation {
   Requires one of the following permissions: AUTHENTICATED_USER.
   """
   passwordChange(
+    """ID of a customer to change the password for."""
+    customerId: ID
+
     """New user password."""
     newPassword: String!
 
@@ -14259,6 +13742,10 @@ type Order implements Node & ObjectWithMetadata {
   User who placed the order. This field is set only for orders placed by authenticated users. Can be fetched for orders created in Saleor 3.2 and later, for other orders requires one of the following permissions: MANAGE_USERS, MANAGE_ORDERS, OWNER.
   """
   user: User
+
+  """
+  Google Analytics tracking client ID. This field will be removed in Saleor 4.0.
+  """
   trackingClientId: String!
 
   """
@@ -14419,7 +13906,7 @@ type Order implements Node & ObjectWithMetadata {
   """Amount authorized for the order."""
   totalAuthorized: Money!
 
-  """Amount captured for the order."""
+  """Amount captured for the order. """
   totalCaptured: Money! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `totalCharged` instead.")
 
   """
@@ -14603,7 +14090,9 @@ enum OrderAction {
 }
 
 """
-Adds note to the order. 
+Adds note to the order.
+
+DEPRECATED: this mutation will be removed in Saleor 4.0. 
 
 Requires one of the following permissions: MANAGE_ORDERS.
 """
@@ -14618,7 +14107,11 @@ type OrderAddNote {
 }
 
 input OrderAddNoteInput {
-  """Note message."""
+  """
+  Note message.
+  
+  DEPRECATED: this field will be removed in Saleor 4.0.
+  """
   message: String!
 }
 
@@ -14637,6 +14130,7 @@ Determine a current authorize status for order.
     `order.total`-`order.totalGrantedRefund`
     FULL - the funds that are authorized and charged fully cover the
     `order.total`-`order.totalGrantedRefund`
+    
 """
 enum OrderAuthorizeStatusEnum {
   NONE
@@ -14784,9 +14278,6 @@ input OrderBulkCreateInput {
 
   """Customer associated with the order."""
   user: OrderBulkCreateUserInput!
-
-  """Tracking ID of the customer."""
-  trackingClientId: String
 
   """Billing address of the customer."""
   billingAddress: AddressInput!
@@ -15060,6 +14551,7 @@ Determine the current charge status for the order.
     `order.total`-`order.totalGrantedRefund`
     OVERCHARGED - the charged funds are bigger than the
     `order.total`-`order.totalGrantedRefund`
+    
 """
 enum OrderChargeStatusEnum {
   NONE
@@ -15412,6 +14904,15 @@ type OrderEvent implements Node {
   """The order which is related to this order."""
   relatedOrder: Order
 
+  """
+  The order event which is related to this event.
+  
+  Added in Saleor 3.15.
+  
+  Note: this API is currently in Feature Preview and can be subject to changes at later point.
+  """
+  related: OrderEvent
+
   """The discount applied to the order."""
   discount: OrderEventDiscountObject
 
@@ -15489,7 +14990,7 @@ enum OrderEventsEmailsEnum {
   DIGITAL_LINKS
 }
 
-"""The different order event types."""
+"""The different order event types. """
 enum OrderEventsEnum {
   DRAFT_CREATED
   DRAFT_CREATED_FROM_REPLACE
@@ -15548,6 +15049,7 @@ enum OrderEventsEnum {
   FULFILLMENT_AWAITS_APPROVAL
   TRACKING_UPDATED
   NOTE_ADDED
+  NOTE_UPDATED
   OTHER
 }
 
@@ -15946,7 +15448,7 @@ type OrderLine implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): Image
 
   """Price of the single item in the order line."""
@@ -16159,6 +15661,86 @@ type OrderMetadataUpdated implements Event {
 
   """The order the event relates to."""
   order: Order
+}
+
+"""
+Adds note to the order.
+
+Added in Saleor 3.15.
+
+Note: this API is currently in Feature Preview and can be subject to changes at later point. 
+
+Requires one of the following permissions: MANAGE_ORDERS.
+"""
+type OrderNoteAdd {
+  """Order with the note added."""
+  order: Order
+
+  """Order note created."""
+  event: OrderEvent
+  errors: [OrderNoteAddError!]!
+}
+
+type OrderNoteAddError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: OrderNoteAddErrorCode
+}
+
+"""An enumeration."""
+enum OrderNoteAddErrorCode {
+  GRAPHQL_ERROR
+  REQUIRED
+}
+
+input OrderNoteInput {
+  """Note message."""
+  message: String!
+}
+
+"""
+Updates note of an order.
+
+Added in Saleor 3.15.
+
+Note: this API is currently in Feature Preview and can be subject to changes at later point. 
+
+Requires one of the following permissions: MANAGE_ORDERS.
+"""
+type OrderNoteUpdate {
+  """Order with the note updated."""
+  order: Order
+
+  """Order note updated."""
+  event: OrderEvent
+  errors: [OrderNoteUpdateError!]!
+}
+
+type OrderNoteUpdateError {
+  """
+  Name of a field that caused the error. A value of `null` indicates that the error isn't associated with a particular field.
+  """
+  field: String
+
+  """The error message."""
+  message: String
+
+  """The error code."""
+  code: OrderNoteUpdateErrorCode
+}
+
+"""An enumeration."""
+enum OrderNoteUpdateErrorCode {
+  GRAPHQL_ERROR
+  NOT_FOUND
+  REQUIRED
 }
 
 union OrderOrCheckout = Checkout | Order
@@ -17859,7 +17441,7 @@ input PaymentInput {
   
   Added in Saleor 3.1.
   """
-  storePaymentMethod: StorePaymentMethodEnum = NONE
+  storePaymentMethod: StorePaymentMethodEnum
 
   """
   User public metadata.
@@ -18542,7 +18124,7 @@ type Product implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): Image
 
   """
@@ -18555,7 +18137,9 @@ type Product implements Node & ObjectWithMetadata {
     address: AddressInput
   ): ProductPricingInfo
 
-  """Whether the product is in stock and visible or not."""
+  """
+  Whether the product is in stock, set as available for purchase in the given channel, and published.
+  """
   isAvailable(
     """
     Destination address used to find warehouses where stock availability for this product is checked. If address is empty, uses `Shop.companyAddress` or fallbacks to server's `settings.DEFAULT_COUNTRY` configuration.
@@ -18646,7 +18230,9 @@ type Product implements Node & ObjectWithMetadata {
   """Date when product is available for purchase."""
   availableForPurchaseAt: DateTime
 
-  """Whether the product is available for purchase."""
+  """
+  Refers to a state that can be set by admins to control whether a product is available for purchase in storefronts. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased.
+  """
   isAvailableForPurchase: Boolean
 
   """
@@ -18929,7 +18515,9 @@ type ProductChannelListing implements Node {
   """
   margin: Margin
 
-  """Whether the product is available for purchase."""
+  """
+  Refers to a state that can be set by admins to control whether a product is available for purchase in storefronts in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased.
+  """
   isAvailableForPurchase: Boolean
 
   """
@@ -18969,7 +18557,9 @@ input ProductChannelListingAddInput {
   """
   visibleInListings: Boolean
 
-  """Determine if product should be available for purchase."""
+  """
+  Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased.
+  """
   isAvailableForPurchase: Boolean
 
   """
@@ -19008,7 +18598,9 @@ input ProductChannelListingCreateInput {
   """
   visibleInListings: Boolean
 
-  """Determine if product should be available for purchase."""
+  """
+  Determines if product should be available for purchase in this channel. This does not guarantee the availability of stock. When set to `False`, this product is still visible to customers, but it cannot be purchased.
+  """
   isAvailableForPurchase: Boolean
 
   """
@@ -19377,7 +18969,7 @@ type ProductImage {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): String!
 }
 
@@ -19530,7 +19122,7 @@ type ProductMedia implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): String!
 
   """
@@ -21273,6 +20865,17 @@ type ProductVariantUpdated implements Event {
   ): ProductVariant
 }
 
+input ProductVariantWhereInput {
+  metadata: [MetadataFilter!]
+  ids: [ID!]
+
+  """List of conditions that must be met."""
+  AND: [ProductVariantWhereInput!]
+
+  """A list of conditions of which at least one must be met."""
+  OR: [ProductVariantWhereInput!]
+}
+
 input ProductWhereInput {
   metadata: [MetadataFilter!]
   ids: [ID!]
@@ -21563,7 +21166,9 @@ type Query {
   ): TaxCountryConfiguration
 
   """
-  \n\nRequires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
+  
+  
+  Requires one of the following permissions: AUTHENTICATED_STAFF_USER, AUTHENTICATED_APP.
   """
   taxCountryConfigurations: [TaxCountryConfiguration!]
 
@@ -21699,6 +21304,15 @@ type Query {
     """Filtering options for categories."""
     filter: CategoryFilterInput
 
+    """
+    Where filtering options.
+    
+    Added in Saleor 3.14.
+    
+    Note: this API is currently in Feature Preview and can be subject to changes at later point.
+    """
+    where: CategoryWhereInput
+
     """Sort categories."""
     sortBy: CategorySortingInput
 
@@ -21751,6 +21365,15 @@ type Query {
   collections(
     """Filtering options for collections."""
     filter: CollectionFilterInput
+
+    """
+    Where filtering options.
+    
+    Added in Saleor 3.14.
+    
+    Note: this API is currently in Feature Preview and can be subject to changes at later point.
+    """
+    where: CollectionWhereInput
 
     """Sort collections."""
     sortBy: CollectionSortingInput
@@ -21906,6 +21529,15 @@ type Query {
 
     """Filtering options for product variant."""
     filter: ProductVariantFilterInput
+
+    """
+    Where filtering options.
+    
+    Added in Saleor 3.14.
+    
+    Note: this API is currently in Feature Preview and can be subject to changes at later point.
+    """
+    where: ProductVariantWhereInput
 
     """Sort products variants."""
     sortBy: ProductVariantSortingInput
@@ -22821,6 +22453,31 @@ type Query {
     filter: CustomerFilterInput
 
     """Sort customers."""
+    sortBy: UserSortingInput
+
+    """Return the elements in the list that come before the specified cursor."""
+    before: String
+
+    """Return the elements in the list that come after the specified cursor."""
+    after: String
+
+    """
+    Retrieve the first n elements from the list. Note that the system only allows fetching a maximum of 100 objects in a single query.
+    """
+    first: Int
+
+    """
+    Retrieve the last n elements from the list. Note that the system only allows fetching a maximum of 100 objects in a single query.
+    """
+    last: Int
+  ): UserCountableConnection
+
+  """List of the shop's stores."""
+  stores(
+    """Filtering options for stores."""
+    filter: CustomerFilterInput
+
+    """Sort stores."""
     sortBy: UserSortingInput
 
     """Return the elements in the list that come before the specified cursor."""
@@ -25043,6 +24700,7 @@ enum StaffMemberStatus {
 Represents a recipient of email notifications send by Saleor, such as notifications about new orders. Notifications can be assigned to staff users or arbitrary email addresses.
 """
 type StaffNotificationRecipient implements Node {
+  """The ID of the staff notification recipient."""
   id: ID!
 
   """Returns a user subscribed to email notifications."""
@@ -25359,6 +25017,7 @@ Determine how stocks should be updated, while processing an order.
     SKIP - stocks are not checked and not updated.
     UPDATE - only do update, if there is enough stock.
     FORCE - force update, if there is not enough stock.
+    
 """
 enum StockUpdatePolicyEnum {
   SKIP
@@ -26196,6 +25855,7 @@ Represents possible actions on payment transaction.
     VOID - Represents a void action. This field will be removed
     in Saleor 3.14 (Preview Feature). Use `CANCEL` instead.
     CANCEL - Represents a cancel action. Added in Saleor 3.12.
+    
 """
 enum TransactionActionEnum {
   CHARGE
@@ -26571,6 +26231,7 @@ Represents possible event types.
     CANCEL_FAILURE - represents failure cancel.
     CANCEL_REQUEST - represents cancel request.
     INFO - represents info event.
+    
 """
 enum TransactionEventTypeEnum {
   AUTHORIZATION_SUCCESS
@@ -26598,6 +26259,7 @@ Determine the transaction flow strategy.
 
     AUTHORIZATION - the processed transaction should be only authorized
     CHARGE - the processed transaction should be charged.
+    
 """
 enum TransactionFlowStrategyEnum {
   AUTHORIZATION
@@ -27037,6 +26699,7 @@ Represents a status of payment transaction.
     SUCCESS - Represents a sucess action.
     FAILURE - Represents a failure action.
     PENDING - Represents a pending action.
+    
 """
 enum TransactionStatus {
   PENDING
@@ -27344,6 +27007,7 @@ enum UploadErrorCode {
 
 """Represents user data."""
 type User implements Node & ObjectWithMetadata {
+  """The ID of the user."""
   id: ID!
 
   """List of private metadata items. Requires staff permissions to access."""
@@ -27391,10 +27055,20 @@ type User implements Node & ObjectWithMetadata {
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
   metafields(keys: [String!]): Metadata
+
+  """The email address of the user."""
   email: String!
+
+  """The given name of the address."""
   firstName: String!
+
+  """The family name of the address."""
   lastName: String!
+
+  """Determine if the user is a staff admin."""
   isStaff: Boolean!
+
+  """Determine if the user is active."""
   isActive: Boolean!
 
   """List of all user's addresses."""
@@ -27514,6 +27188,8 @@ type User implements Node & ObjectWithMetadata {
   Note: this API is currently in Feature Preview and can be subject to changes at later point.
   """
   restrictedAccessToChannels: Boolean!
+
+  """The avatar of the user."""
   avatar(
     """
     Desired longest side the image in pixels. Defaults to 4096. Images are never cropped. Pass 0 to retrieve the original size (not recommended).
@@ -27525,7 +27201,7 @@ type User implements Node & ObjectWithMetadata {
     
     Added in Saleor 3.6.
     """
-    format: ThumbnailFormatEnum = ORIGINAL
+    format: ThumbnailFormatEnum
   ): Image
 
   """
@@ -27543,7 +27219,11 @@ type User implements Node & ObjectWithMetadata {
 
   """User language code."""
   languageCode: LanguageCodeEnum!
+
+  """The default shipping address of the user."""
   defaultShippingAddress: Address
+
+  """The default billing address of the user."""
   defaultBillingAddress: Address
 
   """
@@ -27552,8 +27232,14 @@ type User implements Node & ObjectWithMetadata {
   Added in Saleor 3.10.
   """
   externalReference: String
+
+  """The date when the user last time log in to the system."""
   lastLogin: DateTime
+
+  """The data when the user create account."""
   dateJoined: DateTime!
+
+  """The data when the user last update the account information."""
   updatedAt: DateTime!
 }
 
@@ -28746,7 +28432,7 @@ type WarehouseUpdated implements Event {
 """Webhook."""
 type Webhook implements Node {
   id: ID!
-  name: String!
+  name: String
 
   """List of webhook events."""
   events: [WebhookEvent!]! @deprecated(reason: "This field will be removed in Saleor 4.0. Use `asyncEvents` or `syncEvents` instead.")

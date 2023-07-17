@@ -12,17 +12,24 @@ import useNavigator from "@dashboard/hooks/useNavigator";
 import useNotifier from "@dashboard/hooks/useNotifier";
 import { commonMessages } from "@dashboard/intl";
 import { extractMutationErrors, getStringOrPlaceholder } from "@dashboard/misc";
+import { useProfileOperations } from "@dashboard/staff/hooks";
 import createMetadataUpdateHandler from "@dashboard/utils/handlers/metadataUpdateHandler";
 import { DialogContentText } from "@material-ui/core";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 
+import CustomerPasswordResetDialog from "../components/CustomerDetails/CustomerPasswordResetDialog";
 import CustomerDetailsPage, {
   CustomerDetailsPageFormData,
 } from "../components/CustomerDetailsPage";
 import { useCustomerDetails } from "../hooks/useCustomerDetails";
 import { CustomerDetailsProvider } from "../providers/CustomerDetailsProvider";
-import { customerListUrl, customerUrl, CustomerUrlQueryParams } from "../urls";
+import {
+  customerChangePasswordUrl,
+  customerListUrl,
+  customerUrl,
+  CustomerUrlQueryParams,
+} from "../urls";
 
 interface CustomerDetailsViewProps {
   id: string;
@@ -40,6 +47,24 @@ const CustomerDetailsViewInner: React.FC<CustomerDetailsViewProps> = ({
   const customerDetails = useCustomerDetails();
   const user = customerDetails?.customer?.user;
   const customerDetailsLoading = customerDetails?.loading;
+
+  const closeModal = () =>
+    navigate(
+      customerChangePasswordUrl(id, {
+        ...params,
+        action: undefined,
+      }),
+    );
+
+  const refetch = () => {
+    // @ts-strict-ignore
+  };
+
+  const { changePassword, changePasswordOpts } = useProfileOperations({
+    closeModal,
+    id,
+    refetch,
+  });
 
   const [removeCustomer, removeCustomerOpts] = useRemoveCustomerMutation({
     onCompleted: data => {
@@ -148,6 +173,17 @@ const CustomerDetailsViewInner: React.FC<CustomerDetailsViewProps> = ({
           />
         </DialogContentText>
       </ActionDialog>
+      <CustomerPasswordResetDialog
+        confirmButtonState={changePasswordOpts.status}
+        errors={changePasswordOpts?.data?.passwordChange?.errors || []}
+        open={params.action === "change-password"}
+        onClose={closeModal}
+        onSubmit={data =>
+          changePassword({
+            variables: { ...data, customerId: id },
+          })
+        }
+      />
     </>
   );
 };

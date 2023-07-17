@@ -15737,8 +15737,12 @@ export type UserAvatarDeleteMutationHookResult = ReturnType<typeof useUserAvatar
 export type UserAvatarDeleteMutationResult = Apollo.MutationResult<Types.UserAvatarDeleteMutation>;
 export type UserAvatarDeleteMutationOptions = Apollo.BaseMutationOptions<Types.UserAvatarDeleteMutation, Types.UserAvatarDeleteMutationVariables>;
 export const ChangeUserPasswordDocument = gql`
-    mutation ChangeUserPassword($newPassword: String!, $oldPassword: String!) {
-  passwordChange(newPassword: $newPassword, oldPassword: $oldPassword) {
+    mutation ChangeUserPassword($newPassword: String!, $oldPassword: String!, $customerId: ID) {
+  passwordChange(
+    newPassword: $newPassword
+    oldPassword: $oldPassword
+    customerId: $customerId
+  ) {
     errors {
       ...AccountError
     }
@@ -15762,6 +15766,7 @@ export type ChangeUserPasswordMutationFn = Apollo.MutationFunction<Types.ChangeU
  *   variables: {
  *      newPassword: // value for 'newPassword'
  *      oldPassword: // value for 'oldPassword'
+ *      customerId: // value for 'customerId'
  *   },
  * });
  */
