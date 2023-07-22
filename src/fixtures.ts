@@ -10,6 +10,7 @@ import { PaginatorContextValues } from "./hooks/usePaginator";
 import {
   FetchMoreProps,
   FilterPageProps,
+  FilterPresetsProps,
   ListActions,
   SearchPageProps,
   SortPage,
@@ -303,6 +304,17 @@ export const tabPageProps: TabPageProps = {
   onTabDelete: () => undefined,
   onTabSave: () => undefined,
   tabs: ["Tab X"],
+};
+
+export const filterPresetsProps: FilterPresetsProps = {
+  selectedFilterPreset: 0,
+  onFilterPresetsAll: () => undefined,
+  onFilterPresetChange: () => undefined,
+  onFilterPresetDelete: () => undefined,
+  onFilterPresetPresetSave: () => undefined,
+  onFilterPresetUpdate: () => undefined,
+  filterPresets: ["Tab X"],
+  hasPresetsChanged: () => false,
 };
 
 export const paginatorContextValues: PaginatorContextValues = {

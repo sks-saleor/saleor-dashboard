@@ -10,10 +10,12 @@ import {
   pageListProps,
   sortPageProps,
 } from "@dashboard/fixtures";
-import { products as productListFixture } from "@dashboard/products/fixtures";
+import {
+  gridAttributesResult,
+  products as productListFixture,
+} from "@dashboard/products/fixtures";
 import { ProductListUrlSortField } from "@dashboard/products/urls";
 import { productListFilterOpts } from "@dashboard/products/views/ProductList/fixtures";
-import { attributes } from "@dashboard/productTypes/fixtures";
 import { ListViews } from "@dashboard/types";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -41,20 +43,24 @@ const props: ProductListPageProps = {
     hasPresetsChanged: false,
     onTabSave: () => undefined,
     onTabUpdate: () => undefined,
-    availableInGridAttributes: [],
+    availableColumnsAttributesOpts: [
+      () => undefined,
+      { data: undefined },
+    ] as any,
     onColumnQueryChange: () => undefined,
   },
   activeAttributeSortId: undefined,
   currencySymbol: "USD",
   defaultSettings: defaultListSettings[ListViews.PRODUCT_LIST],
   filterOpts: productListFilterOpts,
-  gridAttributes: attributes,
+  gridAttributesOpts: {
+    data: gridAttributesResult,
+  } as any,
   limits,
   onExport: () => undefined,
   products,
   selectedChannelId: "123",
   selectedProductIds: ["123"],
-  setBulkDeleteButtonRef: () => undefined,
   clearRowSelection: () => undefined,
   settings: {
     ...pageListProps.default.settings,
