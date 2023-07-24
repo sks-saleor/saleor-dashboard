@@ -40,7 +40,6 @@ export interface CustomerCreatePageSubmitData
 const initialForm: CustomerCreatePageFormData & AddressTypeInput = {
   city: "",
   cityArea: "",
-  companyName: "",
   country: "",
   countryArea: "",
   customerFirstName: "",
@@ -81,7 +80,6 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
         address: {
           city: formData.city,
           cityArea: formData.cityArea,
-          companyName: formData.companyName,
           country: formData.country,
           countryArea: formData.countryArea,
           firstName: formData.firstName,
@@ -106,7 +104,6 @@ const CustomerCreatePage: React.FC<CustomerCreatePageProps> = ({
     const areAddressInputFieldsModified = (
       [
         "city",
-        "companyName",
         "country",
         "countryArea",
         "firstName",

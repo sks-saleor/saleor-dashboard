@@ -1,7 +1,6 @@
 export interface AddressTypeInput {
   city: string;
   cityArea?: string;
-  companyName?: string;
   country: string;
   countryArea?: string;
   firstName?: string;
@@ -16,7 +15,6 @@ export interface AddressType {
   id: string;
   city: string;
   cityArea?: string;
-  companyName?: string;
   country: {
     code: string;
     country: string;

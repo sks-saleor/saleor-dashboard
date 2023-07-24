@@ -99,7 +99,7 @@ const CustomerAddresses: React.FC<CustomerAddressesProps> = ({
   });
 
   const countryChoices = shop?.countries || [];
-
+  console.log("countryChoices::4 ", countryChoices);
   return (
     <>
       <WindowTitle title={customerData?.data?.user.email} />

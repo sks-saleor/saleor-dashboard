@@ -74,7 +74,6 @@ const CustomerAddressDialog: React.FC<CustomerAddressDialogProps> = ({
   const initialForm: AddressTypeInput = {
     city: address?.city || "",
     cityArea: address?.cityArea || "",
-    companyName: address?.companyName || "",
     country: address?.country.code || "",
     countryArea: address?.countryArea || "",
     firstName: address?.firstName || "",

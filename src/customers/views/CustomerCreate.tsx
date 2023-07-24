@@ -1,9 +1,6 @@
 // @ts-strict-ignore
 import { WindowTitle } from "@dashboard/components/WindowTitle";
-import {
-  useCreateCustomerMutation,
-  useCustomerCreateDataQuery,
-} from "@dashboard/graphql";
+import { useCreateCustomerMutation } from "@dashboard/graphql";
 import useNavigator from "@dashboard/hooks/useNavigator";
 import useNotifier from "@dashboard/hooks/useNotifier";
 import React from "react";
@@ -19,10 +16,6 @@ export const CustomerCreate: React.FC = () => {
   const navigate = useNavigator();
   const notify = useNotifier();
   const intl = useIntl();
-
-  const { data, loading } = useCustomerCreateDataQuery({
-    displayLoader: true,
-  });
 
   const [createCustomer, createCustomerOpts] = useCreateCustomerMutation({
     onCompleted: data => {
@@ -55,6 +48,10 @@ export const CustomerCreate: React.FC = () => {
       }),
     );
 
+  const countries: any[] = [
+    { __typename: "CountryDisplay", code: "KH", country: "Cambodia" },
+  ];
+
   return (
     <>
       <WindowTitle
@@ -65,8 +62,8 @@ export const CustomerCreate: React.FC = () => {
         })}
       />
       <CustomerCreatePage
-        countries={maybe(() => data.shop.countries, [])}
-        disabled={loading || createCustomerOpts.loading}
+        countries={maybe(() => countries, [])}
+        disabled={createCustomerOpts.loading}
         errors={createCustomerOpts.data?.customerCreate.errors || []}
         saveButtonBar={createCustomerOpts.status}
         onSubmit={handleSubmit}
