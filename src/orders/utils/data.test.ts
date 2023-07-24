@@ -33,7 +33,7 @@ const orderBase: OrderDetailsFragment = {
     __typename: "Address",
     city: "Port Danielshire",
     cityArea: "",
-    companyName: "",
+
     country: {
       __typename: "CountryDisplay",
       code: "SE",

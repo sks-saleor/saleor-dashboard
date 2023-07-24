@@ -47,7 +47,7 @@ export interface ShippingZoneAddWarehouseDialogProps extends DialogProps {
 const initialForm: ShippingZoneAddWarehouseDialogSubmitData = {
   city: "",
   cityArea: "",
-  companyName: "",
+
   country: "",
   countryArea: "",
   firstName: "",

@@ -214,7 +214,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "East Aaronville",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "BE",
@@ -250,7 +250,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Port Danielshire",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "SE",
@@ -304,7 +304,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "South Rodneymouth",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "GR",
@@ -340,7 +340,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Jorgeview",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "UG",
@@ -376,7 +376,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "East Lauriestad",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "PW",
@@ -412,7 +412,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Kaneton",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "VA",
@@ -448,7 +448,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "New Morganshire",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "NL",
@@ -484,7 +484,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Adamsport",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "TN",
@@ -520,7 +520,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Thomasburgh",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "DJ",
@@ -556,7 +556,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Lake Walter",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "MK",
@@ -592,7 +592,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "West Patriciastad",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "SB",
@@ -628,7 +628,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Lake Kevinchester",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "CL",
@@ -664,7 +664,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "New Morganshire",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "NL",
@@ -700,7 +700,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Gabrielchester",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "SN",
@@ -736,7 +736,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "East Steven",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "CG",
@@ -772,7 +772,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "East Daniel",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "NA",
@@ -808,7 +808,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Lake Margaret",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "CO",
@@ -844,7 +844,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Dorothyberg",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "BJ",
@@ -880,7 +880,7 @@ export const orders: RelayToFlat<OrderListQuery["orders"]> = [
       __typename: "Address",
       city: "Gregorymouth",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "CV",
@@ -965,7 +965,7 @@ export const order = (placeholder: string): OrderDetailsFragment => ({
     __typename: "Address",
     city: "West Patriciastad",
     cityArea: "",
-    companyName: "",
+
     country: {
       __typename: "CountryDisplay",
       code: "SB",
@@ -1707,7 +1707,7 @@ export const order = (placeholder: string): OrderDetailsFragment => ({
     __typename: "Address",
     city: "West Patriciastad",
     cityArea: "",
-    companyName: "",
+
     country: {
       __typename: "CountryDisplay",
       code: "SB",

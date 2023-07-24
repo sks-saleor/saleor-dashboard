@@ -520,7 +520,7 @@ export const address = {
   __typename: "Address" as "Address",
   city: "Port Danielshire",
   cityArea: "",
-  companyName: "",
+
   country: {
     __typename: "CountryDisplay" as "CountryDisplay",
     code: "UA",

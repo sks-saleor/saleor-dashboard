@@ -956,7 +956,7 @@ export const customer: CustomerDetailsQuery["user"] &
       __typename: "Address",
       city: "Port Danielshire",
       cityArea: "",
-      companyName: "",
+
       country: {
         __typename: "CountryDisplay",
         code: "SE",
@@ -996,7 +996,7 @@ export const customer: CustomerDetailsQuery["user"] &
     __typename: "Address",
     city: "Port Danielshire",
     cityArea: "",
-    companyName: "",
+
     country: {
       __typename: "CountryDisplay",
       code: "SE",
@@ -1015,7 +1015,7 @@ export const customer: CustomerDetailsQuery["user"] &
     __typename: "Address",
     city: "Port Danielshire",
     cityArea: "",
-    companyName: "",
+
     country: {
       __typename: "CountryDisplay",
       code: "SE",
