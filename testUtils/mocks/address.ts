@@ -43,7 +43,6 @@ export const addressMocks: MockedResponse[] = [
             "streetAddress2",
             "streetAddress1",
             "postalCode",
-            "companyName",
           ],
         },
       },

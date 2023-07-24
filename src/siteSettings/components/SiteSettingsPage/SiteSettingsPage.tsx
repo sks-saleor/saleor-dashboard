@@ -26,7 +26,7 @@ import { messages } from "./messages";
 
 export interface SiteSettingsPageAddressFormData {
   city: string;
-  companyName: string;
+
   country: string;
   countryArea: string;
   phone: string;
@@ -84,7 +84,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
 
   const initialFormAddress: SiteSettingsPageAddressFormData = {
     city: shop?.companyAddress?.city || "",
-    companyName: shop?.companyAddress?.companyName || "",
+
     country: shop?.companyAddress?.country.code || "",
     countryArea: shop?.companyAddress?.countryArea || "",
     phone: shop?.companyAddress?.phone || "",

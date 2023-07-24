@@ -330,7 +330,7 @@ export const AddressFragmentDoc = gql`
     fragment Address on Address {
   city
   cityArea
-  companyName
+  
   country {
     __typename
     code

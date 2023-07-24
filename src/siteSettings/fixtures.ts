@@ -6,7 +6,7 @@ export const shop: SiteSettingsQuery["shop"] = {
     __typename: "Address",
     city: "Kenstad",
     cityArea: "Alabama",
-    companyName: "Saleor e-commerce",
+
     country: {
       __typename: "CountryDisplay",
       code: "UA",

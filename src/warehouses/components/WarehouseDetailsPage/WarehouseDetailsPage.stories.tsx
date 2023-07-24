@@ -36,7 +36,7 @@ export const FormErrors = () => (
         "name",
         "city",
         "cityArea",
-        "companyName",
+
         "country",
         "countryArea",
         "phone",

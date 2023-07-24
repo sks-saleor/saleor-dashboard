@@ -13,7 +13,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Thompsontown",
       cityArea: "Rhode Island",
-      companyName: null,
+
       country: {
         code: "SW",
         country: "Swaziland",
@@ -30,7 +30,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "West Bret",
       cityArea: "North Dakota",
-      companyName: null,
+
       country: {
         code: "SD",
         country: "Sudan",
@@ -55,7 +55,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Lake Adela",
       cityArea: "Maryland",
-      companyName: "Kemmer Group",
+
       country: {
         code: "KE",
         country: "Kenya",
@@ -72,7 +72,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "East Brandttown",
       cityArea: "Missouri",
-      companyName: null,
+
       country: {
         code: "SO",
         country: "Somalia",
@@ -97,7 +97,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "East Raymond",
       cityArea: "Delaware",
-      companyName: null,
+
       country: {
         code: "SM",
         country: "San Marino",
@@ -114,7 +114,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "East Raymond",
       cityArea: "Delaware",
-      companyName: null,
+
       country: {
         code: "SM",
         country: "San Marino",
@@ -139,7 +139,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Torphyton",
       cityArea: "Iowa",
-      companyName: null,
+
       country: {
         code: "CD",
         country: "Chad",
@@ -156,7 +156,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Torphyton",
       cityArea: "Iowa",
-      companyName: null,
+
       country: {
         code: "CD",
         country: "Chad",
@@ -181,7 +181,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Port Savanahfort",
       cityArea: "Nebraska",
-      companyName: null,
+
       country: {
         code: "GD",
         country: "Greenland",
@@ -198,7 +198,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "East Fletcher",
       cityArea: "New Hampshire",
-      companyName: null,
+
       country: {
         code: "KR",
         country: "Kyrgyz Republic",
@@ -223,7 +223,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Reykjavik",
       cityArea: "Höfuðborgarsvæði",
-      companyName: null,
+
       country: {
         code: "IS",
         country: "Iceland",
@@ -240,7 +240,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "North Tanyafurt",
       cityArea: "Wyoming",
-      companyName: null,
+
       country: {
         code: "RW",
         country: "Rwanda",
@@ -265,7 +265,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Labadiechester",
       cityArea: "Iowa",
-      companyName: null,
+
       country: {
         code: "MA",
         country: "Morocco",
@@ -282,7 +282,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Kaylistad",
       cityArea: "Louisiana",
-      companyName: null,
+
       country: {
         code: "EG",
         country: "Equatorial Guinea",
@@ -307,7 +307,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Lydiahaven",
       cityArea: "Arkansas",
-      companyName: null,
+
       country: {
         code: "CB",
         country: "Cambodia",
@@ -324,7 +324,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Lydiahaven",
       cityArea: "Arkansas",
-      companyName: null,
+
       country: {
         code: "CB",
         country: "Cambodia",
@@ -349,7 +349,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "East Leilafurt",
       cityArea: "Arizona",
-      companyName: null,
+
       country: {
         code: "BG",
         country: "Bulgaria",
@@ -366,7 +366,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "South Hendersonbury",
       cityArea: "Nevada",
-      companyName: "Raynor Inc",
+
       country: {
         code: "TK",
         country: "Turkmenistan",
@@ -391,7 +391,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Windlerton",
       cityArea: "Texas",
-      companyName: "Heller, Bauch and Friesen",
+
       country: {
         code: "AN",
         country: "Andorra",
@@ -408,7 +408,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Windlerton",
       cityArea: "Texas",
-      companyName: "Heller, Bauch and Friesen",
+
       country: {
         code: "AN",
         country: "Andorra",
@@ -433,7 +433,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Gleichnerborough",
       cityArea: "Missouri",
-      companyName: null,
+
       country: {
         code: "DM",
         country: "Dominica",
@@ -450,7 +450,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "West Jolieland",
       cityArea: "Connecticut",
-      companyName: null,
+
       country: {
         code: "SH",
         country: "Saint Helena",
@@ -475,7 +475,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "North Sister",
       cityArea: "Ohio",
-      companyName: null,
+
       country: {
         code: "BN",
         country: "Bangladesh",
@@ -492,7 +492,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "North Sister",
       cityArea: "Ohio",
-      companyName: null,
+
       country: {
         code: "BN",
         country: "Bangladesh",
@@ -517,7 +517,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Kenstad",
       cityArea: "Alabama",
-      companyName: null,
+
       country: {
         code: "UA",
         country: "United Arab Emirates",
@@ -534,7 +534,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Kenstad",
       cityArea: "Alabama",
-      companyName: null,
+
       country: {
         code: "UA",
         country: "United Arab Emirates",
@@ -559,7 +559,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "Jamilstad",
       cityArea: "Idaho",
-      companyName: "Kilback - Crooks",
+
       country: {
         code: "UR",
         country: "Uruguay",
@@ -576,7 +576,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Jamilstad",
       cityArea: "Idaho",
-      companyName: "Kilback - Crooks",
+
       country: {
         code: "UR",
         country: "Uruguay",
@@ -643,7 +643,7 @@ export const customers = [
     defaultBillingAddress: {
       city: "West Feliciamouth",
       cityArea: "Montana",
-      companyName: null,
+
       country: {
         code: "JA",
         country: "Japan",
@@ -660,7 +660,7 @@ export const customers = [
     defaultShippingAddress: {
       city: "Larkinstad",
       cityArea: "California",
-      companyName: null,
+
       country: {
         code: "SO",
         country: "Somalia",
@@ -975,7 +975,7 @@ export const customer: CustomerDetailsQuery["user"] &
       __typename: "Address",
       city: "West Feliciamouth",
       cityArea: "Montana",
-      companyName: null,
+
       country: {
         __typename: "CountryDisplay",
         code: "JA",

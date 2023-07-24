@@ -63,7 +63,7 @@ const WarehouseDetailsPage: React.FC<WarehouseDetailsPageProps> = ({
 
   const initialForm: WarehouseDetailsPageFormData = {
     city: warehouse?.address.city ?? "",
-    companyName: warehouse?.address.companyName ?? "",
+
     country: warehouse?.address.country.code ?? "",
     isPrivate: !!warehouse?.isPrivate,
     clickAndCollectOption:
