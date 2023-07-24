@@ -55,7 +55,6 @@ export const SiteSettings: React.FC<SiteSettingsProps> = () => {
     const addressInput = areAddressInputFieldsModified(data)
       ? {
           city: data.city,
-          companyName: data.companyName,
           country: findInEnum(data.country, CountryCode),
           countryArea: data.countryArea,
           phone: data.phone,
@@ -63,9 +62,7 @@ export const SiteSettings: React.FC<SiteSettingsProps> = () => {
           streetAddress1: data.streetAddress1,
           streetAddress2: data.streetAddress2,
         }
-      : {
-          companyName: data.companyName,
-        };
+      : {};
 
     return extractMutationErrors(
       updateShopSettings({

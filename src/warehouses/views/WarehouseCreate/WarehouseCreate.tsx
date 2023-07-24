@@ -43,7 +43,6 @@ const WarehouseCreate: React.FC = () => {
         variables: {
           input: {
             address: {
-              companyName: data.companyName,
               city: data.city,
               cityArea: data.cityArea,
               country: findValueInEnum(data.country, CountryCode),
