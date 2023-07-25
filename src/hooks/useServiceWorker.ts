@@ -29,7 +29,7 @@ export const useServiceWorker = (timeout: number) => {
   }, [updateAvailable]);
 
   useEffect(() => {
-    register("/sw.js", {
+    register("/dashboard/assets/sw.js", {
       registered: onRegistered,
       updated: onUpdate,
     });
