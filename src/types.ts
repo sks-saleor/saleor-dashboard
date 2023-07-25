@@ -30,6 +30,8 @@ export enum ListViews {
   DRAFT_LIST = "DRAFT_LIST",
   NAVIGATION_LIST = "NAVIGATION_LIST",
   ORDER_LIST = "ORDER_LIST",
+  ORDER_DETAILS_LIST = "ORDER_DETAILS_LIST",
+  ORDER_DRAFT_DETAILS_LIST = "ORDER_DRAFT_DETAILS_LIST",
   PAGES_LIST = "PAGES_LIST",
   PAGE_TYPES_LIST = "PAGE_TYPES_LIST",
   PLUGINS_LIST = "PLUGIN_LIST",
@@ -134,7 +136,7 @@ export interface FilterPresetsProps {
 }
 
 export interface TabPageProps {
-  currentTab: number;
+  currentTab: number | undefined;
   tabs: string[];
   onAll: () => void;
   onTabChange: (tab: number) => void;

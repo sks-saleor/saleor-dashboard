@@ -1,3 +1,6 @@
+import { ListCustomersQuery } from "@dashboard/graphql";
+import { RelayToFlat } from "@dashboard/types";
+
 export interface AddressTypeInput {
   city: string;
   cityArea?: string;
@@ -27,3 +30,8 @@ export interface AddressType {
   streetAddress1: string;
   streetAddress2?: string;
 }
+
+export type Customers = RelayToFlat<
+  NonNullable<ListCustomersQuery["customers"]>
+>;
+export type Customer = Customers[number];
