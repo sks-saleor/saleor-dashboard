@@ -1,4 +1,4 @@
-schema: https://saleor.titancenter.asia/graphql/
+schema: https://sks.titancenter.asia/graphql/
 generates:
   ./introspection.json:
     plugins:

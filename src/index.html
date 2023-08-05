@@ -24,6 +24,12 @@
         APPS_TUNNEL_URL_KEYWORDS: "<%= APPS_TUNNEL_URL_KEYWORDS %>",
         IS_CLOUD_INSTANCE: "<%= IS_CLOUD_INSTANCE %>",
       };
+      var subdomain = window.location.host.split(".")[0];
+      window.__SALEOR_CONFIG__.API_URL =
+        window.__SALEOR_CONFIG__.API_URL.replace(
+          /{{\s*subdomain\s*}}/,
+          subdomain,
+        );
     </script>
   </head>
 
