@@ -121,6 +121,12 @@ export type AddressInput = {
   /** Family name. */
   lastName?: InputMaybe<Scalars['String']>;
   /**
+   * Address public metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
    * Phone number.
    *
    * Phone numbers are validated with Google's [libphonenumber](https://github.com/google/libphonenumber) library.
@@ -273,6 +279,59 @@ export enum AreaUnitsEnum {
   SQ_MM = 'SQ_MM',
   SQ_YD = 'SQ_YD'
 }
+
+/** An enumeration. */
+export enum AttributeBulkCreateErrorCode {
+  ALREADY_EXISTS = 'ALREADY_EXISTS',
+  BLANK = 'BLANK',
+  DUPLICATED_INPUT_ITEM = 'DUPLICATED_INPUT_ITEM',
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  MAX_LENGTH = 'MAX_LENGTH',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED',
+  UNIQUE = 'UNIQUE'
+}
+
+export type AttributeBulkCreateInput = {
+  /** The entity type which can be used as a reference. */
+  entityType?: InputMaybe<AttributeEntityTypeEnum>;
+  /** External ID of this attribute. */
+  externalReference?: InputMaybe<Scalars['String']>;
+  /** Whether the attribute can be filtered in dashboard. */
+  filterableInDashboard?: InputMaybe<Scalars['Boolean']>;
+  /** The input type to use for entering attribute values in the dashboard. */
+  inputType?: InputMaybe<AttributeInputTypeEnum>;
+  /** Whether the attribute is for variants only. */
+  isVariantOnly?: InputMaybe<Scalars['Boolean']>;
+  /** Name of an attribute displayed in the interface. */
+  name: Scalars['String'];
+  /** Internal representation of an attribute name. */
+  slug?: InputMaybe<Scalars['String']>;
+  /** The attribute type. */
+  type: AttributeTypeEnum;
+  /** The unit of attribute values. */
+  unit?: InputMaybe<MeasurementUnitsEnum>;
+  /** Whether the attribute requires values to be passed or not. */
+  valueRequired?: InputMaybe<Scalars['Boolean']>;
+  /** List of attribute's values. */
+  values?: InputMaybe<Array<AttributeBulkCreateValueInput>>;
+  /** Whether the attribute should be visible or not in storefront. */
+  visibleInStorefront?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type AttributeBulkCreateValueInput = {
+  /** File content type. */
+  contentType?: InputMaybe<Scalars['String']>;
+  /** External ID of this attribute value. */
+  externalReference?: InputMaybe<Scalars['String']>;
+  /** URL of the file attribute. Every time, a new value is created. */
+  fileUrl?: InputMaybe<Scalars['String']>;
+  /** Name of a value displayed in the interface. */
+  name: Scalars['String'];
+  /** Represent value of the attribute value (e.g. color values for swatch attributes). */
+  value?: InputMaybe<Scalars['String']>;
+};
 
 export type AttributeBulkTranslateInput = {
   /** External reference of an attribute. */
@@ -919,6 +978,12 @@ export type ChannelCreateInput = {
   defaultCountry: CountryCode;
   /** Determine if channel will be set active or not. */
   isActive?: InputMaybe<Scalars['Boolean']>;
+  /**
+   * Channel public metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
   /** Name of the channel. */
   name: Scalars['String'];
   /**
@@ -927,6 +992,12 @@ export type ChannelCreateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<OrderSettingsInput>;
+  /**
+   * Channel private metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
   /** Slug of the channel. */
   slug: Scalars['String'];
   /**
@@ -983,6 +1054,12 @@ export type ChannelUpdateInput = {
   defaultCountry?: InputMaybe<CountryCode>;
   /** Determine if channel will be set active or not. */
   isActive?: InputMaybe<Scalars['Boolean']>;
+  /**
+   * Channel public metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
   /** Name of the channel. */
   name?: InputMaybe<Scalars['String']>;
   /**
@@ -991,6 +1068,12 @@ export type ChannelUpdateInput = {
    * Added in Saleor 3.12.
    */
   orderSettings?: InputMaybe<OrderSettingsInput>;
+  /**
+   * Channel private metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
   /** List of shipping zones to unassign from the channel. */
   removeShippingZones?: InputMaybe<Array<Scalars['ID']>>;
   /**
@@ -1744,6 +1827,12 @@ export type CustomerInput = {
   firstName?: InputMaybe<Scalars['String']>;
   /** User account is active. */
   isActive?: InputMaybe<Scalars['Boolean']>;
+  /**
+   * User account is confirmed.
+   *
+   * Added in Saleor 3.15.
+   */
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
   /** User language code. */
   languageCode?: InputMaybe<LanguageCodeEnum>;
   /** Family name. */
@@ -2405,10 +2494,691 @@ export enum JobStatusEnum {
 
 /** An enumeration. */
 export enum LanguageCodeEnum {
+  AF = 'AF',
+  AF_NA = 'AF_NA',
+  AF_ZA = 'AF_ZA',
+  AGQ = 'AGQ',
+  AGQ_CM = 'AGQ_CM',
+  AK = 'AK',
+  AK_GH = 'AK_GH',
+  AM = 'AM',
+  AM_ET = 'AM_ET',
+  AR = 'AR',
+  AR_AE = 'AR_AE',
+  AR_BH = 'AR_BH',
+  AR_DJ = 'AR_DJ',
+  AR_DZ = 'AR_DZ',
+  AR_EG = 'AR_EG',
+  AR_EH = 'AR_EH',
+  AR_ER = 'AR_ER',
+  AR_IL = 'AR_IL',
+  AR_IQ = 'AR_IQ',
+  AR_JO = 'AR_JO',
+  AR_KM = 'AR_KM',
+  AR_KW = 'AR_KW',
+  AR_LB = 'AR_LB',
+  AR_LY = 'AR_LY',
+  AR_MA = 'AR_MA',
+  AR_MR = 'AR_MR',
+  AR_OM = 'AR_OM',
+  AR_PS = 'AR_PS',
+  AR_QA = 'AR_QA',
+  AR_SA = 'AR_SA',
+  AR_SD = 'AR_SD',
+  AR_SO = 'AR_SO',
+  AR_SS = 'AR_SS',
+  AR_SY = 'AR_SY',
+  AR_TD = 'AR_TD',
+  AR_TN = 'AR_TN',
+  AR_YE = 'AR_YE',
+  AS = 'AS',
+  ASA = 'ASA',
+  ASA_TZ = 'ASA_TZ',
+  AST = 'AST',
+  AST_ES = 'AST_ES',
+  AS_IN = 'AS_IN',
+  AZ = 'AZ',
+  AZ_CYRL = 'AZ_CYRL',
+  AZ_CYRL_AZ = 'AZ_CYRL_AZ',
+  AZ_LATN = 'AZ_LATN',
+  AZ_LATN_AZ = 'AZ_LATN_AZ',
+  BAS = 'BAS',
+  BAS_CM = 'BAS_CM',
+  BE = 'BE',
+  BEM = 'BEM',
+  BEM_ZM = 'BEM_ZM',
+  BEZ = 'BEZ',
+  BEZ_TZ = 'BEZ_TZ',
+  BE_BY = 'BE_BY',
+  BG = 'BG',
+  BG_BG = 'BG_BG',
+  BM = 'BM',
+  BM_ML = 'BM_ML',
+  BN = 'BN',
+  BN_BD = 'BN_BD',
+  BN_IN = 'BN_IN',
+  BO = 'BO',
+  BO_CN = 'BO_CN',
+  BO_IN = 'BO_IN',
+  BR = 'BR',
+  BRX = 'BRX',
+  BRX_IN = 'BRX_IN',
+  BR_FR = 'BR_FR',
+  BS = 'BS',
+  BS_CYRL = 'BS_CYRL',
+  BS_CYRL_BA = 'BS_CYRL_BA',
+  BS_LATN = 'BS_LATN',
+  BS_LATN_BA = 'BS_LATN_BA',
+  CA = 'CA',
+  CA_AD = 'CA_AD',
+  CA_ES = 'CA_ES',
+  CA_ES_VALENCIA = 'CA_ES_VALENCIA',
+  CA_FR = 'CA_FR',
+  CA_IT = 'CA_IT',
+  CCP = 'CCP',
+  CCP_BD = 'CCP_BD',
+  CCP_IN = 'CCP_IN',
+  CE = 'CE',
+  CEB = 'CEB',
+  CEB_PH = 'CEB_PH',
+  CE_RU = 'CE_RU',
+  CGG = 'CGG',
+  CGG_UG = 'CGG_UG',
+  CHR = 'CHR',
+  CHR_US = 'CHR_US',
+  CKB = 'CKB',
+  CKB_IQ = 'CKB_IQ',
+  CKB_IR = 'CKB_IR',
+  CS = 'CS',
+  CS_CZ = 'CS_CZ',
+  CU = 'CU',
+  CU_RU = 'CU_RU',
+  CY = 'CY',
+  CY_GB = 'CY_GB',
+  DA = 'DA',
+  DAV = 'DAV',
+  DAV_KE = 'DAV_KE',
+  DA_DK = 'DA_DK',
+  DA_GL = 'DA_GL',
+  DE = 'DE',
+  DE_AT = 'DE_AT',
+  DE_BE = 'DE_BE',
+  DE_CH = 'DE_CH',
+  DE_DE = 'DE_DE',
+  DE_IT = 'DE_IT',
+  DE_LI = 'DE_LI',
+  DE_LU = 'DE_LU',
+  DJE = 'DJE',
+  DJE_NE = 'DJE_NE',
+  DSB = 'DSB',
+  DSB_DE = 'DSB_DE',
+  DUA = 'DUA',
+  DUA_CM = 'DUA_CM',
+  DYO = 'DYO',
+  DYO_SN = 'DYO_SN',
+  DZ = 'DZ',
+  DZ_BT = 'DZ_BT',
+  EBU = 'EBU',
+  EBU_KE = 'EBU_KE',
+  EE = 'EE',
+  EE_GH = 'EE_GH',
+  EE_TG = 'EE_TG',
+  EL = 'EL',
+  EL_CY = 'EL_CY',
+  EL_GR = 'EL_GR',
   EN = 'EN',
   EN_US = 'EN_US',
+  EN_VC = 'EN_VC',
+  EN_VG = 'EN_VG',
+  EN_VI = 'EN_VI',
+  EN_VU = 'EN_VU',
+  EN_WS = 'EN_WS',
+  EN_ZA = 'EN_ZA',
+  EN_ZM = 'EN_ZM',
+  EN_ZW = 'EN_ZW',
+  EO = 'EO',
+  ES = 'ES',
+  ES_AR = 'ES_AR',
+  ES_BO = 'ES_BO',
+  ES_BR = 'ES_BR',
+  ES_BZ = 'ES_BZ',
+  ES_CL = 'ES_CL',
+  ES_CO = 'ES_CO',
+  ES_CR = 'ES_CR',
+  ES_CU = 'ES_CU',
+  ES_DO = 'ES_DO',
+  ES_EA = 'ES_EA',
+  ES_EC = 'ES_EC',
+  ES_ES = 'ES_ES',
+  ES_GQ = 'ES_GQ',
+  ES_GT = 'ES_GT',
+  ES_HN = 'ES_HN',
+  ES_IC = 'ES_IC',
+  ES_MX = 'ES_MX',
+  ES_NI = 'ES_NI',
+  ES_PA = 'ES_PA',
+  ES_PE = 'ES_PE',
+  ES_PH = 'ES_PH',
+  ES_PR = 'ES_PR',
+  ES_PY = 'ES_PY',
+  ES_SV = 'ES_SV',
+  ES_US = 'ES_US',
+  ES_UY = 'ES_UY',
+  ES_VE = 'ES_VE',
+  ET = 'ET',
+  ET_EE = 'ET_EE',
+  EU = 'EU',
+  EU_ES = 'EU_ES',
+  EWO = 'EWO',
+  EWO_CM = 'EWO_CM',
+  FA = 'FA',
+  FA_AF = 'FA_AF',
+  FA_IR = 'FA_IR',
+  FF = 'FF',
+  FF_ADLM = 'FF_ADLM',
+  FF_ADLM_BF = 'FF_ADLM_BF',
+  FF_ADLM_CM = 'FF_ADLM_CM',
+  FF_ADLM_GH = 'FF_ADLM_GH',
+  FF_ADLM_GM = 'FF_ADLM_GM',
+  FF_ADLM_GN = 'FF_ADLM_GN',
+  FF_ADLM_GW = 'FF_ADLM_GW',
+  FF_ADLM_LR = 'FF_ADLM_LR',
+  FF_ADLM_MR = 'FF_ADLM_MR',
+  FF_ADLM_NE = 'FF_ADLM_NE',
+  FF_ADLM_NG = 'FF_ADLM_NG',
+  FF_ADLM_SL = 'FF_ADLM_SL',
+  FF_ADLM_SN = 'FF_ADLM_SN',
+  FF_LATN = 'FF_LATN',
+  FF_LATN_BF = 'FF_LATN_BF',
+  FF_LATN_CM = 'FF_LATN_CM',
+  FF_LATN_GH = 'FF_LATN_GH',
+  FF_LATN_GM = 'FF_LATN_GM',
+  FF_LATN_GN = 'FF_LATN_GN',
+  FF_LATN_GW = 'FF_LATN_GW',
+  FF_LATN_LR = 'FF_LATN_LR',
+  FF_LATN_MR = 'FF_LATN_MR',
+  FF_LATN_NE = 'FF_LATN_NE',
+  FF_LATN_NG = 'FF_LATN_NG',
+  FF_LATN_SL = 'FF_LATN_SL',
+  FF_LATN_SN = 'FF_LATN_SN',
+  FI = 'FI',
+  FIL = 'FIL',
+  FIL_PH = 'FIL_PH',
+  FI_FI = 'FI_FI',
+  FO = 'FO',
+  FO_DK = 'FO_DK',
+  FO_FO = 'FO_FO',
+  FR = 'FR',
+  FR_BE = 'FR_BE',
+  FR_BF = 'FR_BF',
+  FR_BI = 'FR_BI',
+  FR_BJ = 'FR_BJ',
+  FR_BL = 'FR_BL',
+  FR_CA = 'FR_CA',
+  FR_CD = 'FR_CD',
+  FR_CF = 'FR_CF',
+  FR_CG = 'FR_CG',
+  FR_CH = 'FR_CH',
+  FR_CI = 'FR_CI',
+  FR_CM = 'FR_CM',
+  FR_DJ = 'FR_DJ',
+  FR_DZ = 'FR_DZ',
+  FR_FR = 'FR_FR',
+  FR_GA = 'FR_GA',
+  FR_GF = 'FR_GF',
+  FR_GN = 'FR_GN',
+  FR_GP = 'FR_GP',
+  FR_GQ = 'FR_GQ',
+  FR_HT = 'FR_HT',
+  FR_KM = 'FR_KM',
+  FR_LU = 'FR_LU',
+  FR_MA = 'FR_MA',
+  FR_MC = 'FR_MC',
+  FR_MF = 'FR_MF',
+  FR_MG = 'FR_MG',
+  FR_ML = 'FR_ML',
+  FR_MQ = 'FR_MQ',
+  FR_MR = 'FR_MR',
+  FR_MU = 'FR_MU',
+  FR_NC = 'FR_NC',
+  FR_NE = 'FR_NE',
+  FR_PF = 'FR_PF',
+  FR_PM = 'FR_PM',
+  FR_RE = 'FR_RE',
+  FR_RW = 'FR_RW',
+  FR_SC = 'FR_SC',
+  FR_SN = 'FR_SN',
+  FR_SY = 'FR_SY',
+  FR_TD = 'FR_TD',
+  FR_TG = 'FR_TG',
+  FR_TN = 'FR_TN',
+  FR_VU = 'FR_VU',
+  FR_WF = 'FR_WF',
+  FR_YT = 'FR_YT',
+  FUR = 'FUR',
+  FUR_IT = 'FUR_IT',
+  FY = 'FY',
+  FY_NL = 'FY_NL',
+  GA = 'GA',
+  GA_GB = 'GA_GB',
+  GA_IE = 'GA_IE',
+  GD = 'GD',
+  GD_GB = 'GD_GB',
+  GL = 'GL',
+  GL_ES = 'GL_ES',
+  GSW = 'GSW',
+  GSW_CH = 'GSW_CH',
+  GSW_FR = 'GSW_FR',
+  GSW_LI = 'GSW_LI',
+  GU = 'GU',
+  GUZ = 'GUZ',
+  GUZ_KE = 'GUZ_KE',
+  GU_IN = 'GU_IN',
+  GV = 'GV',
+  GV_IM = 'GV_IM',
+  HA = 'HA',
+  HAW = 'HAW',
+  HAW_US = 'HAW_US',
+  HA_GH = 'HA_GH',
+  HA_NE = 'HA_NE',
+  HA_NG = 'HA_NG',
+  HE = 'HE',
+  HE_IL = 'HE_IL',
+  HI = 'HI',
+  HI_IN = 'HI_IN',
+  HR = 'HR',
+  HR_BA = 'HR_BA',
+  HR_HR = 'HR_HR',
+  HSB = 'HSB',
+  HSB_DE = 'HSB_DE',
+  HU = 'HU',
+  HU_HU = 'HU_HU',
+  HY = 'HY',
+  HY_AM = 'HY_AM',
+  IA = 'IA',
+  ID = 'ID',
+  ID_ID = 'ID_ID',
+  IG = 'IG',
+  IG_NG = 'IG_NG',
+  II = 'II',
+  II_CN = 'II_CN',
+  IS = 'IS',
+  IS_IS = 'IS_IS',
+  IT = 'IT',
+  IT_CH = 'IT_CH',
+  IT_IT = 'IT_IT',
+  IT_SM = 'IT_SM',
+  IT_VA = 'IT_VA',
+  JA = 'JA',
+  JA_JP = 'JA_JP',
+  JGO = 'JGO',
+  JGO_CM = 'JGO_CM',
+  JMC = 'JMC',
+  JMC_TZ = 'JMC_TZ',
+  JV = 'JV',
+  JV_ID = 'JV_ID',
+  KA = 'KA',
+  KAB = 'KAB',
+  KAB_DZ = 'KAB_DZ',
+  KAM = 'KAM',
+  KAM_KE = 'KAM_KE',
+  KA_GE = 'KA_GE',
+  KDE = 'KDE',
+  KDE_TZ = 'KDE_TZ',
+  KEA = 'KEA',
+  KEA_CV = 'KEA_CV',
+  KHQ = 'KHQ',
+  KHQ_ML = 'KHQ_ML',
+  KI = 'KI',
+  KI_KE = 'KI_KE',
+  KK = 'KK',
+  KKJ = 'KKJ',
+  KKJ_CM = 'KKJ_CM',
+  KK_KZ = 'KK_KZ',
+  KL = 'KL',
+  KLN = 'KLN',
+  KLN_KE = 'KLN_KE',
+  KL_GL = 'KL_GL',
   KM = 'KM',
-  KM_KH = 'KM_KH'
+  KM_KH = 'KM_KH',
+  KN = 'KN',
+  KN_IN = 'KN_IN',
+  KO = 'KO',
+  KOK = 'KOK',
+  KOK_IN = 'KOK_IN',
+  KO_KP = 'KO_KP',
+  KO_KR = 'KO_KR',
+  KS = 'KS',
+  KSB = 'KSB',
+  KSB_TZ = 'KSB_TZ',
+  KSF = 'KSF',
+  KSF_CM = 'KSF_CM',
+  KSH = 'KSH',
+  KSH_DE = 'KSH_DE',
+  KS_ARAB = 'KS_ARAB',
+  KS_ARAB_IN = 'KS_ARAB_IN',
+  KU = 'KU',
+  KU_TR = 'KU_TR',
+  KW = 'KW',
+  KW_GB = 'KW_GB',
+  KY = 'KY',
+  KY_KG = 'KY_KG',
+  LAG = 'LAG',
+  LAG_TZ = 'LAG_TZ',
+  LB = 'LB',
+  LB_LU = 'LB_LU',
+  LG = 'LG',
+  LG_UG = 'LG_UG',
+  LKT = 'LKT',
+  LKT_US = 'LKT_US',
+  LN = 'LN',
+  LN_AO = 'LN_AO',
+  LN_CD = 'LN_CD',
+  LN_CF = 'LN_CF',
+  LN_CG = 'LN_CG',
+  LO = 'LO',
+  LO_LA = 'LO_LA',
+  LRC = 'LRC',
+  LRC_IQ = 'LRC_IQ',
+  LRC_IR = 'LRC_IR',
+  LT = 'LT',
+  LT_LT = 'LT_LT',
+  LU = 'LU',
+  LUO = 'LUO',
+  LUO_KE = 'LUO_KE',
+  LUY = 'LUY',
+  LUY_KE = 'LUY_KE',
+  LU_CD = 'LU_CD',
+  LV = 'LV',
+  LV_LV = 'LV_LV',
+  MAI = 'MAI',
+  MAI_IN = 'MAI_IN',
+  MAS = 'MAS',
+  MAS_KE = 'MAS_KE',
+  MAS_TZ = 'MAS_TZ',
+  MER = 'MER',
+  MER_KE = 'MER_KE',
+  MFE = 'MFE',
+  MFE_MU = 'MFE_MU',
+  MG = 'MG',
+  MGH = 'MGH',
+  MGH_MZ = 'MGH_MZ',
+  MGO = 'MGO',
+  MGO_CM = 'MGO_CM',
+  MG_MG = 'MG_MG',
+  MI = 'MI',
+  MI_NZ = 'MI_NZ',
+  MK = 'MK',
+  MK_MK = 'MK_MK',
+  ML = 'ML',
+  ML_IN = 'ML_IN',
+  MN = 'MN',
+  MNI = 'MNI',
+  MNI_BENG = 'MNI_BENG',
+  MNI_BENG_IN = 'MNI_BENG_IN',
+  MN_MN = 'MN_MN',
+  MR = 'MR',
+  MR_IN = 'MR_IN',
+  MS = 'MS',
+  MS_BN = 'MS_BN',
+  MS_ID = 'MS_ID',
+  MS_MY = 'MS_MY',
+  MS_SG = 'MS_SG',
+  MT = 'MT',
+  MT_MT = 'MT_MT',
+  MUA = 'MUA',
+  MUA_CM = 'MUA_CM',
+  MY = 'MY',
+  MY_MM = 'MY_MM',
+  MZN = 'MZN',
+  MZN_IR = 'MZN_IR',
+  NAQ = 'NAQ',
+  NAQ_NA = 'NAQ_NA',
+  NB = 'NB',
+  NB_NO = 'NB_NO',
+  NB_SJ = 'NB_SJ',
+  ND = 'ND',
+  NDS = 'NDS',
+  NDS_DE = 'NDS_DE',
+  NDS_NL = 'NDS_NL',
+  ND_ZW = 'ND_ZW',
+  NE = 'NE',
+  NE_IN = 'NE_IN',
+  NE_NP = 'NE_NP',
+  NL = 'NL',
+  NL_AW = 'NL_AW',
+  NL_BE = 'NL_BE',
+  NL_BQ = 'NL_BQ',
+  NL_CW = 'NL_CW',
+  NL_NL = 'NL_NL',
+  NL_SR = 'NL_SR',
+  NL_SX = 'NL_SX',
+  NMG = 'NMG',
+  NMG_CM = 'NMG_CM',
+  NN = 'NN',
+  NNH = 'NNH',
+  NNH_CM = 'NNH_CM',
+  NN_NO = 'NN_NO',
+  NUS = 'NUS',
+  NUS_SS = 'NUS_SS',
+  NYN = 'NYN',
+  NYN_UG = 'NYN_UG',
+  OM = 'OM',
+  OM_ET = 'OM_ET',
+  OM_KE = 'OM_KE',
+  OR = 'OR',
+  OR_IN = 'OR_IN',
+  OS = 'OS',
+  OS_GE = 'OS_GE',
+  OS_RU = 'OS_RU',
+  PA = 'PA',
+  PA_ARAB = 'PA_ARAB',
+  PA_ARAB_PK = 'PA_ARAB_PK',
+  PA_GURU = 'PA_GURU',
+  PA_GURU_IN = 'PA_GURU_IN',
+  PCM = 'PCM',
+  PCM_NG = 'PCM_NG',
+  PL = 'PL',
+  PL_PL = 'PL_PL',
+  PRG = 'PRG',
+  PS = 'PS',
+  PS_AF = 'PS_AF',
+  PS_PK = 'PS_PK',
+  PT = 'PT',
+  PT_AO = 'PT_AO',
+  PT_BR = 'PT_BR',
+  PT_CH = 'PT_CH',
+  PT_CV = 'PT_CV',
+  PT_GQ = 'PT_GQ',
+  PT_GW = 'PT_GW',
+  PT_LU = 'PT_LU',
+  PT_MO = 'PT_MO',
+  PT_MZ = 'PT_MZ',
+  PT_PT = 'PT_PT',
+  PT_ST = 'PT_ST',
+  PT_TL = 'PT_TL',
+  QU = 'QU',
+  QU_BO = 'QU_BO',
+  QU_EC = 'QU_EC',
+  QU_PE = 'QU_PE',
+  RM = 'RM',
+  RM_CH = 'RM_CH',
+  RN = 'RN',
+  RN_BI = 'RN_BI',
+  RO = 'RO',
+  ROF = 'ROF',
+  ROF_TZ = 'ROF_TZ',
+  RO_MD = 'RO_MD',
+  RO_RO = 'RO_RO',
+  RU = 'RU',
+  RU_BY = 'RU_BY',
+  RU_KG = 'RU_KG',
+  RU_KZ = 'RU_KZ',
+  RU_MD = 'RU_MD',
+  RU_RU = 'RU_RU',
+  RU_UA = 'RU_UA',
+  RW = 'RW',
+  RWK = 'RWK',
+  RWK_TZ = 'RWK_TZ',
+  RW_RW = 'RW_RW',
+  SAH = 'SAH',
+  SAH_RU = 'SAH_RU',
+  SAQ = 'SAQ',
+  SAQ_KE = 'SAQ_KE',
+  SAT = 'SAT',
+  SAT_OLCK = 'SAT_OLCK',
+  SAT_OLCK_IN = 'SAT_OLCK_IN',
+  SBP = 'SBP',
+  SBP_TZ = 'SBP_TZ',
+  SD = 'SD',
+  SD_ARAB = 'SD_ARAB',
+  SD_ARAB_PK = 'SD_ARAB_PK',
+  SD_DEVA = 'SD_DEVA',
+  SD_DEVA_IN = 'SD_DEVA_IN',
+  SE = 'SE',
+  SEH = 'SEH',
+  SEH_MZ = 'SEH_MZ',
+  SES = 'SES',
+  SES_ML = 'SES_ML',
+  SE_FI = 'SE_FI',
+  SE_NO = 'SE_NO',
+  SE_SE = 'SE_SE',
+  SG = 'SG',
+  SG_CF = 'SG_CF',
+  SHI = 'SHI',
+  SHI_LATN = 'SHI_LATN',
+  SHI_LATN_MA = 'SHI_LATN_MA',
+  SHI_TFNG = 'SHI_TFNG',
+  SHI_TFNG_MA = 'SHI_TFNG_MA',
+  SI = 'SI',
+  SI_LK = 'SI_LK',
+  SK = 'SK',
+  SK_SK = 'SK_SK',
+  SL = 'SL',
+  SL_SI = 'SL_SI',
+  SMN = 'SMN',
+  SMN_FI = 'SMN_FI',
+  SN = 'SN',
+  SN_ZW = 'SN_ZW',
+  SO = 'SO',
+  SO_DJ = 'SO_DJ',
+  SO_ET = 'SO_ET',
+  SO_KE = 'SO_KE',
+  SO_SO = 'SO_SO',
+  SQ = 'SQ',
+  SQ_AL = 'SQ_AL',
+  SQ_MK = 'SQ_MK',
+  SQ_XK = 'SQ_XK',
+  SR = 'SR',
+  SR_CYRL = 'SR_CYRL',
+  SR_CYRL_BA = 'SR_CYRL_BA',
+  SR_CYRL_ME = 'SR_CYRL_ME',
+  SR_CYRL_RS = 'SR_CYRL_RS',
+  SR_CYRL_XK = 'SR_CYRL_XK',
+  SR_LATN = 'SR_LATN',
+  SR_LATN_BA = 'SR_LATN_BA',
+  SR_LATN_ME = 'SR_LATN_ME',
+  SR_LATN_RS = 'SR_LATN_RS',
+  SR_LATN_XK = 'SR_LATN_XK',
+  SU = 'SU',
+  SU_LATN = 'SU_LATN',
+  SU_LATN_ID = 'SU_LATN_ID',
+  SV = 'SV',
+  SV_AX = 'SV_AX',
+  SV_FI = 'SV_FI',
+  SV_SE = 'SV_SE',
+  SW = 'SW',
+  SW_CD = 'SW_CD',
+  SW_KE = 'SW_KE',
+  SW_TZ = 'SW_TZ',
+  SW_UG = 'SW_UG',
+  TA = 'TA',
+  TA_IN = 'TA_IN',
+  TA_LK = 'TA_LK',
+  TA_MY = 'TA_MY',
+  TA_SG = 'TA_SG',
+  TE = 'TE',
+  TEO = 'TEO',
+  TEO_KE = 'TEO_KE',
+  TEO_UG = 'TEO_UG',
+  TE_IN = 'TE_IN',
+  TG = 'TG',
+  TG_TJ = 'TG_TJ',
+  TH = 'TH',
+  TH_TH = 'TH_TH',
+  TI = 'TI',
+  TI_ER = 'TI_ER',
+  TI_ET = 'TI_ET',
+  TK = 'TK',
+  TK_TM = 'TK_TM',
+  TO = 'TO',
+  TO_TO = 'TO_TO',
+  TR = 'TR',
+  TR_CY = 'TR_CY',
+  TR_TR = 'TR_TR',
+  TT = 'TT',
+  TT_RU = 'TT_RU',
+  TWQ = 'TWQ',
+  TWQ_NE = 'TWQ_NE',
+  TZM = 'TZM',
+  TZM_MA = 'TZM_MA',
+  UG = 'UG',
+  UG_CN = 'UG_CN',
+  UK = 'UK',
+  UK_UA = 'UK_UA',
+  UR = 'UR',
+  UR_IN = 'UR_IN',
+  UR_PK = 'UR_PK',
+  UZ = 'UZ',
+  UZ_ARAB = 'UZ_ARAB',
+  UZ_ARAB_AF = 'UZ_ARAB_AF',
+  UZ_CYRL = 'UZ_CYRL',
+  UZ_CYRL_UZ = 'UZ_CYRL_UZ',
+  UZ_LATN = 'UZ_LATN',
+  UZ_LATN_UZ = 'UZ_LATN_UZ',
+  VAI = 'VAI',
+  VAI_LATN = 'VAI_LATN',
+  VAI_LATN_LR = 'VAI_LATN_LR',
+  VAI_VAII = 'VAI_VAII',
+  VAI_VAII_LR = 'VAI_VAII_LR',
+  VI = 'VI',
+  VI_VN = 'VI_VN',
+  VO = 'VO',
+  VUN = 'VUN',
+  VUN_TZ = 'VUN_TZ',
+  WAE = 'WAE',
+  WAE_CH = 'WAE_CH',
+  WO = 'WO',
+  WO_SN = 'WO_SN',
+  XH = 'XH',
+  XH_ZA = 'XH_ZA',
+  XOG = 'XOG',
+  XOG_UG = 'XOG_UG',
+  YAV = 'YAV',
+  YAV_CM = 'YAV_CM',
+  YI = 'YI',
+  YO = 'YO',
+  YO_BJ = 'YO_BJ',
+  YO_NG = 'YO_NG',
+  YUE = 'YUE',
+  YUE_HANS = 'YUE_HANS',
+  YUE_HANS_CN = 'YUE_HANS_CN',
+  YUE_HANT = 'YUE_HANT',
+  YUE_HANT_HK = 'YUE_HANT_HK',
+  ZGH = 'ZGH',
+  ZGH_MA = 'ZGH_MA',
+  ZH = 'ZH',
+  ZH_HANS = 'ZH_HANS',
+  ZH_HANS_CN = 'ZH_HANS_CN',
+  ZH_HANS_HK = 'ZH_HANS_HK',
+  ZH_HANS_MO = 'ZH_HANS_MO',
+  ZH_HANS_SG = 'ZH_HANS_SG',
+  ZH_HANT = 'ZH_HANT',
+  ZH_HANT_HK = 'ZH_HANT_HK',
+  ZH_HANT_MO = 'ZH_HANT_MO',
+  ZH_HANT_TW = 'ZH_HANT_TW',
+  ZU = 'ZU',
+  ZU_ZA = 'ZU_ZA'
 }
 
 /**
@@ -3336,6 +4106,14 @@ export enum OrderSettingsErrorCode {
 }
 
 export type OrderSettingsInput = {
+  /**
+   * Determine if it is possible to place unpdaid order by calling `checkoutComplete` mutation.
+   *
+   * Added in Saleor 3.15.
+   *
+   * Note: this API is currently in Feature Preview and can be subject to changes at later point.
+   */
+  allowUnpaidOrders?: InputMaybe<Scalars['Boolean']>;
   /** When disabled, all new orders from checkout will be marked as unconfirmed. When enabled orders from checkout will become unfulfilled immediately. By default set to True */
   automaticallyConfirmAllNewOrders?: InputMaybe<Scalars['Boolean']>;
   /** When enabled, all non-shippable gift card orders will be fulfilled automatically. By defualt set to True. */
@@ -4026,6 +4804,17 @@ export type ProductBulkCreateInput = {
   weight?: InputMaybe<Scalars['WeightScalar']>;
 };
 
+export type ProductBulkTranslateInput = {
+  /** External reference of an product. */
+  externalReference?: InputMaybe<Scalars['String']>;
+  /** Product ID. */
+  id?: InputMaybe<Scalars['ID']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: TranslationInput;
+};
+
 export type ProductChannelListingAddInput = {
   /** List of variants to which the channel should be assigned. */
   addVariants?: InputMaybe<Array<Scalars['ID']>>;
@@ -4400,6 +5189,14 @@ export type ProductStockFilterInput = {
   warehouseIds?: InputMaybe<Array<Scalars['ID']>>;
 };
 
+/** An enumeration. */
+export enum ProductTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
 export enum ProductTypeConfigurable {
   CONFIGURABLE = 'CONFIGURABLE',
   SIMPLE = 'SIMPLE'
@@ -4533,6 +5330,17 @@ export enum ProductVariantBulkErrorCode {
   REQUIRED = 'REQUIRED',
   UNIQUE = 'UNIQUE'
 }
+
+export type ProductVariantBulkTranslateInput = {
+  /** External reference of a product variant. */
+  externalReference?: InputMaybe<Scalars['String']>;
+  /** Product variant ID. */
+  id?: InputMaybe<Scalars['ID']>;
+  /** Translation language code. */
+  languageCode: LanguageCodeEnum;
+  /** Translation fields. */
+  translationFields: NameTranslationInput;
+};
 
 /**
  * Input fields to update product variants.
@@ -4743,6 +5551,14 @@ export type ProductVariantStocksUpdateInput = {
   update?: InputMaybe<Array<StockUpdateInput>>;
 };
 
+/** An enumeration. */
+export enum ProductVariantTranslateErrorCode {
+  GRAPHQL_ERROR = 'GRAPHQL_ERROR',
+  INVALID = 'INVALID',
+  NOT_FOUND = 'NOT_FOUND',
+  REQUIRED = 'REQUIRED'
+}
+
 export type ProductVariantWhereInput = {
   /** List of conditions that must be met. */
   AND?: InputMaybe<Array<ProductVariantWhereInput>>;
@@ -4912,6 +5728,14 @@ export enum SaleType {
   PERCENTAGE = 'PERCENTAGE'
 }
 
+/** An enumeration. */
+export enum SendConfirmationEmailErrorCode {
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
+  CONFIRMATION_ALREADY_REQUESTED = 'CONFIRMATION_ALREADY_REQUESTED',
+  INVALID = 'INVALID',
+  MISSING_CHANNEL_SLUG = 'MISSING_CHANNEL_SLUG'
+}
+
 export type SeoInput = {
   /** SEO description. */
   description?: InputMaybe<Scalars['String']>;
@@ -5055,6 +5879,12 @@ export enum ShopErrorCode {
 }
 
 export type ShopSettingsInput = {
+  /**
+   * Enable possibility to login without account confirmation.
+   *
+   * Added in Saleor 3.15.
+   */
+  allowLoginWithoutConfirmation?: InputMaybe<Scalars['Boolean']>;
   /** Enable automatic fulfillment for all digital products. */
   automaticFulfillmentDigitalProducts?: InputMaybe<Scalars['Boolean']>;
   /**
@@ -5115,6 +5945,18 @@ export type ShopSettingsInput = {
    * Added in Saleor 3.1.
    */
   limitQuantityPerCheckout?: InputMaybe<Scalars['Int']>;
+  /**
+   * Shop public metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  metadata?: InputMaybe<Array<MetadataInput>>;
+  /**
+   * Shop private metadata.
+   *
+   * Added in Saleor 3.15.
+   */
+  privateMetadata?: InputMaybe<Array<MetadataInput>>;
   /**
    * Default number of minutes stock will be reserved for anonymous checkout. Enter 0 or null to disable.
    *
@@ -5818,6 +6660,12 @@ export type UserCreateInput = {
   firstName?: InputMaybe<Scalars['String']>;
   /** User account is active. */
   isActive?: InputMaybe<Scalars['Boolean']>;
+  /**
+   * User account is confirmed.
+   *
+   * Added in Saleor 3.15.
+   */
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
   /** User language code. */
   languageCode?: InputMaybe<LanguageCodeEnum>;
   /** Family name. */
@@ -6165,6 +7013,12 @@ export enum WebhookEventTypeAsyncEnum {
   ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
   /** An account confirmation is requested. */
   ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  /**
+   * An account is confirmed.
+   *
+   * Added in Saleor 3.15.
+   */
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
   /** An account delete is requested. */
   ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
   /** A new address created. */
@@ -6173,7 +7027,11 @@ export enum WebhookEventTypeAsyncEnum {
   ADDRESS_DELETED = 'ADDRESS_DELETED',
   /** An address updated. */
   ADDRESS_UPDATED = 'ADDRESS_UPDATED',
-  /** All the events. */
+  /**
+   * All the events.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0.
+   */
   ANY_EVENTS = 'ANY_EVENTS',
   /** An app deleted. */
   APP_DELETED = 'APP_DELETED',
@@ -6205,6 +7063,12 @@ export enum WebhookEventTypeAsyncEnum {
   CHANNEL_CREATED = 'CHANNEL_CREATED',
   /** A channel is deleted. */
   CHANNEL_DELETED = 'CHANNEL_DELETED',
+  /**
+   * A channel metadata is updated.
+   *
+   * Added in Saleor 3.15.
+   */
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
   /** A channel status is changed. */
   CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
   /** A channel is updated. */
@@ -6450,6 +7314,12 @@ export enum WebhookEventTypeAsyncEnum {
   SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
   /** A shipping zone is updated. */
   SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  /**
+   * Shop metadata is updated.
+   *
+   * Added in Saleor 3.15.
+   */
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
   /** A new staff user is created. */
   STAFF_CREATED = 'STAFF_CREATED',
   /** A staff user is deleted. */
@@ -6504,6 +7374,12 @@ export enum WebhookEventTypeEnum {
   ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
   /** An account confirmation is requested. */
   ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  /**
+   * An account is confirmed.
+   *
+   * Added in Saleor 3.15.
+   */
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
   /** An account delete is requested. */
   ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
   /** A new address created. */
@@ -6512,7 +7388,11 @@ export enum WebhookEventTypeEnum {
   ADDRESS_DELETED = 'ADDRESS_DELETED',
   /** An address updated. */
   ADDRESS_UPDATED = 'ADDRESS_UPDATED',
-  /** All the events. */
+  /**
+   * All the events.
+   *
+   * DEPRECATED: this value will be removed in Saleor 4.0.
+   */
   ANY_EVENTS = 'ANY_EVENTS',
   /** An app deleted. */
   APP_DELETED = 'APP_DELETED',
@@ -6544,6 +7424,12 @@ export enum WebhookEventTypeEnum {
   CHANNEL_CREATED = 'CHANNEL_CREATED',
   /** A channel is deleted. */
   CHANNEL_DELETED = 'CHANNEL_DELETED',
+  /**
+   * A channel metadata is updated.
+   *
+   * Added in Saleor 3.15.
+   */
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
   /** A channel status is changed. */
   CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
   /** A channel is updated. */
@@ -6822,6 +7708,12 @@ export enum WebhookEventTypeEnum {
   SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
   /** A shipping zone is updated. */
   SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  /**
+   * Shop metadata is updated.
+   *
+   * Added in Saleor 3.15.
+   */
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
   /** A new staff user is created. */
   STAFF_CREATED = 'STAFF_CREATED',
   /** A staff user is deleted. */
@@ -6963,6 +7855,7 @@ export enum WebhookEventTypeSyncEnum {
 export enum WebhookSampleEventTypeEnum {
   ACCOUNT_CHANGE_EMAIL_REQUESTED = 'ACCOUNT_CHANGE_EMAIL_REQUESTED',
   ACCOUNT_CONFIRMATION_REQUESTED = 'ACCOUNT_CONFIRMATION_REQUESTED',
+  ACCOUNT_CONFIRMED = 'ACCOUNT_CONFIRMED',
   ACCOUNT_DELETE_REQUESTED = 'ACCOUNT_DELETE_REQUESTED',
   ADDRESS_CREATED = 'ADDRESS_CREATED',
   ADDRESS_DELETED = 'ADDRESS_DELETED',
@@ -6982,6 +7875,7 @@ export enum WebhookSampleEventTypeEnum {
   CATEGORY_UPDATED = 'CATEGORY_UPDATED',
   CHANNEL_CREATED = 'CHANNEL_CREATED',
   CHANNEL_DELETED = 'CHANNEL_DELETED',
+  CHANNEL_METADATA_UPDATED = 'CHANNEL_METADATA_UPDATED',
   CHANNEL_STATUS_CHANGED = 'CHANNEL_STATUS_CHANGED',
   CHANNEL_UPDATED = 'CHANNEL_UPDATED',
   CHECKOUT_CREATED = 'CHECKOUT_CREATED',
@@ -7066,6 +7960,7 @@ export enum WebhookSampleEventTypeEnum {
   SHIPPING_ZONE_DELETED = 'SHIPPING_ZONE_DELETED',
   SHIPPING_ZONE_METADATA_UPDATED = 'SHIPPING_ZONE_METADATA_UPDATED',
   SHIPPING_ZONE_UPDATED = 'SHIPPING_ZONE_UPDATED',
+  SHOP_METADATA_UPDATED = 'SHOP_METADATA_UPDATED',
   STAFF_CREATED = 'STAFF_CREATED',
   STAFF_DELETED = 'STAFF_DELETED',
   STAFF_UPDATED = 'STAFF_UPDATED',
@@ -7379,7 +8274,7 @@ export type AvailableExternalAuthenticationsQuery = { __typename: 'Query', shop:
 export type UserDetailsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserDetailsQuery = { __typename: 'Query', me: { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, name: string }> | null, avatar: { __typename: 'Image', url: string } | null } | null };
+export type UserDetailsQuery = { __typename: 'Query', me: { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean, restrictedAccessToChannels: boolean, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, name: string }> | null, avatar: { __typename: 'Image', url: string } | null, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null } | null };
 
 export type CategoryDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -7439,7 +8334,7 @@ export type ChannelCreateMutationVariables = Exact<{
 }>;
 
 
-export type ChannelCreateMutation = { __typename: 'Mutation', channelCreate: { __typename: 'ChannelCreate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
+export type ChannelCreateMutation = { __typename: 'Mutation', channelCreate: { __typename: 'ChannelCreate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
 
 export type ChannelUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -7447,7 +8342,7 @@ export type ChannelUpdateMutationVariables = Exact<{
 }>;
 
 
-export type ChannelUpdateMutation = { __typename: 'Mutation', channelUpdate: { __typename: 'ChannelUpdate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
+export type ChannelUpdateMutation = { __typename: 'Mutation', channelUpdate: { __typename: 'ChannelUpdate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
 
 export type ChannelDeleteMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -7462,14 +8357,14 @@ export type ChannelActivateMutationVariables = Exact<{
 }>;
 
 
-export type ChannelActivateMutation = { __typename: 'Mutation', channelActivate: { __typename: 'ChannelActivate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
+export type ChannelActivateMutation = { __typename: 'Mutation', channelActivate: { __typename: 'ChannelActivate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
 
 export type ChannelDeactivateMutationVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ChannelDeactivateMutation = { __typename: 'Mutation', channelDeactivate: { __typename: 'ChannelDeactivate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
+export type ChannelDeactivateMutation = { __typename: 'Mutation', channelDeactivate: { __typename: 'ChannelDeactivate', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
 
 export type ChannelReorderWarehousesMutationVariables = Exact<{
   channelId: Scalars['ID'];
@@ -7477,7 +8372,7 @@ export type ChannelReorderWarehousesMutationVariables = Exact<{
 }>;
 
 
-export type ChannelReorderWarehousesMutation = { __typename: 'Mutation', channelReorderWarehouses: { __typename: 'ChannelReorderWarehouses', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
+export type ChannelReorderWarehousesMutation = { __typename: 'Mutation', channelReorderWarehouses: { __typename: 'ChannelReorderWarehouses', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null, errors: Array<{ __typename: 'ChannelError', code: ChannelErrorCode, field: string | null, message: string | null }> } | null };
 
 export type BaseChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7487,14 +8382,14 @@ export type BaseChannelsQuery = { __typename: 'Query', channels: Array<{ __typen
 export type ChannelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChannelsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null };
+export type ChannelsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null };
 
 export type ChannelQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type ChannelQuery = { __typename: 'Query', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null };
+export type ChannelQuery = { __typename: 'Query', channel: { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } } | null };
 
 export type CollectionUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -7599,7 +8494,7 @@ export type _GetDynamicLeftOperandsQuery = { __typename: 'Query', attributes: { 
 export type _GetChannelOperandsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type _GetChannelOperandsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', id: string, name: string, slug: string }> | null };
+export type _GetChannelOperandsQuery = { __typename: 'Query', channels: Array<{ __typename: 'Channel', name: string, slug: string, id: string }> | null };
 
 export type _SearchCollectionsOperandsQueryVariables = Exact<{
   first: Scalars['Int'];
@@ -7634,7 +8529,7 @@ export type _SearchAttributeOperandsQueryVariables = Exact<{
 }>;
 
 
-export type _SearchAttributeOperandsQuery = { __typename: 'Query', attributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, inputType: AttributeInputTypeEnum | null, choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', id: string, name: string | null, slug: string } }> } | null } }> } | null };
+export type _SearchAttributeOperandsQuery = { __typename: 'Query', attributes: { __typename: 'AttributeCountableConnection', edges: Array<{ __typename: 'AttributeCountableEdge', node: { __typename: 'Attribute', id: string, name: string | null, slug: string | null, inputType: AttributeInputTypeEnum | null, choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', id: string, name: string | null, slug: string, originalSlug: string | null } }> } | null } }> } | null };
 
 export type _GetAttributeChoicesQueryVariables = Exact<{
   slug: Scalars['String'];
@@ -7643,7 +8538,7 @@ export type _GetAttributeChoicesQueryVariables = Exact<{
 }>;
 
 
-export type _GetAttributeChoicesQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', id: string, name: string | null, slug: string } }> } | null } | null };
+export type _GetAttributeChoicesQuery = { __typename: 'Query', attribute: { __typename: 'Attribute', choices: { __typename: 'AttributeValueCountableConnection', edges: Array<{ __typename: 'AttributeValueCountableEdge', node: { __typename: 'AttributeValue', id: string, name: string | null, slug: string, originalSlug: string | null } }> } | null } | null };
 
 export type _GetCollectionsChoicesQueryVariables = Exact<{
   first: Scalars['Int'];
@@ -8094,7 +8989,9 @@ export type AvailableAttributeFragment = { __typename: 'Attribute', id: string, 
 
 export type UserPermissionFragment = { __typename: 'UserPermission', code: PermissionEnum, name: string };
 
-export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, name: string }> | null, avatar: { __typename: 'Image', url: string } | null };
+export type UserUserPermissionWithSourcePermissionGroupsFragment = { __typename: 'UserPermission', code: PermissionEnum, name: string, sourcePermissionGroups: Array<{ __typename: 'Group', id: string }> | null };
+
+export type UserFragment = { __typename: 'User', id: string, email: string, firstName: string, lastName: string, isStaff: boolean, restrictedAccessToChannels: boolean, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, name: string }> | null, avatar: { __typename: 'Image', url: string } | null, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null };
 
 export type UserBaseFragment = { __typename: 'User', id: string, firstName: string, lastName: string };
 
@@ -8108,7 +9005,7 @@ export type ChannelErrorFragment = { __typename: 'ChannelError', code: ChannelEr
 
 export type ChannelFragment = { __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } };
 
-export type ChannelDetailsFragment = { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } };
+export type ChannelDetailsFragment = { __typename: 'Channel', hasOrders: boolean, id: string, isActive: boolean, name: string, slug: string, currencyCode: string, warehouses: Array<{ __typename: 'Warehouse', id: string, name: string }>, orderSettings: { __typename: 'OrderSettings', markAsPaidStrategy: MarkAsPaidStrategyEnum, deleteExpiredOrdersAfter: any, allowUnpaidOrders: boolean }, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } };
 
 export type CollectionFragment = { __typename: 'Collection', id: string, name: string, channelListings: Array<{ __typename: 'CollectionChannelListing', isPublished: boolean, publicationDate: any | null, channel: { __typename: 'Channel', id: string, name: string } }> | null };
 
@@ -8290,6 +9187,8 @@ type Metadata_Attribute_Fragment = { __typename: 'Attribute', metadata: Array<{ 
 
 type Metadata_Category_Fragment = { __typename: 'Category', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
 
+type Metadata_Channel_Fragment = { __typename: 'Channel', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
+
 type Metadata_Checkout_Fragment = { __typename: 'Checkout', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
 
 type Metadata_CheckoutLine_Fragment = { __typename: 'CheckoutLine', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
@@ -8334,6 +9233,8 @@ type Metadata_ShippingMethodType_Fragment = { __typename: 'ShippingMethodType', 
 
 type Metadata_ShippingZone_Fragment = { __typename: 'ShippingZone', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
 
+type Metadata_Shop_Fragment = { __typename: 'Shop', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
+
 type Metadata_TaxClass_Fragment = { __typename: 'TaxClass', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
 
 type Metadata_TaxConfiguration_Fragment = { __typename: 'TaxConfiguration', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
@@ -8346,7 +9247,7 @@ type Metadata_Voucher_Fragment = { __typename: 'Voucher', metadata: Array<{ __ty
 
 type Metadata_Warehouse_Fragment = { __typename: 'Warehouse', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> };
 
-export type MetadataFragment = Metadata_Address_Fragment | Metadata_App_Fragment | Metadata_Attribute_Fragment | Metadata_Category_Fragment | Metadata_Checkout_Fragment | Metadata_CheckoutLine_Fragment | Metadata_Collection_Fragment | Metadata_DigitalContent_Fragment | Metadata_Fulfillment_Fragment | Metadata_GiftCard_Fragment | Metadata_Invoice_Fragment | Metadata_Menu_Fragment | Metadata_MenuItem_Fragment | Metadata_Order_Fragment | Metadata_OrderLine_Fragment | Metadata_Page_Fragment | Metadata_PageType_Fragment | Metadata_Payment_Fragment | Metadata_Product_Fragment | Metadata_ProductMedia_Fragment | Metadata_ProductType_Fragment | Metadata_ProductVariant_Fragment | Metadata_Sale_Fragment | Metadata_ShippingMethod_Fragment | Metadata_ShippingMethodType_Fragment | Metadata_ShippingZone_Fragment | Metadata_TaxClass_Fragment | Metadata_TaxConfiguration_Fragment | Metadata_TransactionItem_Fragment | Metadata_User_Fragment | Metadata_Voucher_Fragment | Metadata_Warehouse_Fragment;
+export type MetadataFragment = Metadata_Address_Fragment | Metadata_App_Fragment | Metadata_Attribute_Fragment | Metadata_Category_Fragment | Metadata_Channel_Fragment | Metadata_Checkout_Fragment | Metadata_CheckoutLine_Fragment | Metadata_Collection_Fragment | Metadata_DigitalContent_Fragment | Metadata_Fulfillment_Fragment | Metadata_GiftCard_Fragment | Metadata_Invoice_Fragment | Metadata_Menu_Fragment | Metadata_MenuItem_Fragment | Metadata_Order_Fragment | Metadata_OrderLine_Fragment | Metadata_Page_Fragment | Metadata_PageType_Fragment | Metadata_Payment_Fragment | Metadata_Product_Fragment | Metadata_ProductMedia_Fragment | Metadata_ProductType_Fragment | Metadata_ProductVariant_Fragment | Metadata_Sale_Fragment | Metadata_ShippingMethod_Fragment | Metadata_ShippingMethodType_Fragment | Metadata_ShippingZone_Fragment | Metadata_Shop_Fragment | Metadata_TaxClass_Fragment | Metadata_TaxConfiguration_Fragment | Metadata_TransactionItem_Fragment | Metadata_User_Fragment | Metadata_Voucher_Fragment | Metadata_Warehouse_Fragment;
 
 export type MenuFragment = { __typename: 'Menu', id: string, name: string, items: Array<{ __typename: 'MenuItem', id: string }> | null };
 
@@ -8412,7 +9313,7 @@ export type PermissionFragment = { __typename: 'Permission', code: PermissionEnu
 
 export type PermissionGroupMemberFragment = { __typename: 'User', id: string, email: string, firstName: string, isActive: boolean, lastName: string, avatar: { __typename: 'Image', url: string } | null };
 
-export type PermissionGroupDetailsFragment = { __typename: 'Group', id: string, name: string, userCanManage: boolean, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null };
+export type PermissionGroupDetailsFragment = { __typename: 'Group', restrictedAccessToChannels: boolean, id: string, name: string, userCanManage: boolean, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null };
 
 export type ConfigurationItemFragment = { __typename: 'ConfigurationItem', name: string, value: string | null, type: ConfigurationTypeFieldEnum | null, helpText: string | null, label: string | null };
 
@@ -8522,7 +9423,7 @@ export type SaleTranslationFragment = { __typename: 'SaleTranslatableContent', s
 
 export type VoucherTranslationFragment = { __typename: 'VoucherTranslatableContent', name: string | null, voucher: { __typename: 'Voucher', id: string, name: string | null } | null, translation: { __typename: 'VoucherTranslation', id: string, name: string | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null };
 
-export type ShippingMethodTranslationFragment = { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string | null, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null };
+export type ShippingMethodTranslationFragment = { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null };
 
 export type PageTranslationFragment = { __typename: 'PageTranslatableContent', page: { __typename: 'Page', id: string, content: any | null, seoDescription: string | null, seoTitle: string | null, title: string } | null, translation: { __typename: 'PageTranslation', id: string, content: any | null, seoDescription: string | null, seoTitle: string | null, title: string | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null, attributeValues: Array<{ __typename: 'AttributeValueTranslatableContent', id: string, name: string, plainText: string | null, richText: any | null, attributeValue: { __typename: 'AttributeValue', id: string } | null, attribute: { __typename: 'AttributeTranslatableContent', id: string, name: string } | null, translation: { __typename: 'AttributeValueTranslation', id: string, name: string, plainText: string | null, richText: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null }> };
 
@@ -8698,8 +9599,8 @@ export type CustomerGiftCardListQuery = { __typename: 'Query', giftCards: { __ty
 export type HomeQueryVariables = Exact<{
   channel: Scalars['String'];
   datePeriod: DateRangeInput;
-  PERMISSION_MANAGE_PRODUCTS: Scalars['Boolean'];
-  PERMISSION_MANAGE_ORDERS: Scalars['Boolean'];
+  hasPermissionToManageProducts: Scalars['Boolean'];
+  hasPermissionToManageOrders: Scalars['Boolean'];
 }>;
 
 
@@ -9319,7 +10220,7 @@ export type PermissionGroupCreateMutationVariables = Exact<{
 }>;
 
 
-export type PermissionGroupCreateMutation = { __typename: 'Mutation', permissionGroupCreate: { __typename: 'PermissionGroupCreate', errors: Array<{ __typename: 'PermissionGroupError', code: PermissionGroupErrorCode, field: string | null, message: string | null }>, group: { __typename: 'Group', id: string, name: string, userCanManage: boolean, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null } | null };
+export type PermissionGroupCreateMutation = { __typename: 'Mutation', permissionGroupCreate: { __typename: 'PermissionGroupCreate', errors: Array<{ __typename: 'PermissionGroupError', code: PermissionGroupErrorCode, field: string | null, message: string | null }>, group: { __typename: 'Group', restrictedAccessToChannels: boolean, id: string, name: string, userCanManage: boolean, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null } | null };
 
 export type PermissionGroupUpdateMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -9327,7 +10228,7 @@ export type PermissionGroupUpdateMutationVariables = Exact<{
 }>;
 
 
-export type PermissionGroupUpdateMutation = { __typename: 'Mutation', permissionGroupUpdate: { __typename: 'PermissionGroupUpdate', errors: Array<{ __typename: 'PermissionGroupError', code: PermissionGroupErrorCode, field: string | null, message: string | null }>, group: { __typename: 'Group', id: string, name: string, userCanManage: boolean, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null } | null };
+export type PermissionGroupUpdateMutation = { __typename: 'Mutation', permissionGroupUpdate: { __typename: 'PermissionGroupUpdate', errors: Array<{ __typename: 'PermissionGroupError', code: PermissionGroupErrorCode, field: string | null, message: string | null }>, group: { __typename: 'Group', restrictedAccessToChannels: boolean, id: string, name: string, userCanManage: boolean, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null } | null };
 
 export type PermissionGroupListQueryVariables = Exact<{
   after?: InputMaybe<Scalars['String']>;
@@ -9347,7 +10248,7 @@ export type PermissionGroupDetailsQueryVariables = Exact<{
 }>;
 
 
-export type PermissionGroupDetailsQuery = { __typename: 'Query', permissionGroup: { __typename: 'Group', id: string, name: string, userCanManage: boolean, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null, user: { __typename: 'User', editableGroups: Array<{ __typename: 'Group', id: string }> | null, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, sourcePermissionGroups: Array<{ __typename: 'Group', id: string }> | null }> | null } | null };
+export type PermissionGroupDetailsQuery = { __typename: 'Query', permissionGroup: { __typename: 'Group', restrictedAccessToChannels: boolean, id: string, name: string, userCanManage: boolean, accessibleChannels: Array<{ __typename: 'Channel', id: string, isActive: boolean, name: string, slug: string, currencyCode: string, defaultCountry: { __typename: 'CountryDisplay', code: string, country: string }, stockSettings: { __typename: 'StockSettings', allocationStrategy: AllocationStrategyEnum } }> | null, permissions: Array<{ __typename: 'Permission', code: PermissionEnum, name: string }> | null, users: Array<{ __typename: 'User', id: string, firstName: string, lastName: string, email: string, isActive: boolean, avatar: { __typename: 'Image', url: string } | null }> | null } | null, user: { __typename: 'User', editableGroups: Array<{ __typename: 'Group', id: string }> | null, userPermissions: Array<{ __typename: 'UserPermission', code: PermissionEnum, sourcePermissionGroups: Array<{ __typename: 'Group', id: string }> | null }> | null } | null };
 
 export type PluginUpdateMutationVariables = Exact<{
   channelId?: InputMaybe<Scalars['ID']>;
@@ -10333,7 +11234,7 @@ export type UpdateShippingMethodTranslationsMutationVariables = Exact<{
 }>;
 
 
-export type UpdateShippingMethodTranslationsMutation = { __typename: 'Mutation', shippingPriceTranslate: { __typename: 'ShippingPriceTranslate', errors: Array<{ __typename: 'TranslationError', code: TranslationErrorCode, field: string | null, message: string | null }>, shippingMethod: { __typename: 'ShippingMethodType', id: string, name: string, description: any | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string | null, description: any | null, language: { __typename: 'LanguageDisplay', language: string } } | null } | null } | null };
+export type UpdateShippingMethodTranslationsMutation = { __typename: 'Mutation', shippingPriceTranslate: { __typename: 'ShippingPriceTranslate', errors: Array<{ __typename: 'TranslationError', code: TranslationErrorCode, field: string | null, message: string | null }>, shippingMethod: { __typename: 'ShippingMethodType', id: string, name: string, description: any | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string, description: any | null, language: { __typename: 'LanguageDisplay', language: string } } | null } | null } | null };
 
 export type UpdateMenuItemTranslationsMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -10430,7 +11331,7 @@ export type ShippingMethodTranslationsQueryVariables = Exact<{
 }>;
 
 
-export type ShippingMethodTranslationsQuery = { __typename: 'Query', translations: { __typename: 'TranslatableItemConnection', edges: Array<{ __typename: 'TranslatableItemEdge', node: { __typename: 'AttributeTranslatableContent' } | { __typename: 'AttributeValueTranslatableContent' } | { __typename: 'CategoryTranslatableContent' } | { __typename: 'CollectionTranslatableContent' } | { __typename: 'MenuItemTranslatableContent' } | { __typename: 'PageTranslatableContent' } | { __typename: 'ProductTranslatableContent' } | { __typename: 'ProductVariantTranslatableContent' } | { __typename: 'SaleTranslatableContent' } | { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string | null, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null } | { __typename: 'VoucherTranslatableContent' } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
+export type ShippingMethodTranslationsQuery = { __typename: 'Query', translations: { __typename: 'TranslatableItemConnection', edges: Array<{ __typename: 'TranslatableItemEdge', node: { __typename: 'AttributeTranslatableContent' } | { __typename: 'AttributeValueTranslatableContent' } | { __typename: 'CategoryTranslatableContent' } | { __typename: 'CollectionTranslatableContent' } | { __typename: 'MenuItemTranslatableContent' } | { __typename: 'PageTranslatableContent' } | { __typename: 'ProductTranslatableContent' } | { __typename: 'ProductVariantTranslatableContent' } | { __typename: 'SaleTranslatableContent' } | { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null } | { __typename: 'VoucherTranslatableContent' } }>, pageInfo: { __typename: 'PageInfo', endCursor: string | null, hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null } } | null };
 
 export type MenuItemTranslationsQueryVariables = Exact<{
   language: LanguageCodeEnum;
@@ -10524,7 +11425,7 @@ export type ShippingMethodTranslationDetailsQueryVariables = Exact<{
 }>;
 
 
-export type ShippingMethodTranslationDetailsQuery = { __typename: 'Query', translation: { __typename: 'AttributeTranslatableContent' } | { __typename: 'AttributeValueTranslatableContent' } | { __typename: 'CategoryTranslatableContent' } | { __typename: 'CollectionTranslatableContent' } | { __typename: 'MenuItemTranslatableContent' } | { __typename: 'PageTranslatableContent' } | { __typename: 'ProductTranslatableContent' } | { __typename: 'ProductVariantTranslatableContent' } | { __typename: 'SaleTranslatableContent' } | { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string | null, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null } | { __typename: 'VoucherTranslatableContent' } | null };
+export type ShippingMethodTranslationDetailsQuery = { __typename: 'Query', translation: { __typename: 'AttributeTranslatableContent' } | { __typename: 'AttributeValueTranslatableContent' } | { __typename: 'CategoryTranslatableContent' } | { __typename: 'CollectionTranslatableContent' } | { __typename: 'MenuItemTranslatableContent' } | { __typename: 'PageTranslatableContent' } | { __typename: 'ProductTranslatableContent' } | { __typename: 'ProductVariantTranslatableContent' } | { __typename: 'SaleTranslatableContent' } | { __typename: 'ShippingMethodTranslatableContent', id: string, name: string, description: any | null, shippingMethod: { __typename: 'ShippingMethodType', id: string } | null, translation: { __typename: 'ShippingMethodTranslation', id: string, name: string, description: any | null, language: { __typename: 'LanguageDisplay', code: LanguageCodeEnum, language: string } } | null } | { __typename: 'VoucherTranslatableContent' } | null };
 
 export type MenuItemTranslationDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -10541,7 +11442,7 @@ export type UpdateMetadataMutationVariables = Exact<{
 }>;
 
 
-export type UpdateMetadataMutation = { __typename: 'Mutation', updateMetadata: { __typename: 'UpdateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null, deleteMetadata: { __typename: 'DeleteMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null };
+export type UpdateMetadataMutation = { __typename: 'Mutation', updateMetadata: { __typename: 'UpdateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Channel', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Shop', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null, deleteMetadata: { __typename: 'DeleteMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Channel', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Shop', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null };
 
 export type UpdatePrivateMetadataMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -10550,7 +11451,7 @@ export type UpdatePrivateMetadataMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePrivateMetadataMutation = { __typename: 'Mutation', updatePrivateMetadata: { __typename: 'UpdatePrivateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null, deletePrivateMetadata: { __typename: 'DeletePrivateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null };
+export type UpdatePrivateMetadataMutation = { __typename: 'Mutation', updatePrivateMetadata: { __typename: 'UpdatePrivateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Channel', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Shop', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null, deletePrivateMetadata: { __typename: 'DeletePrivateMetadata', errors: Array<{ __typename: 'MetadataError', code: MetadataErrorCode, field: string | null, message: string | null }>, item: { __typename: 'Address', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'App', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Attribute', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Category', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Channel', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Checkout', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'CheckoutLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Collection', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'DigitalContent', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Fulfillment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'GiftCard', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Invoice', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Menu', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'MenuItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Order', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'OrderLine', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Page', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'PageType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Payment', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Product', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductMedia', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ProductVariant', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Sale', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethod', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingMethodType', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'ShippingZone', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Shop', metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxClass', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TaxConfiguration', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'TransactionItem', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'User', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Voucher', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | { __typename: 'Warehouse', id: string, metadata: Array<{ __typename: 'MetadataItem', key: string, value: string }>, privateMetadata: Array<{ __typename: 'MetadataItem', key: string, value: string }> } | null } | null };
 
 export type WarehouseDeleteMutationVariables = Exact<{
   id: Scalars['ID'];

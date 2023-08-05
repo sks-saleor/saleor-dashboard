@@ -1,4 +1,4 @@
-schema: https://sks.titancenter.asia/graphql/
+schema: http://tba.titancenter.local:8000/graphql/
 generates:
   ./introspection.json:
     plugins:
