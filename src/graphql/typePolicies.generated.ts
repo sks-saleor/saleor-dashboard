@@ -76,6 +76,31 @@ export type AccountDeleteRequestedFieldPolicy = {
 	user?: FieldPolicy<any> | FieldReadFunction<any>,
 	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
+export type AccountDeletedKeySpecifier = ('channel' | 'issuedAt' | 'issuingPrincipal' | 'recipient' | 'redirectUrl' | 'shop' | 'token' | 'user' | 'version' | AccountDeletedKeySpecifier)[];
+export type AccountDeletedFieldPolicy = {
+	channel?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>,
+	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
+	redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	shop?: FieldPolicy<any> | FieldReadFunction<any>,
+	token?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>,
+	version?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AccountEmailChangedKeySpecifier = ('channel' | 'issuedAt' | 'issuingPrincipal' | 'newEmail' | 'recipient' | 'redirectUrl' | 'shop' | 'token' | 'user' | 'version' | AccountEmailChangedKeySpecifier)[];
+export type AccountEmailChangedFieldPolicy = {
+	channel?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>,
+	newEmail?: FieldPolicy<any> | FieldReadFunction<any>,
+	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
+	redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	shop?: FieldPolicy<any> | FieldReadFunction<any>,
+	token?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>,
+	version?: FieldPolicy<any> | FieldReadFunction<any>
+};
 export type AccountErrorKeySpecifier = ('addressType' | 'code' | 'field' | 'message' | AccountErrorKeySpecifier)[];
 export type AccountErrorFieldPolicy = {
 	addressType?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -100,6 +125,18 @@ export type AccountSetDefaultAddressFieldPolicy = {
 	accountErrors?: FieldPolicy<any> | FieldReadFunction<any>,
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	user?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type AccountSetPasswordRequestedKeySpecifier = ('channel' | 'issuedAt' | 'issuingPrincipal' | 'recipient' | 'redirectUrl' | 'shop' | 'token' | 'user' | 'version' | AccountSetPasswordRequestedKeySpecifier)[];
+export type AccountSetPasswordRequestedFieldPolicy = {
+	channel?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>,
+	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
+	redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	shop?: FieldPolicy<any> | FieldReadFunction<any>,
+	token?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>,
+	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type AccountUpdateKeySpecifier = ('accountErrors' | 'errors' | 'user' | AccountUpdateKeySpecifier)[];
 export type AccountUpdateFieldPolicy = {
@@ -4584,7 +4621,7 @@ export type ProductVariantUpdatedFieldPolicy = {
 	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
 	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type QueryKeySpecifier = ('_entities' | '_service' | 'address' | 'addressValidationRules' | 'app' | 'appExtension' | 'appExtensions' | 'apps' | 'appsInstallations' | 'attribute' | 'attributes' | 'categories' | 'category' | 'channel' | 'channels' | 'checkout' | 'checkoutLines' | 'checkouts' | 'collection' | 'collections' | 'customers' | 'digitalContent' | 'digitalContents' | 'draftOrders' | 'exportFile' | 'exportFiles' | 'giftCard' | 'giftCardCurrencies' | 'giftCardSettings' | 'giftCardTags' | 'giftCards' | 'homepageEvents' | 'me' | 'menu' | 'menuItem' | 'menuItems' | 'menus' | 'order' | 'orderByToken' | 'orderSettings' | 'orders' | 'ordersTotal' | 'page' | 'pageType' | 'pageTypes' | 'pages' | 'payment' | 'payments' | 'permissionGroup' | 'permissionGroups' | 'plugin' | 'plugins' | 'product' | 'productType' | 'productTypes' | 'productVariant' | 'productVariants' | 'products' | 'reportProductSales' | 'sale' | 'sales' | 'shippingZone' | 'shippingZones' | 'shop' | 'staffUsers' | 'stock' | 'stocks' | 'taxClass' | 'taxClasses' | 'taxConfiguration' | 'taxConfigurations' | 'taxCountryConfiguration' | 'taxCountryConfigurations' | 'taxTypes' | 'transaction' | 'translation' | 'translations' | 'user' | 'voucher' | 'vouchers' | 'warehouse' | 'warehouses' | 'webhook' | 'webhookEvents' | 'webhookSamplePayload' | QueryKeySpecifier)[];
+export type QueryKeySpecifier = ('_entities' | '_service' | 'address' | 'addressValidationRules' | 'app' | 'appExtension' | 'appExtensions' | 'apps' | 'appsInstallations' | 'attribute' | 'attributes' | 'categories' | 'category' | 'channel' | 'channels' | 'checkout' | 'checkoutLines' | 'checkouts' | 'collection' | 'collections' | 'customers' | 'digitalContent' | 'digitalContents' | 'draftOrders' | 'exportFile' | 'exportFiles' | 'giftCard' | 'giftCardCurrencies' | 'giftCardSettings' | 'giftCardTags' | 'giftCards' | 'homepageEvents' | 'me' | 'menu' | 'menuItem' | 'menuItems' | 'menus' | 'order' | 'orderByToken' | 'orderSettings' | 'orders' | 'ordersTotal' | 'page' | 'pageType' | 'pageTypes' | 'pages' | 'payment' | 'payments' | 'permissionGroup' | 'permissionGroups' | 'plugin' | 'plugins' | 'product' | 'productType' | 'productTypes' | 'productVariant' | 'productVariants' | 'products' | 'reportProductSales' | 'sale' | 'sales' | 'shippingZone' | 'shippingZones' | 'shop' | 'staffUsers' | 'stock' | 'stocks' | 'stores' | 'taxClass' | 'taxClasses' | 'taxConfiguration' | 'taxConfigurations' | 'taxCountryConfiguration' | 'taxCountryConfigurations' | 'taxTypes' | 'transaction' | 'translation' | 'translations' | 'user' | 'voucher' | 'vouchers' | 'warehouse' | 'warehouses' | 'webhook' | 'webhookEvents' | 'webhookSamplePayload' | QueryKeySpecifier)[];
 export type QueryFieldPolicy = {
 	_entities?: FieldPolicy<any> | FieldReadFunction<any>,
 	_service?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -4653,6 +4690,7 @@ export type QueryFieldPolicy = {
 	staffUsers?: FieldPolicy<any> | FieldReadFunction<any>,
 	stock?: FieldPolicy<any> | FieldReadFunction<any>,
 	stocks?: FieldPolicy<any> | FieldReadFunction<any>,
+	stores?: FieldPolicy<any> | FieldReadFunction<any>,
 	taxClass?: FieldPolicy<any> | FieldReadFunction<any>,
 	taxClasses?: FieldPolicy<any> | FieldReadFunction<any>,
 	taxConfiguration?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -5282,6 +5320,18 @@ export type StaffNotificationRecipientUpdateFieldPolicy = {
 	errors?: FieldPolicy<any> | FieldReadFunction<any>,
 	shopErrors?: FieldPolicy<any> | FieldReadFunction<any>,
 	staffNotificationRecipient?: FieldPolicy<any> | FieldReadFunction<any>
+};
+export type StaffSetPasswordRequestedKeySpecifier = ('channel' | 'issuedAt' | 'issuingPrincipal' | 'recipient' | 'redirectUrl' | 'shop' | 'token' | 'user' | 'version' | StaffSetPasswordRequestedKeySpecifier)[];
+export type StaffSetPasswordRequestedFieldPolicy = {
+	channel?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuedAt?: FieldPolicy<any> | FieldReadFunction<any>,
+	issuingPrincipal?: FieldPolicy<any> | FieldReadFunction<any>,
+	recipient?: FieldPolicy<any> | FieldReadFunction<any>,
+	redirectUrl?: FieldPolicy<any> | FieldReadFunction<any>,
+	shop?: FieldPolicy<any> | FieldReadFunction<any>,
+	token?: FieldPolicy<any> | FieldReadFunction<any>,
+	user?: FieldPolicy<any> | FieldReadFunction<any>,
+	version?: FieldPolicy<any> | FieldReadFunction<any>
 };
 export type StaffUpdateKeySpecifier = ('errors' | 'staffErrors' | 'user' | StaffUpdateKeySpecifier)[];
 export type StaffUpdateFieldPolicy = {
@@ -6285,6 +6335,14 @@ export type StrictTypedTypePolicies = {
 		keyFields?: false | AccountDeleteRequestedKeySpecifier | (() => undefined | AccountDeleteRequestedKeySpecifier),
 		fields?: AccountDeleteRequestedFieldPolicy,
 	},
+	AccountDeleted?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AccountDeletedKeySpecifier | (() => undefined | AccountDeletedKeySpecifier),
+		fields?: AccountDeletedFieldPolicy,
+	},
+	AccountEmailChanged?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AccountEmailChangedKeySpecifier | (() => undefined | AccountEmailChangedKeySpecifier),
+		fields?: AccountEmailChangedFieldPolicy,
+	},
 	AccountError?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AccountErrorKeySpecifier | (() => undefined | AccountErrorKeySpecifier),
 		fields?: AccountErrorFieldPolicy,
@@ -6300,6 +6358,10 @@ export type StrictTypedTypePolicies = {
 	AccountSetDefaultAddress?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AccountSetDefaultAddressKeySpecifier | (() => undefined | AccountSetDefaultAddressKeySpecifier),
 		fields?: AccountSetDefaultAddressFieldPolicy,
+	},
+	AccountSetPasswordRequested?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | AccountSetPasswordRequestedKeySpecifier | (() => undefined | AccountSetPasswordRequestedKeySpecifier),
+		fields?: AccountSetPasswordRequestedFieldPolicy,
 	},
 	AccountUpdate?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | AccountUpdateKeySpecifier | (() => undefined | AccountUpdateKeySpecifier),
@@ -8756,6 +8818,10 @@ export type StrictTypedTypePolicies = {
 	StaffNotificationRecipientUpdate?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | StaffNotificationRecipientUpdateKeySpecifier | (() => undefined | StaffNotificationRecipientUpdateKeySpecifier),
 		fields?: StaffNotificationRecipientUpdateFieldPolicy,
+	},
+	StaffSetPasswordRequested?: Omit<TypePolicy, "fields" | "keyFields"> & {
+		keyFields?: false | StaffSetPasswordRequestedKeySpecifier | (() => undefined | StaffSetPasswordRequestedKeySpecifier),
+		fields?: StaffSetPasswordRequestedFieldPolicy,
 	},
 	StaffUpdate?: Omit<TypePolicy, "fields" | "keyFields"> & {
 		keyFields?: false | StaffUpdateKeySpecifier | (() => undefined | StaffUpdateKeySpecifier),
