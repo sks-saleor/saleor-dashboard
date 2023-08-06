@@ -10,3 +10,6 @@ export function hasError(err: ApolloError, ...errorCodes: string[]): boolean {
     errorCodes.includes(gqlError.extensions?.exception.code),
   );
 }
+
+export const sleep = (count: number) =>
+  new Promise(resolve => setTimeout(resolve, count));

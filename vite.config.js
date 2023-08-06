@@ -16,7 +16,7 @@ const copyOgImage = () => ({
     mkdirSync(path.resolve("build", "dashboard"), { recursive: true });
     copyFileSync(
       path.resolve("assets", "og.png"),
-      path.resolve("build", "dashboard/dashboard/assets", "og.png"),
+      path.resolve("build", "dashboard", "og.png"),
     );
   },
 });
@@ -56,7 +56,6 @@ export default defineConfig(({ command, mode }) => {
 
   const enableSentry =
     SENTRY_ORG && SENTRY_PROJECT && SENTRY_DSN && SENTRY_AUTH_TOKEN;
-  const assetsPath = "/dashboard/assets/";
 
   const plugins = [
     react(),
@@ -76,15 +75,14 @@ export default defineConfig(({ command, mode }) => {
             <meta property="og:type" content="website">
             <meta property="og:title" content="Sign in to the Saleor Dashboard">
             <meta property="og:description" content="Sign in to the Saleor Dashboard to manage your orders, payments, products and more.">
-            <meta property="og:image" content="${assetsPath}og.png">
+            <meta property="og:image" content="${base}og.png">
             <meta name="twitter:card" content="summary_large_image">
             <meta name="twitter:title" content="Sign in to the Saleor Dashboard">
             <meta name="twitter:description" content="Sign in to the Saleor Dashboard to manage your orders, payments, products and more.">
-            <meta name="twitter:image" content="${assetsPath}og.png">
+            <meta name="twitter:image" content="${base}og.png">
             <meta property="og:url" content="https://demo.saleor.io/dashboard/">
             <meta property="twitter:domain" content="demo.saleor.io">
             <meta property="twitter:url" content="https://demo.saleor.io/dashboard/">
-            <link rel="manifest" href="${assetsPath}/manifest.webmanifest"/>
           `,
         },
       },
@@ -170,7 +168,7 @@ export default defineConfig(({ command, mode }) => {
       minify: false,
       emptyOutDir: true,
       outDir: "../build/dashboard",
-      assetsDir: "./dashboard/assets",
+      assetsDir: ".",
       commonjsOptions: {
         /*
           Fix dynamic imports by "require", Necessary for react-editor-js

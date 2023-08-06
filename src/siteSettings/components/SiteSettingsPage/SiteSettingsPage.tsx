@@ -9,7 +9,11 @@ import { DetailPageLayout } from "@dashboard/components/Layouts";
 import PageSectionHeader from "@dashboard/components/PageSectionHeader";
 import Savebar from "@dashboard/components/Savebar";
 import { configurationMenuUrl } from "@dashboard/configuration";
-import { ShopErrorFragment, SiteSettingsQuery } from "@dashboard/graphql";
+import {
+  MetadataInput,
+  ShopErrorFragment,
+  SiteSettingsQuery,
+} from "@dashboard/graphql";
 import useAddressValidation from "@dashboard/hooks/useAddressValidation";
 import { SubmitPromise } from "@dashboard/hooks/useForm";
 import useNavigator from "@dashboard/hooks/useNavigator";
@@ -42,6 +46,7 @@ export interface SiteSettingsPageFormData
   reserveStockDurationAuthenticatedUser: number;
   limitQuantityPerCheckout: number;
   emailConfirmation: boolean;
+  metadata?: MetadataInput[];
 }
 
 export interface SiteSettingsPageProps {
@@ -84,7 +89,6 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
 
   const initialFormAddress: SiteSettingsPageAddressFormData = {
     city: shop?.companyAddress?.city || "",
-
     country: shop?.companyAddress?.country.code || "",
     countryArea: shop?.companyAddress?.countryArea || "",
     phone: shop?.companyAddress?.phone || "",
@@ -102,6 +106,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
       shop?.reserveStockDurationAuthenticatedUser ?? 0,
     limitQuantityPerCheckout: shop?.limitQuantityPerCheckout ?? 0,
     emailConfirmation: shop?.enableAccountConfirmationByEmail ?? false,
+    metadata: [],
   };
 
   return (
@@ -156,9 +161,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                     onChange={change}
                   />
                 </Box>
-
                 <Divider />
-
                 <Box
                   display="grid"
                   __gridTemplateColumns="1fr 3fr"
@@ -173,6 +176,7 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                   />
                   <CompanyAddressInput
                     data={data}
+                    metadata={shop?.metadata ?? []}
                     displayCountry={displayCountry}
                     countries={countryChoices}
                     errors={[...errors, ...validationErrors]}
@@ -184,11 +188,10 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                     })}
                     onChange={change}
                     onCountryChange={handleCountrySelect}
+                    onSubmit={submit}
                   />
                 </Box>
-
                 <Divider />
-
                 <Box
                   display="grid"
                   __gridTemplateColumns="1fr 3fr"
@@ -224,7 +227,6 @@ const SiteSettingsPage: React.FC<SiteSettingsPageProps> = props => {
                   </DashboardCard>
                 </Box>
               </Box>
-
               <Savebar
                 state={saveButtonBarState}
                 disabled={!!isSaveDisabled}

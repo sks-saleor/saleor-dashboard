@@ -14,6 +14,7 @@ import Navigator from "../Navigator";
 import { Sidebar } from "../Sidebar";
 import { useStyles } from "./styles";
 import { extractQueryParams } from "./util";
+import { useSiteSettingsQuery } from "@dashboard/graphql";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -25,6 +26,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const { anchor: appActionAnchor } = useActionBar();
   const [appState] = useAppState();
   const [isNavigatorVisible, setNavigatorVisibility] = useState(false);
+  const { data: siteSettings } = useSiteSettingsQuery({
+    displayLoader: true,
+  });
+  const shop = siteSettings?.shop;
 
   const {
     isDevModeVisible,
@@ -79,7 +84,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           borderTopWidth={0}
           borderBottomWidth={0}
         >
-          <Sidebar />
+          <Sidebar siteSettings={shop} />
         </Box>
         <Box height="100%" width="100%">
           <Box as="main" width="100%">

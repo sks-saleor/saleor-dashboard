@@ -7,6 +7,7 @@ import SingleAutocompleteSelectField, {
 import { AddressTypeInput } from "@dashboard/customers/types";
 import {
   AccountErrorFragment,
+  MetadataInput,
   ShopErrorFragment,
   WarehouseErrorFragment,
 } from "@dashboard/graphql";
@@ -15,12 +16,13 @@ import { getFormErrors } from "@dashboard/utils/errors";
 import getAccountErrorMessage from "@dashboard/utils/errors/account";
 import getShopErrorMessage from "@dashboard/utils/errors/shop";
 import getWarehouseErrorMessage from "@dashboard/utils/errors/warehouse";
-import { TextField } from "@material-ui/core";
+import { Box, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@saleor/macaw-ui";
 import React from "react";
 import { IntlShape, useIntl } from "react-intl";
-
 import { useAddressValidation } from "../AddressEdit/useAddressValidation";
+import { MetadataField } from "./MetadataField";
+import useMetadataChangeTrigger from "@dashboard/utils/metadata/useMetadataChangeTrigger";
 
 export interface CompanyAddressFormProps {
   countries: SingleAutocompleteChoiceType[];
@@ -32,6 +34,8 @@ export interface CompanyAddressFormProps {
   disabled: boolean;
   onChange: (event: ChangeEvent) => void;
   onCountryChange: (event: ChangeEvent) => void;
+  metadata: MetadataInput[];
+  onSubmit?: () => void;
 }
 
 const useStyles = makeStyles(
@@ -64,15 +68,14 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
     errors,
     onChange,
     onCountryChange,
+    metadata,
   } = props;
   const { areas, isFieldAllowed, getDisplayValue } = useAddressValidation(
     data.country,
   );
   const classes = useStyles(props);
   const intl = useIntl();
-
   const formFields = [
-    "companyName",
     "streetAddress1",
     "streetAddress2",
     "city",
@@ -83,27 +86,38 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
     "phone",
   ];
   const formErrors = getFormErrors(formFields, errors);
+  const { makeChangeHandler: makeMetadataChangeHandler } =
+    useMetadataChangeTrigger();
+  const changeMetadata = makeMetadataChangeHandler(onChange);
+
+  const handleUploadChange = async (url: string, name: string) => {
+    const index = metadata?.findIndex(item => item.key === name);
+    const values = [...metadata];
+    if (index !== -1) {
+      values[index] = { key: name, value: url };
+    } else {
+      values.push({ key: name, value: url });
+    }
+    changeMetadata({ target: { name: "metadata", value: values } });
+  };
 
   return (
     <div className={classes.root} data-test-id="company-info">
-      <TextField
-        disabled={disabled}
-        error={!!formErrors.companyName}
-        helperText={getErrorMessage(formErrors.companyName, intl)}
-        label={intl.formatMessage({
-          id: "9YazHG",
-          defaultMessage: "Company",
-        })}
-        name={"companyName" as keyof AddressTypeInput}
-        onChange={onChange}
-        value={data.companyName}
-        fullWidth
-        InputProps={{
-          autoComplete: "organization",
-          spellCheck: false,
-        }}
-      />
       <FormSpacer />
+      <Box mb={4}>
+        <Typography variant="h5">Logos</Typography>
+        <Box mt={2}>
+          <Typography gutterBottom>Default</Typography>
+          <Typography gutterBottom>
+            Used for most common logo applications
+          </Typography>
+          <MetadataField
+            onUploaded={handleUploadChange}
+            name="logo"
+            metadata={metadata}
+          />
+        </Box>
+      </Box>
       <TextField
         disabled={disabled}
         error={!!formErrors.streetAddress1}
@@ -241,5 +255,4 @@ const CompanyAddressForm: React.FC<CompanyAddressFormProps> = props => {
     </div>
   );
 };
-CompanyAddressForm.displayName = "CompanyAddressForm";
 export default CompanyAddressForm;

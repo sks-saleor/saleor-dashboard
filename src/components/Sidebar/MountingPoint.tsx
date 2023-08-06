@@ -4,14 +4,17 @@ import { useLegacyThemeHandler } from "@dashboard/components/Sidebar/user/Contro
 import { Avatar, Box, Text } from "@saleor/macaw-ui/next";
 import React from "react";
 
-export const MountingPoint = () => {
+interface MountingPointProps {
+  logoUrl?: string;
+}
+export const MountingPoint: React.FC<MountingPointProps> = ({ logoUrl }) => {
   const { theme } = useLegacyThemeHandler();
   const logo =
     theme === "defaultLight" ? sideBarDefaultLogo : sideBarDefaultLogoDarkMode;
 
   return (
     <Box display="flex" gap={3} paddingX={4} paddingY={5} alignItems="center">
-      <Avatar.Store src={logo} scheme="decorative2" size="small" />
+      <Avatar.Store src={logoUrl || logo} scheme="decorative2" size="small" />
       <Text variant="bodyStrong" size="small">
         Dashboard
       </Text>

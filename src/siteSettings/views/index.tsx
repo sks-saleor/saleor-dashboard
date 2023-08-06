@@ -75,6 +75,7 @@ export const SiteSettings: React.FC<SiteSettingsProps> = () => {
             reserveStockDurationAuthenticatedUser:
               data.reserveStockDurationAuthenticatedUser || null,
             enableAccountConfirmationByEmail: data.emailConfirmation,
+            metadata: data.metadata || [],
           },
         },
       }),

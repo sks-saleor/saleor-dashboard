@@ -2741,6 +2741,11 @@ export const ShopFragmentDoc = gql`
   reserveStockDurationAuthenticatedUser
   limitQuantityPerCheckout
   enableAccountConfirmationByEmail
+  metadata {
+    __typename
+    key
+    value
+  }
 }
     ${AddressFragmentDoc}`;
 export const StaffMemberDetailsFragmentDoc = gql`
