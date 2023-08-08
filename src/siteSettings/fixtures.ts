@@ -6,7 +6,6 @@ export const shop: SiteSettingsQuery["shop"] = {
     __typename: "Address",
     city: "Kenstad",
     cityArea: "Alabama",
-
     country: {
       __typename: "CountryDisplay",
       code: "UA",
@@ -28,6 +27,7 @@ export const shop: SiteSettingsQuery["shop"] = {
       country: "United Arab Emirates",
     },
   ],
+  metadata: [],
   customerSetPasswordUrl: "https://example.com/reset-password",
   defaultMailSenderAddress: "noreply@example.com",
   defaultMailSenderName: "Saleor",
