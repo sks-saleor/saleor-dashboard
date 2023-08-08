@@ -34,7 +34,7 @@ export interface CompanyAddressFormProps {
   disabled: boolean;
   onChange: (event: ChangeEvent) => void;
   onCountryChange: (event: ChangeEvent) => void;
-  metadata: MetadataInput[];
+  metadata?: MetadataInput[];
   onSubmit?: () => void;
 }
 

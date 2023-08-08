@@ -37,7 +37,6 @@ export interface WarehouseCreatePageProps {
 
 const initialForm: WarehouseCreatePageFormData = {
   city: "",
-
   country: "",
   countryArea: "",
   name: "",
