@@ -600,7 +600,6 @@ export const customers = [
     defaultBillingAddress: {
       city: "Keltonland",
       cityArea: "West Virginia",
-      companyName: "Bailey, Barrows and Prosacco",
       country: {
         code: "DN",
         country: "Denmark",
@@ -617,7 +616,6 @@ export const customers = [
     defaultShippingAddress: {
       city: "Keltonland",
       cityArea: "West Virginia",
-      companyName: "Bailey, Barrows and Prosacco",
       country: {
         code: "DN",
         country: "Denmark",
@@ -974,7 +972,6 @@ export const customer: CustomerDetailsQuery["user"] &
       __typename: "Address",
       city: "West Feliciamouth",
       cityArea: "Montana",
-      companyName: "",
       country: {
         __typename: "CountryDisplay",
         code: "JA",

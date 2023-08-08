@@ -4,7 +4,6 @@ export const fragmentAddress = gql`
   fragment Address on Address {
     city
     cityArea
-    companyName
     country {
       __typename
       code

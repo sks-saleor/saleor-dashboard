@@ -184,7 +184,6 @@ export const transformOrderStatus = (
 export const transformAddressToForm = (data?: AddressType) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
-  companyName: data?.companyName || "",
   country: data?.country?.code || "",
   countryArea: data?.countryArea || "",
   firstName: data?.firstName || "",
@@ -494,7 +493,6 @@ export const isDarkTheme = (themeType: ThemeType) => themeType === "dark";
 export const transformAddressToAddressInput = (data?: AddressType) => ({
   city: data?.city || "",
   cityArea: data?.cityArea || "",
-  companyName: data?.companyName || "",
   country: findInEnum(data?.country?.code || "", CountryCode),
   countryArea: data?.countryArea || "",
   firstName: data?.firstName || "",

@@ -43,7 +43,6 @@ const PossibleFormFields = {
   COUNTRY_AREA: "countryArea",
   FIRST_NAME: "firstName",
   LAST_NAME: "lastName",
-  COMPANY_NAME: "companyName",
   PHONE: "phone",
   POSTAL_CODE: "postalCode",
   STREET_ADDRESS_1: "streetAddress1",
@@ -114,25 +113,6 @@ const AddressEdit: React.FC<AddressEditProps> = props => {
       </div>
       <FormSpacer />
       <div className={classes.root}>
-        <div>
-          <TextField
-            disabled={disabled}
-            error={!!formErrors.companyName}
-            helperText={getErrorMessage(formErrors.companyName, intl)}
-            label={intl.formatMessage({
-              id: "9YazHG",
-              defaultMessage: "Company",
-            })}
-            name="companyName"
-            onChange={onChange}
-            value={data.companyName}
-            fullWidth
-            InputProps={{
-              autoComplete: "new-password",
-              spellCheck: false,
-            }}
-          />
-        </div>
         <div>
           <TextField
             disabled={disabled}
