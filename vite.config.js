@@ -70,20 +70,15 @@ export default defineConfig(({ command, mode }) => {
           APPS_MARKETPLACE_API_URI,
           APPS_TUNNEL_URL_KEYWORDS,
           IS_CLOUD_INSTANCE,
-          injectOgTags:
-            DEMO_MODE &&
-            `
+          injectOgTags: `
             <meta property="og:type" content="website">
-            <meta property="og:title" content="Sign in to the Saleor Dashboard">
-            <meta property="og:description" content="Sign in to the Saleor Dashboard to manage your orders, payments, products and more.">
+            <meta property="og:title" content="Sign in to the B&SPage Dashboard">
+            <meta property="og:description" content="Sign in to the B&SPage Dashboard to manage your orders, payments, products and more.">
             <meta property="og:image" content="${assetsPath}og.png">
             <meta name="twitter:card" content="summary_large_image">
-            <meta name="twitter:title" content="Sign in to the Saleor Dashboard">
-            <meta name="twitter:description" content="Sign in to the Saleor Dashboard to manage your orders, payments, products and more.">
+            <meta name="twitter:title" content="Sign in to the B&SPage Dashboard">
+            <meta name="twitter:description" content="Sign in to the B&SPage Dashboard to manage your orders, payments, products and more.">
             <meta name="twitter:image" content="${assetsPath}og.png">
-            <meta property="og:url" content="https://demo.saleor.io/dashboard/">
-            <meta property="twitter:domain" content="demo.saleor.io">
-            <meta property="twitter:url" content="https://demo.saleor.io/dashboard/">
             <link rel="manifest" href="${assetsPath}/manifest.webmanifest"/>
           `,
         },
